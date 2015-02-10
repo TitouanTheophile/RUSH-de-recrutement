@@ -94,6 +94,81 @@ p {
 	padding: 20px;
 }
 
+/* Home
+--------------------------------------------------------- */
+
+#home {
+	width: 100%;
+	background: transparent;
+	margin-top: 42px;
+}
+
+#home_comment {
+	background: rgba(255,255,255,0.1);
+	padding: 20px;
+	margin: 40px 0;
+	border-radius: 2px;
+	text-align: center;
+}
+
+#home_comment span {
+	color: white;
+	font-size: 24px;
+	font-weight: bold;
+	text-shadow: 1px 1px 3px rgba(0,0,0,0.6);
+}
+
+.home_box {
+	display: inline-block;
+	position: relative;
+	width: 50%;
+	text-align: center;
+}
+
+.home_box_inner {
+	display: inline-block;
+	background: rgba(255,255,255,0.1);
+	width: 340px;
+	height: 340px;
+	padding: 20px;
+	border: 1px solid rgba(255,255,255,0.5);
+	border-radius: 50%;
+	box-shadow: 0px 0px 10px 0px rgba(255,255,255,0.5), 0px 0px 10px 0px rgba(255,255,255,0.5) inset;
+	overflow: hidden;
+}
+
+.home_box_inner:hover {
+	background: rgba(255,255,255,0.3);
+	border: 1px solid rgba(255,255,255,1.0);
+	border-left: 1px solid rgba(0,0,0,1.0);
+	border-right: 1px solid rgba(0,0,0,1.0);
+	box-shadow: 0px 0px 10px 0px rgba(255,255,255,1.0), 0px 0px 10px 0px rgba(255,255,255,1.0) inset;
+	cursor: pointer;
+}
+
+.home_box_inner img {
+	background: transparent;
+	height: 280px;
+}
+
+.home_box_inner span {
+	display: inline-block;
+	background: rgba(255,255,255,0.1);
+	width: 100%;
+	color: white;
+	font-size: 24px;
+	font-weight: bold;
+	text-shadow: 2px 2px 4px rgba(0,0,0,0.6);
+	padding: 14px 0 40px;
+	
+}
+.home_box_inner:hover span {
+	color: black;
+	background: rgba(255,255,255,0.5);
+	border-top: 1px solid rgba(0,0,0,1.0);
+	text-shadow: 2px 2px 4px rgba(0,0,0,0.0);
+}
+
 /* Signup
 --------------------------------------------------------- */
 
@@ -126,59 +201,63 @@ p {
 	position: relative;
 	background: linear-gradient(rgba(142,142,245,1.0),rgba(100,100,186,1.0));
 	width: 100%;
-	height: 240px;
+	height: 220px;
 	border-radius: 10px;
 	box-shadow: 2px 2px 8px rgba(0,0,0,0.6);
 }
 
-#profile_photo {
+#profile_element {
+	padding: 20px;
+}
+
+#profile_element_photo {
 	display: block;
-	position: absolute;
+	position: relative;
 	background: #424242;
 	width: 130px;
 	height: 130px;
 	border: 6px solid #fff;
 	border-radius: 50%;
-	top: 20px;
-	left: 50%;
-	margin-left: -70px;
+	margin: 0 auto;
 	box-shadow: 0px 0px 20px rgba(255,255,255,0.8);
 	overflow: hidden;
 }
 
-#profile_photo:hover img {
+#profile_element_photo:hover img {
 	transform: scale(1.2);
 }
 
-#profile_photo img {
+#profile_element_photo img {
 	width: 100%;
 	transition: 0.2s;
 }
 
-#profile_name {
-	display: block;
-	position: absolute;
+#profile_element_name {
+	display: inline-block;
+	position: relative;
 	width: 100%;
-	height: 50px;
-	bottom: 10px;
+	padding-top: 10px;
 	text-align: center;
 }
 
-#profile_name span {
+#profile_element_name span {
 	color: white;
 	font-size: 24px;
 	font-weight: bold;
 	text-shadow: 2px 2px 4px rgba(0,0,0,0.4);
 }
 
-#profile_name a {
+#profile_element_name a {
 	color: white;
 }
 
-#profile_infos {
+#wall_infos {
 	display: inline-block;
 	position: relative;
-	background: rgba(255,255,255,1.0);
+	background: linear-gradient(rgba(242,242,255,1.0),rgba(232,232,255,1.0));
+	box-shadow: 2px 2px 12px rgba(0,0,0,0.4);
+	border-radius: 3px;
+	margin: 20px 0px;
 	width: 320px;
 	height: auto;
 	margin: 10px 0px;
@@ -188,7 +267,7 @@ p {
 #profile_wall {
 	display: inline-block;
 	position: relative;
-	background: rgba(255,255,255,1.0);
+	background: rgba(255,255,255,0.1);
 	width: 630px;
 	height: auto;
 	margin: 10px 0px 10px 10px;
@@ -198,18 +277,51 @@ p {
 #profile_edit {
 	display: block;
 	position: relative;
-	background: rgba(255,255,255,1.0);
+	background: linear-gradient(rgba(242,242,255,1.0),rgba(232,232,255,1.0));
+	box-shadow: 2px 2px 12px rgba(0,0,0,0.4);
+	border-radius: 3px;
 	width: 100%;
 	min-height: auto;
 	margin: 10px 0px;
+}
+
+#lol {
+	display: block;
+	position: fixed;
+	background: white;
+	width: 300px;
+	height: 400px;
+	top: 200px;
+	right: -260px;
+	transition: 0.2s;
+}
+
+#lol:hover {
+	right: 0px;
+}
+
+/* News
+--------------------------------------------------------- */
+
+#news_profil {
+	display: inline-block;
+	width: 320px;
+	vertical-align: top;
+}
+
+#news_contents {
+	display: inline-block;
+	background: rgba(0,0,0,0.2);
+	width: 640px;
+	vertical-align: top;
 }
 
 /* Content
 --------------------------------------------------------- */
 
 .content_wall {
-	background: white;
-	box-shadow: 2px 2px 12px rgba(142,142,245,0.6);
+	background: linear-gradient(rgba(242,242,255,1.0),rgba(232,232,255,1.0));
+	box-shadow: 2px 2px 12px rgba(0,0,0,0.4);
 	padding: 10px;
 	border-radius: 3px;
 	margin: 20px 0px;
@@ -217,7 +329,8 @@ p {
 }
 
 .content_wall:hover {
-	box-shadow: 2px 2px 12px rgba(142,142,245,1.0);
+	background: linear-gradient(rgba(242,242,255,1.0),rgba(232,232,255,1.0));
+	box-shadow: 2px 2px 12px 6px rgba(142,142,245,0.8);
 }
 
 .content_wall_header {
@@ -235,6 +348,11 @@ p {
 .content_wall_header span {
 	padding: 10px;
 	line-height: 40px;
+	transition: 0.2s;
+}
+
+.content_wall:hover .content_wall_header span {
+	padding-left: 20px;
 }
 
 .content_wall p {
@@ -254,6 +372,7 @@ p {
 }
 
 #header{
+	position: fixed;
 	background: linear-gradient(rgba(142,142,245,1.0),rgba(100,100,186,1.0));
 	width: 100%;
 	height: 60px;
@@ -348,10 +467,12 @@ th a.desc:after {
 	content: ' ⇡';
 }
 table tr td {
-	padding: 6px;
+	padding: 4px;
 	text-align: left;
 	vertical-align: top;
-	border-bottom:1px solid #ddd;
+	border: 0px solid black;
+	border-collapse: collapse;
+	margin:0;
 }
 table tr:nth-child(even) {
 	background: #f9f9f9;
@@ -359,6 +480,20 @@ table tr:nth-child(even) {
 td.actions {
 	text-align: center;
 	white-space: nowrap;
+}
+table tr {
+	transition: 1.2s;
+}
+table tr:hover {
+	background: rgba(142,142,245,1.0);
+	
+	transition: 0.1s;
+}
+table tr a {
+	transition: 0.5s;
+}
+table tr:hover a {
+	color: rgba(255,255,255,1.0);
 }
 table td.actions a {
 	margin: 0px 6px;
@@ -641,7 +776,17 @@ p.error,
 	background-image: -webkit-linear-gradient(top, #ee5f5b, #c43c35);
 	background-image: -o-linear-gradient(top, #ee5f5b, #c43c35);
 	background-image: linear-gradient(top, #ee5f5b, #c43c35);
+	background: linear-gradient(rgba(142,142,245,1.0),rgba(100,100,186,1.0));
 	text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.3);
+	text-align: center;
+}
+.message, .success {
+	animation: oneError 2s linear infinite;
+}
+@keyframes oneError {
+    0%   {color: #ddd;text-shadow: 0px 0px 40px transparent;}
+    50%  {color: #fff;text-shadow: 0px 0px 10px white;}
+    100% {color: #ddd;text-shadow: 0px 0px 40px transparent;}
 }
 .success {
 	clear: both;
