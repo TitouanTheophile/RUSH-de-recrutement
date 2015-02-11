@@ -1,0 +1,17 @@
+.comment_area
+{
+	background-color: #dcdcee;
+	height: 20px;
+	width: 300px;
+ 	overflow: hidden;
+ 	position: relative;
+ 	resize: none;
+}
+
+.post_button
+{
+	background-color: #9999dd;
+ 	position: absolute;
+ 	top: 29px;
+ 	left: 251px;
+}

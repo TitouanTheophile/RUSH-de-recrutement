@@ -14,9 +14,11 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
 
+
 $cakeDescription = __d('cake_dev', 'SocialKOD : Le meilleur des reseaux sociaux');
 $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 ?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,7 +29,7 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 	</title>
 	<?php
 		echo $this->Html->meta('icon');
-
+		
 		echo $this->Html->css('cake.generic');
 
 		echo $this->fetch('meta');

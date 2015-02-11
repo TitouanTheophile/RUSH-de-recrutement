@@ -4,6 +4,7 @@ class FriendsController extends AppController {
 
 	function is_friend($user_id, $other_id)
 	{
+		$this->layout = false;
 		$this->set(array('is_friend' => -2));
 		if ($user_id > $other_id)
 			{
@@ -18,7 +19,14 @@ class FriendsController extends AppController {
 			if (($answer = $this->Friend->find('first',
 			 array(	'fields' 	 =>	array('pending'),
 					'conditions' =>	array('profile1_id' => $small_id, 'profile2_id' => $big_id)))) != false)
-		$this->set(array('is_friend' => $answer['Friend']['pending']));	
+			{
+				if ($answer['Friend']['pending'] == NULL)
+					$this->render('is_friend');
+				else
+					$this->render('pending');
+			}
+			else
+				$this->render('is_not_friend');
 	}	
 
 }

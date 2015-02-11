@@ -159,7 +159,7 @@ class ProfilesController extends AppController {
 			{
 				$this->set(array('error' => 'true'));
 				$this->set(array('errInfo' => 'email'));
-				$this->render('Login');
+				$this->render('Login_mail_err');
 			}
 			else
 			{
@@ -174,7 +174,7 @@ class ProfilesController extends AppController {
 				{
 					$this->set(array('error' => 'true'));
 					$this->set(array('errInfo' => 'password'));
-					$this->render('Login');
+					$this->render('Login_pass_err');
 				}
 			}
 		}
