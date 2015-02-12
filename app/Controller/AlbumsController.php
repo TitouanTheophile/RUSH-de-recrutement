@@ -2,7 +2,6 @@
 class AlbumsController extends AppController {
 	
 	public function index() {
-		$this->Session->write('id', '2');
 		$albums = $this->Album->find('all', array(
 			"conditions" => array("Album.profile_id" => $this->Session->read('id')),
 			"fields" => array("Album.id", "Album.title", "Album.description")));
@@ -10,7 +9,6 @@ class AlbumsController extends AppController {
 	}
 
 	public function newAlbum() {
-		$this->Session->write('id', '2');
 		if ($this->request->is('post') && !empty($this->request->data)) {
 			$this->Album->create(array(
 				'profile_id' => $this->Session->read('id'),
@@ -25,7 +23,6 @@ class AlbumsController extends AppController {
 	}
 
 	public function editAlbum($id) {
-		$this->Session->write('id', '2');
 		if (!$id) {throw new NotFoundException(__('Album introuvable'));}
 		$album = $this->Album->findById($id);
 		if (!$album) {throw new NotFoundException(__('Album introuvable'));}

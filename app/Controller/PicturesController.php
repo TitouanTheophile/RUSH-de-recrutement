@@ -3,29 +3,22 @@
 class PicturesController extends AppController {
 
 	public function view($img_id) {
-		$this->Session->write('id', '2');
-
 		$pic = $this->Picture->findById($img_id);
-
 		$album = $this->Picture->findById($img_id);
 		$album = $album['Picture']['album_id'];
 		$album = $this->Picture->Album->findById($album);
-
 		$content_id = $this->Picture->findById($img_id);
 		$content_id = $content_id['Content']['id'];
-
 		$userPoint = $this->Picture->Content->ContentP->find('first', array(
 			'conditions' => array(
 				'ContentP.content_id' => $content_id,
 				'ContentP.profile_id' => $this->Session->read('id')),
 			'fields' => array('ContentP.profile_id', 'ContentP.pointType')));
-
 		$likeP = $this->Picture->Content->ContentP->find('list', array(
 			'conditions' => array(
 				'ContentP.content_id' => $content_id,
 				'ContentP.pointType' => 1),
 			'fields' => array('ContentP.profile_id', 'ContentP.pointType')));
-
 		$connardP = $this->Picture->Content->ContentP->find('list', array(
 			'conditions' => array(
 				'ContentP.content_id' => $content_id,
@@ -42,7 +35,6 @@ class PicturesController extends AppController {
 	}
 
 	public function next($img_id) {
-		$this->Session->write('id', '2');
 		$album = $this->Picture->findById($img_id);
 		$album = $album['Picture']['album_id'];
 		if (empty($album))
@@ -63,7 +55,6 @@ class PicturesController extends AppController {
 	}
 
 	public function previous($img_id) {
-		$this->Session->write('id', '2');
 		$album = $this->Picture->findById($img_id);
 		$album = $album['Picture']['album_id'];
 		if (empty($album))
@@ -84,7 +75,6 @@ class PicturesController extends AppController {
 	}
 
 	public function add($album = null) {
-		$this->Session->write('id', '2');
 		if ($this->request->is('post') && !empty($this->request->data)) {
 			$this->Picture->create();
 			$pic_data = array(
@@ -149,7 +139,6 @@ class PicturesController extends AppController {
 	}
 
 	public function addPoint($img_id, $pointType) {
-		$this->Session->write('id', '2');
 		$content_id = $this->Picture->findById($img_id);
 		$content_id = $content_id['Content']['id'];
 		$pic = $this->Picture->Content->ContentP->find('first', array(
@@ -172,7 +161,6 @@ class PicturesController extends AppController {
 	}
 
 	public function removePoint($img_id, $pointType) {
-		$this->Session->write('id', '2');
 		$content_id = $this->Picture->findById($img_id);
 		$content_id = $content_id['Content']['id'];
 		$pic = $this->Picture->Content->ContentP->find('first', array(
