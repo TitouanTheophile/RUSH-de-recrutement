@@ -6,6 +6,33 @@ CREATE SCHEMA IF NOT EXISTS `socialkod` DEFAULT CHARACTER SET utf8 ;
 USE `socialkod` ;
 
 -- -----------------------------------------------------
+-- Table `socialkod`.`profiles`
+-- -----------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `socialkod`.`profiles` (
+  `id` INT NOT NULL AUTO_INCREMENT ,
+  `gender` TINYINT(1) NULL ,
+  `firstname` VARCHAR(50) NOT NULL ,
+  `lastname` VARCHAR(50) NOT NULL ,
+  `study_place` VARCHAR(255) NULL ,
+  `work_place` VARCHAR(255) NULL ,
+  `user_place` VARCHAR(255) NULL ,
+  `birthday` DATETIME NOT NULL ,
+  `picture_id` INT NOT NULL ,
+  `created` DATETIME NOT NULL ,
+  `modified` DATETIME NOT NULL ,
+  `email` VARCHAR(50) NOT NULL ,
+  `password` VARCHAR(40) NOT NULL ,
+  PRIMARY KEY (`id`) ,
+  UNIQUE INDEX `mail_UNIQUE` (`email` ASC) ,
+  INDEX `fk_profiles_contents1` (`picture_id` ASC) ,
+  CONSTRAINT `fk_profiles_contents1`
+    FOREIGN KEY (`picture_id` )
+    REFERENCES `socialkod`.`contents` (`id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+-- -----------------------------------------------------
 -- Table `socialkod`.`groups`
 -- -----------------------------------------------------
 CREATE  TABLE IF NOT EXISTS `socialkod`.`groups` (
@@ -144,33 +171,6 @@ CREATE  TABLE IF NOT EXISTS `socialkod`.`contents` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
-
--- -----------------------------------------------------
--- Table `socialkod`.`profiles`
--- -----------------------------------------------------
-CREATE  TABLE IF NOT EXISTS `socialkod`.`profiles` (
-  `id` INT NOT NULL AUTO_INCREMENT ,
-  `gender` TINYINT(1) NULL ,
-  `firstname` VARCHAR(50) NOT NULL ,
-  `lastname` VARCHAR(50) NOT NULL ,
-  `study_place` VARCHAR(255) NULL ,
-  `work_place` VARCHAR(255) NULL ,
-  `user_place` VARCHAR(255) NULL ,
-  `birthday` DATETIME NOT NULL ,
-  `picture_id` INT NOT NULL ,
-  `created` DATETIME NOT NULL ,
-  `modified` DATETIME NOT NULL ,
-  `email` VARCHAR(50) NOT NULL ,
-  `password` VARCHAR(40) NOT NULL ,
-  PRIMARY KEY (`id`) ,
-  UNIQUE INDEX `mail_UNIQUE` (`email` ASC) ,
-  INDEX `fk_profiles_contents1` (`picture_id` ASC) ,
-  CONSTRAINT `fk_profiles_contents1`
-    FOREIGN KEY (`picture_id` )
-    REFERENCES `socialkod`.`contents` (`id` )
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
