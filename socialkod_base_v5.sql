@@ -377,3 +377,112 @@ ENGINE = InnoDB;
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+-- -----------------------------------------------------
+-- Data for table `socialkod`.`groups`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `socialkod`;
+INSERT INTO `socialkod`.`groups` (`id`, `name`, `description`, `created`, `modified`) VALUES (1, 'tek1', 'Premiere annee', '2015-02-06 00:00:00', '2015-02-06 00:00:00');
+INSERT INTO `socialkod`.`groups` (`id`, `name`, `description`, `created`, `modified`) VALUES (2, 'tek2', 'Deuxieme annee', '2015-02-06 00:00:00', '2015-02-06 00:00:00');
+
+COMMIT;
+
+-- -----------------------------------------------------
+-- Data for table `socialkod`.`posts`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `socialkod`;
+INSERT INTO `socialkod`.`posts` (`id`, `content`) VALUES (1, 'BLABLABLA');
+INSERT INTO `socialkod`.`posts` (`id`, `content`) VALUES (2, 'LOREM IPSUM');
+
+COMMIT;
+
+-- -----------------------------------------------------
+-- Data for table `socialkod`.`pictures`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `socialkod`;
+INSERT INTO `socialkod`.`pictures` (`id`, `description`, `album_id`) VALUES (1, 'pic1', NULL);
+INSERT INTO `socialkod`.`pictures` (`id`, `description`, `album_id`) VALUES (2, 'pic2', 1);
+
+COMMIT;
+
+-- -----------------------------------------------------
+-- Data for table `socialkod`.`contentTypes`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `socialkod`;
+INSERT INTO `socialkod`.`contentTypes` (`id`, `name`, `created`, `modified`) VALUES (1, 'post', '2015-02-06 00:00:00', '2015-02-06 00:00:00');
+INSERT INTO `socialkod`.`contentTypes` (`id`, `name`, `created`, `modified`) VALUES (2, 'picture', '2015-02-06 00:00:00', '2015-02-06 00:00:00');
+
+COMMIT;
+
+-- -----------------------------------------------------
+-- Data for table `socialkod`.`targetTypes`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `socialkod`;
+INSERT INTO `socialkod`.`targetTypes` (`id`, `name`, `created`, `modified`) VALUES (1, 'profile', '2015-02-06 00:00:00', '2015-02-06 00:00:00');
+INSERT INTO `socialkod`.`targetTypes` (`id`, `name`, `created`, `modified`) VALUES (2, 'group', '2015-02-06 00:00:00', '2015-02-06 00:00:00');
+
+COMMIT;
+
+-- -----------------------------------------------------
+-- Data for table `socialkod`.`contents`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `socialkod`;
+INSERT INTO `socialkod`.`contents` (`id`, `contentType_id`, `targetType_id`, `content_id`, `from_id`, `target_id`, `created`, `modified`) VALUES (1, 1, 1, 1, 1, 2, '2015-02-06 00:00:00', '2015-02-06 00:00:00');
+INSERT INTO `socialkod`.`contents` (`id`, `contentType_id`, `targetType_id`, `content_id`, `from_id`, `target_id`, `created`, `modified`) VALUES (2, 1, 2, 2, 2, 1, '2015-02-06 00:00:00', '2015-02-06 00:00:00');
+INSERT INTO `socialkod`.`contents` (`id`, `contentType_id`, `targetType_id`, `content_id`, `from_id`, `target_id`, `created`, `modified`) VALUES (3, 2, 1, 1, 3, 5, '2015-02-06 00:00:00', '2015-02-06 00:00:00');
+INSERT INTO `socialkod`.`contents` (`id`, `contentType_id`, `targetType_id`, `content_id`, `from_id`, `target_id`, `created`, `modified`) VALUES (4, 2, 2, 2, 4, 4, '2015-02-06 00:00:00', '2015-02-06 00:00:00');
+
+COMMIT;
+
+-- -----------------------------------------------------
+-- Data for table `socialkod`.`profiles`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `socialkod`;
+INSERT INTO `socialkod`.`profiles` (`id`, `gender`, `firstname`, `lastname`, `study_place`, `work_place`, `user_place`, `birthday`, `picture_id`, `created`, `modified`, `email`, `password`) VALUES (1, NULL, 'kod1', 'kod', '', '', '', '2015-02-06 00:00:00', NULL, '2015-02-06 00:00:00', '2015-02-06 00:00:00', 'kod1@socialkod.com', '1111');
+INSERT INTO `socialkod`.`profiles` (`id`, `gender`, `firstname`, `lastname`, `study_place`, `work_place`, `user_place`, `birthday`, `picture_id`, `created`, `modified`, `email`, `password`) VALUES (2, NULL, 'kod2', 'kod', '', '', '', '2015-02-06 00:00:00', NULL, '2015-02-06 00:00:00', '2015-02-06 00:00:00', 'kod2@socialkod.com', '2222');
+INSERT INTO `socialkod`.`profiles` (`id`, `gender`, `firstname`, `lastname`, `study_place`, `work_place`, `user_place`, `birthday`, `picture_id`, `created`, `modified`, `email`, `password`) VALUES (3, NULL, 'kod3', 'kod', '', '', '', '2015-02-06 00:00:00', NULL, '2015-02-06 00:00:00', '2015-02-06 00:00:00', 'kod3@socialkod.com', '3333');
+INSERT INTO `socialkod`.`profiles` (`id`, `gender`, `firstname`, `lastname`, `study_place`, `work_place`, `user_place`, `birthday`, `picture_id`, `created`, `modified`, `email`, `password`) VALUES (4, NULL, 'kod4', 'kod', '', '', '', '2015-02-06 00:00:00', NULL, '2015-02-06 00:00:00', '2015-02-06 00:00:00', 'kod4@socialkod.com', '4444');
+INSERT INTO `socialkod`.`profiles` (`id`, `gender`, `firstname`, `lastname`, `study_place`, `work_place`, `user_place`, `birthday`, `picture_id`, `created`, `modified`, `email`, `password`) VALUES (5, NULL, 'kod1', 'kod', '', '', '', '2015-02-06 00:00:00', NULL, '2015-02-06 00:00:00', '2015-02-06 00:00:00', 'kod5@socialkod.com', '5555');
+
+COMMIT;
+
+-- -----------------------------------------------------
+-- Data for table `socialkod`.`comments`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `socialkod`;
+INSERT INTO `socialkod`.`comments` (`id`, `from_id`, `content_id`, `content`, `created`, `modified`) VALUES (NULL, 1, 2, 'Wow !', '2015-02-06 00:00:00', '2015-02-06 00:00:00');
+
+COMMIT;
+
+-- -----------------------------------------------------
+-- Data for table `socialkod`.`friends`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `socialkod`;
+INSERT INTO `socialkod`.`friends` (`profile1_id`, `profile2_id`, `pending`, `created`, `modified`) VALUES (1, 2, NULL, '2015-02-06 00:00:00', '2015-02-06 00:00:00');
+INSERT INTO `socialkod`.`friends` (`profile1_id`, `profile2_id`, `pending`, `created`, `modified`) VALUES (1, 3, 3, '2015-02-06 00:00:00', '2015-02-06 00:00:00');
+INSERT INTO `socialkod`.`friends` (`profile1_id`, `profile2_id`, `pending`, `created`, `modified`) VALUES (2, 3, NULL, '2015-02-06 00:00:00', '2015-02-06 00:00:00');
+INSERT INTO `socialkod`.`friends` (`profile1_id`, `profile2_id`, `pending`, `created`, `modified`) VALUES (1, 5, 5, '2015-02-06 00:00:00', '2015-02-06 00:00:00');
+
+COMMIT;
+
+-- -----------------------------------------------------
+-- Data for table `socialkod`.`groups_profiles`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `socialkod`;
+INSERT INTO `socialkod`.`groups_profiles` (`group_id`, `profile_id`, `created`, `modified`) VALUES (1, 2, '2015-02-06 00:00:00', '2015-02-06 00:00:00');
+INSERT INTO `socialkod`.`groups_profiles` (`group_id`, `profile_id`, `created`, `modified`) VALUES (1, 3, '2015-02-06 00:00:00', '2015-02-06 00:00:00');
+INSERT INTO `socialkod`.`groups_profiles` (`group_id`, `profile_id`, `created`, `modified`) VALUES (1, 4, '2015-02-06 00:00:00', '2015-02-06 00:00:00');
+INSERT INTO `socialkod`.`groups_profiles` (`group_id`, `profile_id`, `created`, `modified`) VALUES (2, 1, '2015-02-06 00:00:00', '2015-02-06 00:00:00');
+INSERT INTO `socialkod`.`groups_profiles` (`group_id`, `profile_id`, `created`, `modified`) VALUES (2, 5, '2015-02-06 00:00:00', '2015-02-06 00:00:00');
+
+COMMIT;
