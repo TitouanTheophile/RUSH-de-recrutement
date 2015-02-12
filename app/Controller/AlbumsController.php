@@ -3,7 +3,7 @@ class AlbumsController extends AppController {
 	
 	public function index() {
 		$albums = $this->Album->find('all', array(
-			"conditions" => array("Album.profile_id" => $this->Session->read('id')),
+			"conditions" => array("Album.user_id" => $this->Session->read('id')),
 			"fields" => array("Album.id", "Album.title", "Album.description")));
 		$this->set('albums', $albums);
 	}
@@ -11,10 +11,10 @@ class AlbumsController extends AppController {
 	public function newAlbum() {
 		if ($this->request->is('post') && !empty($this->request->data)) {
 			$this->Album->create(array(
-				'profile_id' => $this->Session->read('id'),
+				'user_id' => $this->Session->read('id'),
 				'title' => $this->request->data['Album']['title'],
 				'description' => $this->request->data['Album']['description']));
-			if ($this->Album->save(null, true, array('profile_id', 'title', 'description'))) {
+			if ($this->Album->save(null, true, array('user_id', 'title', 'description'))) {
                 $this->Session->setFlash(__('Votre album a été créé.'));
                 return $this->redirect(array('action' => 'index'));
             }

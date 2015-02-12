@@ -3,11 +3,11 @@ class Message extends AppModel {
 
 	public $belongsTo = array( //Make the link beetween tables
 		'From' => array(
-			'className' => 'Profiles',
+			'className' => 'Users',
 			'foreignKey' => 'from_id'
 			),
 		'To' => array(
-			'className' => 'Profiles',
+			'className' => 'Users',
 			'foreignKey' => 'target_id'
 			)
 		);

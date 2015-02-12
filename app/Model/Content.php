@@ -5,7 +5,7 @@ class Content extends AppModel {
 
 	public $hasMany = array('ContentP');
 
-	public $hasAndBelongsToMany = array("Profile");
+	public $hasAndBelongsToMany = array("User");
 
 }
 ?>

@@ -34,11 +34,11 @@ class MessagesController extends AppController {
 		}
 	}
 
-	public function get_users(){ // Get the profiles for the index view
+	public function get_users(){ // Get the users for the index view
 		$this->autoRender = false; // Avoid to create a view
 
-		$this->loadModel('Profile');
-		$users = $this->Profile->find('all', array( //Get the list of profiles that match with the search
+		$this->loadModel('User');
+		$users = $this->User->find('all', array( //Get the list of users that match with the search
 			'conditions' => array(
 				'firstname LIKE' => '%' . $this->params->query['q'] . '%'
 				)
@@ -48,8 +48,8 @@ class MessagesController extends AppController {
 		if (empty($users))
 			echo "<h3>Pas de résultat :(</h3>";
 		foreach ($users as $user) {
-			echo ('<a href="' . '/messages/view/id:' . $user['Profile']['id'] . '/name:' . $user['Profile']['firstname'] . '.' . $user['Profile']['lastname'] . '">' . 
-			$user['Profile']['firstname'] . ' ' . $user['Profile']['lastname'] . '</a><br>' );
+			echo ('<a href="' . '/messages/view/id:' . $user['User']['id'] . '/name:' . $user['User']['firstname'] . '.' . $user['User']['lastname'] . '">' . 
+			$user['User']['firstname'] . ' ' . $user['User']['lastname'] . '</a><br>' );
 		}
 	}
 

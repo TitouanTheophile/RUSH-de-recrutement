@@ -2,7 +2,7 @@
 
 class GroupsController extends AppController {
 
-	function create_groupe
+	function create_groupe()
 	{
 
 	}

@@ -1,6 +1,6 @@
 <?php
 
-class Profile extends AppModel {
+class User extends AppModel {
 
 	public $validate = array(
         'firstname' => array(

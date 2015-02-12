@@ -18,7 +18,7 @@ class FriendsController extends AppController {
 			}
 			if (($answer = $this->Friend->find('first',
 			 array(	'fields' 	 =>	array('pending'),
-					'conditions' =>	array('profile1_id' => $small_id, 'profile2_id' => $big_id)))) != false)
+					'conditions' =>	array('user1_id' => $small_id, 'user2_id' => $big_id)))) != false)
 			{
 				if ($answer['Friend']['pending'] == NULL)
 					$this->render('is_friend');

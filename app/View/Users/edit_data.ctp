@@ -1,16 +1,16 @@
-<div id="profile_header">
+<div id="user_header">
 	<?php 
-		echo $this->element('profile_photo');
+		echo $this->element('user_photo');
 	?>
 </div>
 
-<div id="profile_edit">
+<div id="user_edit">
 	<div class="container_padding">
 		<h4>Éditer les cordonnées de mon profil</h4>
 		<hr />
 		<div class="container_padding">
 			<?php
-				echo $this->Form->create('Profile');
+				echo $this->Form->create('User');
 
 				echo $this->Form->input('firstname', array('label' => 'Votre prénom :', 'type' => 'hidden'));
 				echo $this->Form->input('lastname', array('label' => 'Votre nom :', 'type' => 'hidden'));
@@ -25,7 +25,7 @@
 			<?php
 				echo $this->Form->postLink(
                 'Supprimer mon compte',
-                array('action' => 'delete', $profile['Profile']['id']),
+                array('action' => 'delete', $user['User']['id']),
                 array('confirm' => "Attention cette action est irréversible.\nÊtes-vous sûr(e) de vouloir continuer ?"));
             ?>
 		</div>

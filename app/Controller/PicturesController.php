@@ -12,18 +12,18 @@ class PicturesController extends AppController {
 		$userPoint = $this->Picture->Content->ContentP->find('first', array(
 			'conditions' => array(
 				'ContentP.content_id' => $content_id,
-				'ContentP.profile_id' => $this->Session->read('id')),
-			'fields' => array('ContentP.profile_id', 'ContentP.pointType')));
+				'ContentP.user_id' => $this->Session->read('id')),
+			'fields' => array('ContentP.user_id', 'ContentP.pointType')));
 		$likeP = $this->Picture->Content->ContentP->find('list', array(
 			'conditions' => array(
 				'ContentP.content_id' => $content_id,
 				'ContentP.pointType' => 1),
-			'fields' => array('ContentP.profile_id', 'ContentP.pointType')));
+			'fields' => array('ContentP.user_id', 'ContentP.pointType')));
 		$connardP = $this->Picture->Content->ContentP->find('list', array(
 			'conditions' => array(
 				'ContentP.content_id' => $content_id,
 				'ContentP.pointType' => 2),
-			'fields' => array('ContentP.profile_id', 'ContentP.pointType')));
+			'fields' => array('ContentP.user_id', 'ContentP.pointType')));
 
 		$this->set('pic', $pic);
 		$this->set('user', $this->Session->read('id'));
@@ -144,8 +144,8 @@ class PicturesController extends AppController {
 		$pic = $this->Picture->Content->ContentP->find('first', array(
 			'conditions' => array(
 				'ContentP.content_id' => $content_id,
-				'ContentP.profile_id' => $this->Session->read('id')),
-			'fields' => 'ContentP.id, ContentP.profile_id, ContentP.pointType'));
+				'ContentP.user_id' => $this->Session->read('id')),
+			'fields' => 'ContentP.id, ContentP.user_id, ContentP.pointType'));
 		if (!empty($pic) && $pic['ContentP']['pointType'] != $pointType)
 			$this->Picture->Content->ContentP->delete($pic['ContentP']['id']);
 		else if (!empty($pic) && $pic['ContentP']['pointType'] == $pointType) {
@@ -153,10 +153,10 @@ class PicturesController extends AppController {
 			return $this->redirect(array('controller' => 'pictures', 'action' => 'view', $img_id));
 		}
 		$this->Picture->Content->ContentP->create(array(
-			'profile_id' => $this->Session->read('id'),
+			'user_id' => $this->Session->read('id'),
 			'content_id' => $content_id,
 			'pointType' => $pointType));
-		$this->Picture->Content->ContentP->save(null, false, array('profile_id', 'content_id', 'pointType'));
+		$this->Picture->Content->ContentP->save(null, false, array('user_id', 'content_id', 'pointType'));
 		return $this->redirect(array('controller' => 'pictures', 'action' => 'view', $img_id));
 	}
 
@@ -166,8 +166,8 @@ class PicturesController extends AppController {
 		$pic = $this->Picture->Content->ContentP->find('first', array(
 			'conditions' => array(
 				'ContentP.content_id' => $content_id,
-				'ContentP.profile_id' => $this->Session->read('id')),
-			'fields' => 'ContentP.id, ContentP.profile_id, ContentP.pointType'));
+				'ContentP.user_id' => $this->Session->read('id')),
+			'fields' => 'ContentP.id, ContentP.user_id, ContentP.pointType'));
 		if (!empty($pic) && $pic['ContentP']['pointType'] == $pointType) {
 			$this->Picture->Content->ContentP->delete($pic['ContentP']['id']);
 			return $this->redirect(array('controller' => 'pictures', 'action' => 'view', $img_id));

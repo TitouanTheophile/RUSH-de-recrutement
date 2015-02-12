@@ -9,13 +9,7 @@ class Album extends AppModel {
 			"foreignKey" => "album_id"));
 
 	public $belongsTo = array(
-		"Profile" => array(
+		"User" => array(
 			"foreignKey" => "id"));
-
-	// public $validate = array(
-	// 	'title' => array(
-	// 		'required' => true,
-	// 		'allowEmpty' => false)
-	// 	);
 }
 ?>
