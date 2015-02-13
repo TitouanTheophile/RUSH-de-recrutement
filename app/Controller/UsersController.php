@@ -2,7 +2,7 @@
 
 class UsersController extends AppController {
     public $helpers = array('Html', 'Form');
-    var $uses = array('User', 'Content', 'Post');
+    var $uses = array('User', 'Content', 'Post', 'Comment');
 
     public function beforeFilter() {
     	parent::beforeFilter();
@@ -19,6 +19,10 @@ class UsersController extends AppController {
     }
     public function getTarget($target_id) {
     	return $this->User->findById($target_id);
+    }
+    public function getComment($content_id) {
+    	return $this->Comment->find('all', array('fields' => array('content', 'from_id')),
+				 array('conditions' => array('content_id' => $content_id)));
     }
 
     public function view($id = null) {
@@ -85,45 +89,6 @@ class UsersController extends AppController {
     	$this->Session->setFlash(__('Vous etes maintenant deconnecte. A bientot !'));
     	return $this->redirect($this->Auth->logout());
     }
-
-    /*public function login() {
-    	$this->layout = 'default_visitor';
-		if ($this->request->is('post'))
-		{
-		 	$this->set(array('errInfo' => 'none'));
-		 	$this->set(array('error' => 'false'));
-			$this->Session->write('id', 0);
-			$userInfo = $this->request->data['User'];
-			if(($answer = $this->User->find('first', array(
-					'fields' => array('id', 'password'),
-					'conditions' => array('username' => $userInfo['username'])
-					))) == false)
-			{
-				$this->set(array('error' => 'true'));
-				$this->set(array('errInfo' => 'username'));
-				$this->render('User');
-			}
-			else
-			{
-				$this->Session->setFlash("Vous etes maintenant connecte");
-				if ($answer != NULL && 
-					$answer['User']['password'] == $userInfo['password'])
-				{
-					$this->Session->write('id',$answer['User']['id']);	
-					$this->set(compact($answer));
-					return $this->redirect(array('controller' => 'users', 'action' => 'index'));
-				}
-				else
-				{
-					$this->set(array('error' => 'true'));
-					$this->set(array('errInfo' => 'password'));
-					$this->render('User');
-					$this->Session->setFlash("Identifiants incorrects");
-					return $this->redirect(array('controller' => 'users', 'action' => 'login'));
-				}
-			}
-		}
-	}*/
 
     public function editInfo($id = null) {
 	    if (!$id) {
@@ -204,7 +169,6 @@ class UsersController extends AppController {
 	}
 
 	public function sendPost($id = null) {
-		$last = $this->referer;
 		if (!$id) {
 	        throw new NotFoundException(__('Le profil spécifié est invalide'));
 	    }
@@ -234,7 +198,7 @@ class UsersController extends AppController {
 				);
 				$this->Content->save($d2);
 				$this->Session->setFlash(__('Votre post a bien été publié'));
-				return $this->redirect($last);
+				return $this->redirect(array('action' => 'view', $user['User']['id']));
 			}
             $this->Session->setFlash(__('Impossible de publier votre post'));
         }

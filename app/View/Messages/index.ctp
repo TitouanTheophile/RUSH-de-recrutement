@@ -12,7 +12,7 @@
 <?php foreach ($messages as $message): ?>
     <?= $message['From']['firstname'] . ' ' . $message['From']['lastname'] . ' -> ' . $message['To']['firstname'] . ' ' . $message['To']['lastname']; ?>
     <li><?= $message['Message']['content']; ?></li>
-   <?= $this->Html->link('Voir les messages', $message['Message']['url']); ?>
+   <?= $this->Html->link('Voir les messages', array('action' => 'send', $message['From']['id'])); ?>
     <br><br>
 <?php endforeach; ?>
 </div>

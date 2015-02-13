@@ -40,23 +40,14 @@
            		echo '</div>';
            	?>
 		</span>
-			<?php /*echo $this->Form->postLink(
-                'Supprimer',
-                array('action' => 'adminDelete', $user['User']['id']),
-                array('confirm' => 'Etes-vous sûr ?'));*/
-            ?>
 	</div>
 
 	<p>
 		<?php echo $post_content; ?>
 	</p>
-	<div class="likes_connards">
-		<?php
-			echo $this->Html->image('like.png', array('alt' => 'pl', 'title' => 'Trop bien !')) .
-			'<span>' . $content['Content']['points_like'] . '</span>';
-			echo $this->Html->image('fuck.png', array('alt' => 'pc', 'title' => "Dégage connard !")) .
-			'<span>' . $content['Content']['points_connard'] . '</span>';
-		?>
+	<div class="post_comment">
+		<?php echo $this->element('comment', array('content' => $content));
+        ?>
 	</div>
 
 </div>
