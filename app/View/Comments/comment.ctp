@@ -8,7 +8,10 @@
 
 <?php foreach ($comment as $text)
 {
-	echo "<div class='comments'>".$text['Comment']['content']."</div>";
+	echo "<div class='comments'>".
+	$this->Html->link($text['Comment']['from_id'].
+	array('controller' => 'Users', 'action' => 'view', 1)
+) . $text['Comment']['content']."</div>";
 }
 ?>
 <?= $this->Form->textarea('text-area', array('label' => '', 
