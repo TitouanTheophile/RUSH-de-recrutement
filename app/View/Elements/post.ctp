@@ -45,7 +45,7 @@
 	<p>
 		<?php echo $post_content; ?>
 	</p>
-	<div class="likes_connards">
+	<div class="post_comment">
 		<?php echo $this->element('comment', array('content' => $content));
         ?>
 	</div>
