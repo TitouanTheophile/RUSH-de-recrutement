@@ -5,8 +5,8 @@ foreach ($messages as $message) {
 	$lastname = $message['From']['lastname'];
 	
 	echo $this->Html->link(
-		"$firstname $lastname",
-		array('controller' => 'User', 'action' => 'view', $message['From']['id']),
+		"$firstname $lastname ",
+		array('controller' => 'Users', 'action' => 'view', $message['From']['id']),
 		array('escape' => false)
 		);
 	echo ($this->Time->format($message['Message']['created'], '%e/%m/%G %H:%M') . '<br>' . $message['Message']['content'] . '<br><br>');
