@@ -1,56 +1,56 @@
 <?php
 
-class ProfilesController extends AppController {
+class UsersController extends AppController {
     public $helpers = array('Html', 'Form');
     //public $component = array('AddAccount');
-    var $uses = array('Profile', 'Content', 'Post');
+    var $uses = array('User', 'Content', 'Post');
 
     public function index() {
-        $this->set('profiles', $this->Profile->find('all'));
+        $this->set('users', $this->User->find('all'));
     }
 
     public function getFrom($from_id) {
-    	return $this->Profile->findById($from_id);
+    	return $this->User->findById($from_id);
     }
 
     public function view($id = null) {
         if (!$id) {
             throw new NotFoundException(__('Le profil spécifié est invalide'));
         }
-        $profile = $this->Profile->findById($id);
-        if (!$profile) {
+        $user = $this->User->findById($id);
+        if (!$user) {
             throw new NotFoundException(__('Le profil spécifié est invalide'));
         }
         $this->set('contents', $this->Content->find('all'));
         $this->set('posts', $this->Post->find('all'));
-        $this->set('profile', $profile);
+        $this->set('user', $user);
     }
 
     public function news($id = null) {
         if (!$id) {
             throw new NotFoundException(__('Le profil spécifié est invalide'));
         }
-        $profile = $this->Profile->findById($id);
-        if (!$profile) {
+        $user = $this->User->findById($id);
+        if (!$user) {
             throw new NotFoundException(__('Le profil spécifié est invalide'));
         }
         $this->set('contents', $this->Content->find('all'));
         $this->set('posts', $this->Post->find('all'));
-        $this->set('profile', $profile);
+        $this->set('user', $user);
     }
 
     public function signup() {
         if ($this->request->is('post')) {
-            $this->Profile->create();
+            $this->User->create();
         	
         	$d = $this->request->data;
-        	if ( !empty($d['Profile']['password']) ) {
-        		$d['Profile']['password'] = Security::hash($d['Profile']['password']);
+        	if ( !empty($d['User']['password']) ) {
+        		$d['User']['password'] = Security::hash($d['User']['password']);
         	}
 
-            if ( $this->Profile->save($d) ) {
+            if ( $this->User->save($d) ) {
             	$this->Session->setFlash(__('Votre compte a bien été créé'));
-                return $this->redirect(array('controller' => 'profiles', 'action' => 'index'));
+                return $this->redirect(array('controller' => 'users', 'action' => 'index'));
             }
             $this->Session->setFlash(__('Impossible de créer votre compte'));
         }
@@ -61,23 +61,23 @@ class ProfilesController extends AppController {
 	        throw new NotFoundException(__('Le profil spécifié est invalide'));
 	    }
 
-	    $profile = $this->Profile->findById($id);
-	    if (!$profile) {
+	    $user = $this->User->findById($id);
+	    if (!$user) {
 	        throw new NotFoundException(__('Le profil spécifié est invalide'));
 	    }
-	    $this->set('profile', $profile);
+	    $this->set('user', $user);
 
-	    if ($this->request->is(array('profile', 'put'))) {
-	        $this->Profile->id = $id;
-	        if ($this->Profile->save($this->request->data)) {
+	    if ($this->request->is(array('user', 'put'))) {
+	        $this->User->id = $id;
+	        if ($this->User->save($this->request->data)) {
 	            $this->Session->setFlash(__('Votre profil a bien été mis à jour'));
-	            return $this->redirect(array('action' => 'view', $profile['Profile']['id']));
+	            return $this->redirect(array('action' => 'view', $user['User']['id']));
 	        }
 	        $this->Session->setFlash(__('Impossible de mettre à jour votre profil'));
 	    }
 
 	    if (!$this->request->data) {
-	        $this->request->data = $profile;
+	        $this->request->data = $user;
 	    }
 	}
 
@@ -86,49 +86,49 @@ class ProfilesController extends AppController {
 	        throw new NotFoundException(__('Le profil spécifié est invalide'));
 	    }
 
-	    $profile = $this->Profile->findById($id);
-	    if (!$profile) {
+	    $user = $this->User->findById($id);
+	    if (!$user) {
 	        throw new NotFoundException(__('Le profil spécifié est invalide'));
 	    }
-	    $this->set('profile', $profile);
+	    $this->set('user', $user);
 
-	    if ($this->request->is(array('profile', 'put'))) {
-	        $this->Profile->id = $id;
-	        if ($this->Profile->save($this->request->data)) {
+	    if ($this->request->is(array('user', 'put'))) {
+	        $this->User->id = $id;
+	        if ($this->User->save($this->request->data)) {
 	            $this->Session->setFlash(__('Votre profil a bien été mis à jour'));
-	            return $this->redirect(array('action' => 'view', $profile['Profile']['id']));
+	            return $this->redirect(array('action' => 'view', $user['User']['id']));
 	        }
 	        $this->Session->setFlash(__('Impossible de mettre à jour votre profil'));
 	    }
 
 	    if (!$this->request->data) {
-	        $this->request->data = $profile;
+	        $this->request->data = $user;
 	    }
 	}
 
 	public function editPhoto($id = null) {
-		$profile = $this->Profile->findById($id);
-		$this->set('profile', $profile);
+		$user = $this->User->findById($id);
+		$this->set('user', $user);
 	    if ( !empty($this->request->data) ) {
-	    	$this->Profile->id = $id;
-	    	$this->Profile->save($this->request->data);
-	    	$extension = strtolower(pathinfo($this->request->data['Profile']['avatar_file']['name'], PATHINFO_EXTENSION));
+	    	$this->User->id = $id;
+	    	$this->User->save($this->request->data);
+	    	$extension = strtolower(pathinfo($this->request->data['User']['avatar_file']['name'], PATHINFO_EXTENSION));
 	    	if (
-	    		!empty($this->request->data['Profile']['avatar_file']['tmp_name']) &&
+	    		!empty($this->request->data['User']['avatar_file']['tmp_name']) &&
 	    		in_array($extension, array('jpg', 'jpeg', 'png'))
 	    	){
 	    		move_uploaded_file(
-	    			$this->request->data['Profile']['avatar_file']['tmp_name'],
+	    			$this->request->data['User']['avatar_file']['tmp_name'],
 	    			IMAGES . 'avatars' . DS . $id . '.' . $extension
 	    		);
-	    		$this->Profile->saveField('avatar', $extension);
+	    		$this->User->saveField('avatar', $extension);
 	    	}
 	    }else {
-	    	$this->Profile->id = $id;
-	    	$this->request->data = $this->Profile->read();
+	    	$this->User->id = $id;
+	    	$this->request->data = $this->User->read();
 	    }
 	    if (!$this->request->data) {
-	        $this->request->data = $profile;
+	        $this->request->data = $user;
 	    }
 	}
 
@@ -136,7 +136,7 @@ class ProfilesController extends AppController {
 	    if ($this->request->is('get')) {
 	        throw new MethodNotAllowedException();
 	    }
-	    if ($this->Profile->delete($id)) {
+	    if ($this->User->delete($id)) {
 	        $this->Session->setFlash(
 	            __("Le post avec l'id numéro %s a été supprimé.", h($id))
 	        );
@@ -152,7 +152,7 @@ class ProfilesController extends AppController {
 		 	$this->set(array('error' => 'false'));
 			$this->Session->write('id', 0);
 			$userInfo = $this->request->data['Login'];
-			if(($answer = $this->Profile->find('first', array(
+			if(($answer = $this->User->find('first', array(
 					'fields' => array('id', 'password'),
 					'conditions' => array('email' => $userInfo['email'])
 					))) == false)
@@ -164,9 +164,9 @@ class ProfilesController extends AppController {
 			else
 			{
 				if ($answer != NULL && 
-					$answer['Profile']['password'] == $userInfo['password'])
+					$answer['User']['password'] == $userInfo['password'])
 				{
-					$this->Session->write('id',$answer['Profile']['id']);	
+					$this->Session->write('id',$answer['User']['id']);	
 					$this->set(compact($answer));
 					//return $this->redirect(array('controller' => 'Notifications', 'action' => 'hello'));
 				}

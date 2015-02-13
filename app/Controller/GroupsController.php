@@ -2,7 +2,11 @@
 
 class GroupsController extends AppController {
 
+<<<<<<< HEAD
 	function create_group ()
+=======
+	function create_groupe()
+>>>>>>> f57e5dbcd211c4b66236fdc00f79a6a5be6b9fb5
 	{
 
 		if ($this->request->is('post'))

@@ -1,6 +1,6 @@
 <div id="news_profil">
 	<?php 
-		echo $this->element('profile_photo');
+		echo $this->element('user_photo');
 	?>
 </div><!--
 
@@ -12,8 +12,8 @@
 
 	    	<?php
 	    		foreach ($contents as $content) {
-		    		if ( $content['Content']['from_id'] == $profile['Profile']['id'] 
-		    			|| $content['Content']['target_id'] == $profile['Profile']['id'] ) {
+		    		if ( $content['Content']['from_id'] == $user['User']['id'] 
+		    			|| $content['Content']['target_id'] == $user['User']['id'] ) {
 		    			foreach ($posts as $post) {
 		    				if ( $post['Post']['id'] == $content['Content']['content_id'] ) {
 								echo $this->element(

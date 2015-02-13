@@ -8,7 +8,7 @@
 	<div class="container_padding20">
 		<h3>S'inscrire</h3>
 		<?php
-			echo $this->Form->create('Profile');
+			echo $this->Form->create('User');
 
 			echo $this->Form->input('firstname', array('label' => 'Prénom :'));
 			echo $this->Form->input('lastname', array('label' => 'Nom :'));
