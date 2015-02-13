@@ -1,6 +1,12 @@
 <?php
 
-class Profile extends AppModel {
+class User extends AppModel {
+    var $hasMany = array(
+         'Content' => array(
+            'foreignKey' => 'from_id',
+            'dependent'=> true
+        )
+    );
 
 	public $validate = array(
         'firstname' => array(
@@ -29,6 +35,10 @@ class Profile extends AppModel {
             'rule'    => array('minLength', '8'),
             'message' => '8 caractères minimum'
         ),
+        'password_confirmation' => array(
+            'rule'    => 'notEmpty',
+            'message' => 'Veuillez vérifier le mot de passe'
+        ),
         'email' => array(
         	'email' => array(
                 'rule'    => 'email',
@@ -40,4 +50,22 @@ class Profile extends AppModel {
             )
         )
     );
+
+    /*public function matchPasswords($data) {
+        if ( $data['password'] == $this->data['User']['password_confirmation'] ) {
+            return true;
+        }
+        $this->invalidate('password_confirmation', 'Vos mots de passe ne correspondent pas');
+        return false;
+    }*/
+
+    public function beforeSave($options = array()) {
+        
+        /* password hashing */    
+        if (isset($this->data[$this->alias]['password'])) {
+            $this->data[$this->alias]['password'] = AuthComponent::password($this->data[$this->alias]['password']);
+        }
+        return true;
+    }
+
 }

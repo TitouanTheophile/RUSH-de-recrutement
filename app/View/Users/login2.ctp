@@ -1,5 +1,9 @@
-<?= $this->Form->create('Login', array('novalidate')); ?>
-<?= $this->Form->input('email', array(
+<div id="signin_form">
+
+<h3>Se connecter</h3>
+
+<?= $this->Form->create('User', array('novalidate')); ?>
+<?= $this->Form->input('username', array(
 									'label' => 'Email', 
 									"placeholder" => "kod@social.mehh",
 									'class' => "small_form_field")
@@ -11,12 +15,12 @@
 									'class' => "small_form_field")
 						);
  ?>
-<?= $this->Form->end("Racourcir mon lien"); ?>
+<?= $this->Form->end("Connexion"); ?>
 <?
 
 if($this->request->is('post') && $error == true )
 {
-	if ($errInfo == 'email')
+	if ($errInfo == 'username')
 	{
 		echo "<p><font color=\"red\">Adresse électronique incorrecte<br />
 		L’adresse électronique que vous avez saisie n’est associée à aucun compte.<br />
@@ -34,3 +38,5 @@ if($this->request->is('post') && $error == true )
 	}
 }
 ?>
+
+</div>

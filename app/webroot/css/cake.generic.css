@@ -24,7 +24,7 @@
 /** General Style Info **/
 body {
 	background-color: rgba(186,200,222,1.0);
-	background-image: url(../img/wallpaper.png);
+	background-image: url(../img/wallpaper.jpg);
 	background-size: cover;
 	background-attachment: fixed;
 	color: #fff;
@@ -82,6 +82,95 @@ p {
 	margin: 0 0 1em 0;
 }
 
+#header_container {
+	width: 960px;
+	margin: 0 auto;
+}
+
+#header_title {
+	display: block;
+	position: relative;
+	float: left;
+}
+
+#header_menu {
+	display: block;
+	position: relative;
+	float: left;
+	height: 50px;
+	padding: 5px;
+	float: right;
+}
+
+#header_menu a {
+	display: inline-block;
+	background: rgba(0,0,0,0.1);
+	width: auto;
+	height: 30px;
+	padding: 5px 14px;
+	margin: 5px;
+	line-height: 30px;
+	transition: 0.2s;
+}
+
+#header_menu a:hover {
+	background: rgba(0,0,0,0.2);
+}
+
+#header_option {
+	float: right;
+	background-image: url(../img/option.png);
+	width: 60px;
+	height: 60px;
+	transition: 0.2s;
+}
+
+#header_option:hover {
+	background-color: rgba(0,0,0,0.25);
+}
+
+#header_option ul {
+	display: block;
+	position: absolute;
+	background: linear-gradient(rgba(255,186,42,1.0),rgba(200,100,00,1.0));
+	width: 200px;
+	list-style: none;
+	margin: 0;
+	padding: 0px;
+	top: 60px;
+	margin-left: -140px;
+	border-radius: 5px 0px 5px 5px;
+	box-shadow: 2px 2px 6px rgba(0,0,0,0.75);
+	transition: 0.2s;
+	opacity: 0;
+	transform: scale(0);
+	transform-origin: 100% 0%;
+}
+
+#header_option:hover ul {
+	opacity: 1;
+	transform: scale(1);
+}
+
+#header_option ul li {
+	float: left;
+	padding: 10px 5%;
+	margin: 0;
+	font-size: 16px;
+	width: 90%;
+	transition: 0.1s;
+}
+
+#header_option ul li:hover {
+	background: rgba(0,0,0,0.2);
+	box-shadow: 0px 0px 10px rgba(0,0,0,0.2) inset;
+	cursor: pointer;
+}
+
+#header_option ul li:active {
+	box-shadow: 0px 0px 10px rgba(0,0,0,0.6) inset;
+}
+
 /* Container Padding
 --------------------------------------------------------- */
 
@@ -104,10 +193,10 @@ p {
 }
 
 #home_comment {
-	background: rgba(255,255,255,0.1);
+	background: rgba(0,0,0,0.6);
 	padding: 20px;
 	margin: 40px 0;
-	border-radius: 2px;
+	border-radius: 3px;
 	text-align: center;
 }
 
@@ -140,9 +229,9 @@ p {
 .home_box_inner:hover {
 	background: rgba(255,255,255,0.3);
 	border: 1px solid rgba(255,255,255,1.0);
-	border-left: 1px solid rgba(0,0,0,1.0);
-	border-right: 1px solid rgba(0,0,0,1.0);
-	box-shadow: 0px 0px 10px 0px rgba(255,255,255,1.0), 0px 0px 10px 0px rgba(255,255,255,1.0) inset;
+	border-left: 6px solid rgba(0,0,0,1.0);
+	border-right: 6px solid rgba(0,0,0,1.0);
+	box-shadow: 0px 0px 10px 0px rgba(255,255,255,1.0), 0px 0px 60px 0px rgba(255,255,255,1.0) inset;
 	cursor: pointer;
 }
 
@@ -153,7 +242,7 @@ p {
 
 .home_box_inner span {
 	display: inline-block;
-	background: rgba(255,255,255,0.1);
+	background: rgba(0,0,0,0.4);
 	width: 100%;
 	color: white;
 	font-size: 24px;
@@ -163,10 +252,11 @@ p {
 	
 }
 .home_box_inner:hover span {
-	color: black;
-	background: rgba(255,255,255,0.5);
-	border-top: 1px solid rgba(0,0,0,1.0);
+	color: white;
+	background: rgba(0,0,0,0.6);
+	border-top: 3px solid rgba(200,142,0,1.0);
 	text-shadow: 2px 2px 4px rgba(0,0,0,0.0);
+	box-shadow: 0px 0px 20px rgba(0,0,0,0.6);
 }
 
 /* Signup
@@ -176,21 +266,32 @@ p {
 	display: inline-block;
 	position: relative;
 	background: transparent;
-	width: 320px;
+	width: 420px;
 	height: auto;
 	margin: 10px 0px;
 	vertical-align: top;
 }
 
-#signup_content {
+#signup_form {
 	display: inline-block;
 	position: relative;
-	background: rgba(255,255,255,0.6);
-	border-radius: 20px;
-	width: 600px;
+	background: rgba(255,255,255,0.2);
+	border-radius: 3px;
+	width: 500px;
 	height: auto;
 	margin: 10px 0px 10px 10px;
 	vertical-align: top;
+}
+
+#signin_form {
+	display: block;
+	position: relative;
+	background: rgba(255,255,255,0.2);
+	border-radius: 3px;
+	width: 360px;
+	height: auto;
+	padding: 20px;
+	margin: 0 auto;
 }
 
 /* Profile
@@ -236,15 +337,17 @@ p {
 	display: inline-block;
 	position: relative;
 	width: 100%;
+	height: 36px;
 	padding-top: 10px;
 	text-align: center;
+	overflow: hidden;
 }
 
 #profile_element_name span {
 	color: white;
 	font-size: 24px;
 	font-weight: bold;
-	text-shadow: 2px 2px 4px rgba(0,0,0,0.4);
+	text-shadow: 2px 2px 6px rgba(0,0,0,0.8);
 }
 
 #profile_element_name a {
@@ -264,12 +367,17 @@ p {
 	vertical-align: top;
 }
 
+#wall_infos.fixe {
+	position: fixed;
+	top: 70px;
+}
+
 #profile_wall {
 	display: inline-block;
-	position: relative;
-	background: rgba(255,255,255,0.1);
+	position: absolute;
 	width: 630px;
 	height: auto;
+	right: 0px;
 	margin: 10px 0px 10px 10px;
 	vertical-align: top;
 }
@@ -283,6 +391,16 @@ p {
 	width: 100%;
 	min-height: auto;
 	margin: 10px 0px;
+}
+
+.profile_publication {
+	display: block;
+	position: relative;
+	background: linear-gradient(rgba(242,242,255,1.0),rgba(232,232,255,1.0));
+	box-shadow: 2px 2px 12px rgba(0,0,0,0.4);
+	padding: 10px;
+	border-radius: 3px;
+	margin: 20px 0px;
 }
 
 #lol {
@@ -305,14 +423,17 @@ p {
 
 #news_profil {
 	display: inline-block;
+	position: fixed;
 	width: 320px;
 	vertical-align: top;
 }
 
-#news_contents {
+#news_wall {
 	display: inline-block;
-	background: rgba(0,0,0,0.2);
-	width: 640px;
+	position: relative;
+	width: 630px;
+	height: auto;
+	margin: 10px 0px 10px 330px;
 	vertical-align: top;
 }
 
@@ -346,17 +467,43 @@ p {
 }
 
 .content_wall_header span {
-	padding: 10px;
+	display: inline-block;
+	padding: 0px 10px;
 	line-height: 40px;
-	transition: 0.2s;
+	max-width: 480px;
+	max-height: 40px;
+	overflow: hidden;
 }
 
-.content_wall:hover .content_wall_header span {
-	padding-left: 20px;
+.content_wall_date {
+	display: inline-block;
+	position: relative;
+	padding: 0px 10px;
+	color: rgba(100,100,100,1.0);
 }
 
 .content_wall p {
 	padding: 10px;
+}
+
+.likes_connards {
+	background: rgba(210,216,255,1.0);
+	height: 30px;
+}
+
+.likes_connards img {
+	display: inline-block;
+	width: 20px;
+	margin: 5px;
+	vertical-align: top;
+}
+
+.likes_connards span {
+	display: inline-block;
+	padding-right: 10px;
+	font-weight: bold;
+	line-height: 30px;
+	vertical-align: top;
 }
 
 
@@ -629,7 +776,7 @@ form .required label:after {
 form div.submit {
 	border: 0;
 	clear: both;
-	margin-top: 10px;
+	margin-top: 0px;
 }
 label {
 	display: block;
@@ -658,7 +805,7 @@ option {
 input[type=checkbox] {
 	clear: left;
 	float: left;
-	margin: 0px 6px 7px 2px;
+	margin: 0px 6px 0px 2px;
 	width: auto;
 }
 div.checkbox label {
@@ -776,7 +923,7 @@ p.error,
 	background-image: -webkit-linear-gradient(top, #ee5f5b, #c43c35);
 	background-image: -o-linear-gradient(top, #ee5f5b, #c43c35);
 	background-image: linear-gradient(top, #ee5f5b, #c43c35);
-	background: linear-gradient(rgba(142,142,245,1.0),rgba(100,100,186,1.0));
+	background: linear-gradient(rgba(255,186,42,1.0),rgba(200,100,00,1.0));
 	text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.3);
 	text-align: center;
 }

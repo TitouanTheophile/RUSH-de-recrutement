@@ -10,7 +10,7 @@
 		<hr />
 		<div class="container_padding">
 			<?php
-				echo $this->Form->create('Profile');
+				echo $this->Form->create('User');
 
 				echo $this->Form->input('firstname', array('label' => 'Votre prénom :', 'type' => 'hidden'));
 				echo $this->Form->input('lastname', array('label' => 'Votre nom :', 'type' => 'hidden'));
@@ -25,7 +25,7 @@
 			<?php
 				echo $this->Form->postLink(
                 'Supprimer mon compte',
-                array('action' => 'delete', $profile['Profile']['id']),
+                array('action' => 'delete', $user['User']['id']),
                 array('confirm' => "Attention cette action est irréversible.\nÊtes-vous sûr(e) de vouloir continuer ?"));
             ?>
 		</div>

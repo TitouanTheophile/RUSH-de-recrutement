@@ -1,17 +1,17 @@
 	<div id="profile_element">
 		<div id="profile_element_photo">
 			<?php
-				if ( empty($profile['Profile']['picture_id']) || $profile['Profile']['picture_id'] == NULL ) {
+				if ( empty($user['User']['picture_id']) || $user['User']['picture_id'] == NULL ) {
 					echo $this->Html->link(
-				        $this->Html->image('inconnu.jpg', array('alt' => 'Photo de profil', 'title' => 'Changer ma photo de profil')),
-				        array('action' => 'editPhoto', $profile['Profile']['id']),
+				        $this->Html->image('inconnu.jpg', array('alt' => 'Photo de profil')),
+				        array('action' => 'view', $user['User']['id']),
 				        array('escape' => false)
 				    );
 				}
 				else {
 					echo $this->Html->link(
-				        $this->Html->image( $profile['Profile']['picture_id'] . '.jpg', array('alt' => 'Photo de profil', 'title' => 'Changer ma photo de profil')),
-				        array('action' => 'editPhoto', $profile['Profile']['id']),
+				        $this->Html->image( $user['User']['picture_id'] . '.jpg', array('alt' => 'Photo de profil')),
+				        array('action' => 'view', $user['User']['id']),
 				        array('escape' => false)
 				    );
 				}
@@ -20,8 +20,8 @@
 		<div id="profile_element_name">
 			<span>
 				<?php echo $this->Html->link((
-					$profile['Profile']['firstname']." ".$profile['Profile']['lastname']),
-	           		array('controller' => 'profiles', 'action' => 'view', $profile['Profile']['id']));
+					$user['User']['firstname']." ".$user['User']['lastname']),
+	           		array('controller' => 'users', 'action' => 'view', $user['User']['id']));
 	           	?>
 			</span>
 		</div>

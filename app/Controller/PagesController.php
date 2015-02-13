@@ -44,7 +44,15 @@ class PagesController extends AppController {
  * @throws NotFoundException When the view file could not be found
  *	or MissingViewException in debug mode.
  */
+
+	public function beforeFilter() {
+    	$this->Auth->allow('display');
+    }
+
 	public function display() {
+		if ($this->Session->read('Auth.User')) {
+    		return $this->redirect(array('controller' => 'users', 'action' => 'view', $this->Auth->user('id')));
+    	}
 		$path = func_get_args();
 
 		$count = count($path);
