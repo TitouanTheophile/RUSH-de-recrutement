@@ -1,0 +1,42 @@
+.add_button, .pending_button, .del_button
+{
+	background-color: #dcdcff;
+	background-image: url("../img/friend.png");
+	background-position: 12px 50%;
+	background-repeat: no-repeat;
+	background-size: 20px;
+	border-radius: 5px;
+	height: 28px;
+	padding-left: 35px;
+}
+
+.del_button
+{
+	background-color: #dcdcff;
+	background-image: url("../img/unfriend.png");
+	background-position: 12px 50%;
+	background-repeat: no-repeat;
+	background-size: 20px;
+	border-radius: 5px;
+	height: 28px;
+	padding-left: 35px;
+}
+.cancel_button, .create_button
+{
+	border: none;
+	border-radius: 20px;
+	color: white;
+	height: 25px;
+	width: 75px;
+	margin: 5px;
+}
+
+.cancel_button
+{
+		background-color: grey;
+}
+
+.create_button
+{
+		background-color: #2d8828;
+}

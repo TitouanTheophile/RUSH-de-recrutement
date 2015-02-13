@@ -48,10 +48,10 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 	    </div>
 	    <div id="header_option">
 	    	<ul>
-	    		<?php echo $this->Html->link("<li>Changer ma photo</li>", array('action' => 'editPhoto', $this->Session->read('Auth.User.id') ), array('escape' => false)); ?>
-	    		<?php echo $this->Html->link("<li>Editer mes infos publiques</li>", array('action' => 'editInfo', $this->Session->read('Auth.User.id') ), array('escape' => false)); ?>
-	    		<?php echo $this->Html->link("<li>Editer mes cordonnees</li>", array('action' => 'editData', $this->Session->read('Auth.User.id') ), array('escape' => false)); ?>
-	    		<?php echo $this->Html->link("<li>Deconnexion</li>", array('action' => 'logout'), array('escape' => false)); ?>
+	    		<?php echo $this->Html->link("<li>Changer ma photo</li>", array('controller' => 'users', 'action' => 'editPhoto', $this->Session->read('Auth.User.id') ), array('escape' => false)); ?>
+	    		<?php echo $this->Html->link("<li>Editer mes infos publiques</li>", array('controller' => 'users', 'action' => 'editInfo', $this->Session->read('Auth.User.id') ), array('escape' => false)); ?>
+	    		<?php echo $this->Html->link("<li>Editer mes cordonnees</li>", array('controller' => 'users', 'action' => 'editData', $this->Session->read('Auth.User.id') ), array('escape' => false)); ?>
+	    		<?php echo $this->Html->link("<li>Deconnexion</li>", array('controller' => 'users', 'action' => 'logout'), array('escape' => false)); ?>
 	    	</ul>
         </div>
         <div id="header_menu">
@@ -59,8 +59,8 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
         		if ($this->Session->read('Auth.User')) {
         			//echo "Bienvenue " . $this->Session->read('Auth.User.firstname');
         		}
-        		echo $this->Html->link("Mon Profil", array('action' => 'view', $this->Session->read('Auth.User.id') ));
-        		echo $this->Html->link("Fil d'actualité", array('action' => 'news', $this->Session->read('Auth.User.id') ));
+        		echo $this->Html->link("Mon Profil", array('controller' => 'users', 'action' => 'view', $this->Session->read('Auth.User.id') ));
+        		echo $this->Html->link("Fil d'actualité", array('controller' => 'users', 'action' => 'news', $this->Session->read('Auth.User.id') ));
         	?>
         </div>
     </div>

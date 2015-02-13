@@ -1,0 +1,32 @@
+.comment_area
+{
+	background-color: #dcdcee;
+	height: 20px;
+	width: 300px;
+ 	overflow: hidden;
+ 	position: relative;
+ 	resize: none;
+}
+
+.comment_button
+{
+	background-color: #9999dd;
+ 	position: relative;
+ 	top: 15px;
+ 	left: -57px;
+}
+
+.comments
+{
+	width: 300px;
+    word-wrap: break-word;
+	border: 1px solid;
+	 overflow: hidden;
+}
+
+.comment_ronly
+{
+	background-color: #ececff;
+	resize: none;
+ 	overflow: hidden;
+}

@@ -227,9 +227,7 @@ class UsersController extends AppController {
 						'targetType_id' => 1,
 						'content_id' => $this->Post->id,
 						'from_id' => $this->Session->read('Auth.User.id'),
-						'target_id' => $id,
-						'points_like' => 0,
-						'points_connard' => 0
+						'target_id' => $id
 					)
 				);
 				$this->Content->save($d2);
