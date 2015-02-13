@@ -12,7 +12,6 @@ class CommentsController extends AppController
 			'condition' => array($value['Comment']['from_id'];
 		}
 		$this->set(array('comment' => $allCom));
-		$this->Session->write('id', 2);
 		$this->layout = false;
 		if ($this->request->is('post'))
 		{

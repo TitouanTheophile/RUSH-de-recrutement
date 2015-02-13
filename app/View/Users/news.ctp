@@ -1,17 +1,29 @@
 <div id="news_profil">
 	<?php 
-		echo $this->element('user_photo');
+		echo $this->element('profile_photo');
 	?>
+	<div id="wall_infos">
+		<div class="container_padding20">
+			Hey Hey Hey !! Sauce moi ca !
+		</div>
+	</div>
 </div><!--
 
---><div id="news_contents">
+--><div id="news_wall">
 	<div class="container_padding">
-		<h4>Mon actualité</h4>
+		<h4>Fil d'actualite</h4>
 		<hr />
 		<div class="container_padding">
 
+			<?php
+				echo $this->Html->link('Publier un post',
+                array ('action' => 'sendPost', $user['User']['id']));
+			?>
+
 	    	<?php
-	    		foreach ($contents as $content) {
+	    		$index = count($contents);
+	    		while($index) {
+	    			$content = $contents[--$index];
 		    		if ( $content['Content']['from_id'] == $user['User']['id'] 
 		    			|| $content['Content']['target_id'] == $user['User']['id'] ) {
 		    			foreach ($posts as $post) {
@@ -20,7 +32,7 @@
 									'post',
 									array (
 										'post_content' => $post['Post']['content'],
-										'from_id' => $content['Content']['from_id']
+										'content' => $content
 									)
 								);
 							}
