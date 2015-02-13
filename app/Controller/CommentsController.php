@@ -7,7 +7,6 @@ class CommentsController extends AppController
 		$allCom = $this->Comment->find('all',
 				 array('conditions' => array('content_id' => $content_id)));
 		$this->set(array('comment' => $allCom));
-		$this->Session->write('id', 2);
 		$this->layout = false;
 		if ($this->request->is('post'))
 		{

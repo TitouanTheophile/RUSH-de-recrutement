@@ -26,6 +26,9 @@
         </table>
 		<hr />
 		<div class="container_padding">
+			<?php if ( !empty($user['User']['gender']) ) {
+				echo "<p>Étudie à <strong>" . $user['User']['gender'] . "</strong></p>";
+			} ?>
 			<?php if ( !empty($user['User']['study_place']) ) {
 				echo "<p>Étudie à <strong>" . $user['User']['study_place'] . "</strong></p>";
 			} ?>

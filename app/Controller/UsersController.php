@@ -2,7 +2,7 @@
 
 class UsersController extends AppController {
     public $helpers = array('Html', 'Form');
-    var $uses = array('User', 'Content', 'Post');
+    var $uses = array('User', 'Content', 'Post', 'Comment');
 
     public function beforeFilter() {
     	parent::beforeFilter();
@@ -19,6 +19,10 @@ class UsersController extends AppController {
     }
     public function getTarget($target_id) {
     	return $this->User->findById($target_id);
+    }
+    public function getComment($content_id) {
+    	return $this->Comment->find('all', array('fields' => array('content', 'from_id')),
+				 array('conditions' => array('content_id' => $content_id)));
     }
 
     public function view($id = null) {
