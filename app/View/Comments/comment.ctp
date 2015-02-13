@@ -5,10 +5,17 @@
 <?=$this->Html->script('text_area');?>
 <?= $this->Form->create('post', array('novalidate')); ?>
 <?= "<div>"?>
+
+<?php foreach ($comment as $text)
+{
+	echo "<div class='comments'>".$text['Comment']['content']."</div>";
+}
+?>
 <?= $this->Form->textarea('text-area', array('label' => '', 
 										  "placeholder" => "Écrire un commentaire...",
-										  "onkeyup" => "textAreaAdjust(this)",
-										  "class" => "comment_area"));?>
-<?= $this->Form->button("Publier", array('class' => 'submit post_button'
-										 )); ?>
+										  "onkeyup" => "textAreaAdjust()",
+										  "class" => "comment_area",
+										  "value" => "",
+										  "required"));?>
+<?= $this->Form->button("Publier", array('class' => 'submit comment_button')); ?>
 <?= "</div>"?>

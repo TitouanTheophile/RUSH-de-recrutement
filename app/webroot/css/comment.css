@@ -8,10 +8,25 @@
  	resize: none;
 }
 
-.post_button
+.comment_button
 {
 	background-color: #9999dd;
- 	position: absolute;
- 	top: 29px;
- 	left: 251px;
+ 	position: relative;
+ 	top: 15px;
+ 	left: -57px;
+}
+
+.comments
+{
+	width: 300px;
+    word-wrap: break-word;
+	border: 1px solid;
+	 overflow: hidden;
+}
+
+.comment_ronly
+{
+	background-color: #ececff;
+	resize: none;
+ 	overflow: hidden;
 }

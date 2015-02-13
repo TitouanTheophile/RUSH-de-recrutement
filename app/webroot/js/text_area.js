@@ -1,6 +1,8 @@
-function textAreaAdjust(o) {
-	$('.comment_area').css('height', '22px');
-	$('.post_button').css('top', '45px');
-	$('.comment_area').css('height',0.5+ o.scrollHeight+'px');
-	$('.post_button').css('top', 11 + o.scrollHeight+'px');
-}
+
+   	function textAreaAdjust()
+	{
+		console.log();
+		var count = ($('.comment_area').val().match(/\n/g) || []).length;
+		$('.comment_area').css('height', (20 + 15 * (count + Math.floor(($('.comment_area').val().length / 36)))) +'px');
+	}
+

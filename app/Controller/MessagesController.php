@@ -1,5 +1,6 @@
 <?php
 class MessagesController extends AppController {
+	public $scaffold;
 	public function index() { // Get latest messages for the index view
 		$messages = $this->Message->find('all', array( //Display the latest message
 			'conditions' => array(

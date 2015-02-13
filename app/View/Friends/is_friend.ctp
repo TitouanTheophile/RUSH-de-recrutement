@@ -1,3 +1,3 @@
-<?=$this->Html->css('friend_button');?>
-<?= "<input id='del_button' type='submit' value='Supprimer'>"?>
+<?=$this->Html->css('buttons');?>
+<?= "<input class='del_button' type='submit' value='Supprimer'>"?>
 
