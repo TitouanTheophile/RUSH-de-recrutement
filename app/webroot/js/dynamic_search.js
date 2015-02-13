@@ -1,5 +1,7 @@
 $(document).ready( function() {
+
   url = window.location.pathname + '/get_users';
+
   $('#ProfileId').keyup( function() {
     if( $(this).val().length > 1 ) {
       $.ajax( {
@@ -18,5 +20,6 @@ $(document).ready( function() {
       $('#results_search').css('border-color', '');
       $('#results_search').css('border-style', '');
     }
+
   });
 });

@@ -1,10 +1,10 @@
-<div id="profile_header">
+<div id="user_header">
 	<?php 
-		echo $this->element('profile_photo');
+		echo $this->element('user_photo');
 	?>
 </div>
 
-<div id="profile_edit">
+<div id="user_edit">
 	<div class="container_padding">
 		<h4>Éditer les informations publiques de mon profil</h4>
 		<hr />

@@ -11,5 +11,6 @@ class Content extends AppModel {
 
 	// public $hasAndBelongsToMany = array("User");
 
+
 }
 ?>

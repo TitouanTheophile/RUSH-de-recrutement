@@ -8,6 +8,7 @@ class User extends AppModel {
         )
     );
 
+
 	public $validate = array(
         'firstname' => array(
             'alphaNumeric' => array(

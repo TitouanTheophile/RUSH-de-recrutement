@@ -1,7 +1,9 @@
 <?php
 class MessagesController extends AppController {
+
 	public function index() { // Get latest messages for the index view
 		$this->Session->write('User_id', 2);
+
 		$messages = $this->Message->find('all', array( //Display the latest message
 			'conditions' => array(
 				'OR' => array(
@@ -14,11 +16,13 @@ class MessagesController extends AppController {
 		$this->set('messages', $messages);
 	}
 
+
 	public function send($id = null) { // Add a new message into database
 		if ($this->request->is('post') && !empty($this->request->data)) { // If the user send a message
 			$this->Message->create(array( // Put the message into the database
 				'from_id' => $this->Session->read('User_id'),
 				'target_id' => $id,
+
 				'content' => $this->request->data['Message']['content']
 				), true);
 			$this->Message->save(null, true, array('from_id', 'target_id', 'content'));
@@ -27,12 +31,15 @@ class MessagesController extends AppController {
 			$this->loadModel('Notification');
 			$this->Notification->create(array( //Put the notification about the message into the database
 				'from_id' => $this->Session->read('User_id'),
+
 				'target_id' => $id,
+
 				'notificationType_id' => 1,
 				'content_id' => $this->Message->getInsertID(),
 				), true);
 			$this->Notification->save(null, true, array('from_id', 'target_id', 'notificationType_id', 'content_id'));
 		}
+
 
 		$this->loadModel('User');
 		$from = $this->User->findById($id);
@@ -42,10 +49,12 @@ class MessagesController extends AppController {
 	public function get_users(){ // Get the Users for the view index
 		$this->loadModel('User');
 		$users = $this->User->find('all', array( //Get the list of Users that match with the search
+
 			'conditions' => array(
 				'firstname LIKE' => '%' . $this->params->query['q'] . '%'
 				)
 			));
+
 
 		$this->set('users', $users);
 		$this->layout = false;
@@ -59,6 +68,7 @@ class MessagesController extends AppController {
 				),
 			array(
 				'from_id' => $id,
+
 				'target_id' => $this->Session->read('User_id')
 				));
 
@@ -94,6 +104,7 @@ class MessagesController extends AppController {
 		$this->set('messages', $messages);
 		$this->layout = false;
 		$this->render('/Elements/get_messages');
+
 	}
 }
 ?>

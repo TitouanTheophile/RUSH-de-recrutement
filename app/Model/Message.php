@@ -27,6 +27,7 @@ class Message extends AppModel {
 				$results[$key][$this->alias]['url'] = array(
 					'controller' => 'messages',
 					'action' => 'send',
+
 					'id' => ($result['From']['id'] == CakeSession::read('User_id') ? $result['To']['id'] : $result['From']['id']),
 					'name' => ($result['From']['id'] == CakeSession::read('User_id') ? $result['To']['firstname'] . '.' . $result['To']['lastname'] : $result['From']['firstname'] . '.' . $result['From']['lastname'])
 					);
