@@ -30,3 +30,13 @@
 	resize: none;
  	overflow: hidden;
 }
+
+.comment_date
+{
+	font-size: 13px;
+}
+
+a
+{
+	color: #284370;
+}
