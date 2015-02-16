@@ -25,3 +25,17 @@ div#results_search div.profile:hover {
 h1#message_profile_name {
 	text-align: center;
 }
+
+div.message_div {
+	padding: 5px;
+	margin: 5px;
+}
+
+div.message_div a {
+	display: block;
+	margin-bottom: 5px;
+}
+
+div.message_div span.message_date {
+	float: right;
+}

@@ -11,10 +11,12 @@
 	<head>
 		<?= $this->Html->charset(); ?>
 		<?= $this->Html->meta('icon'); ?>
+		<?= $this->fetch('meta'); ?>
 		<?= $this->Html->css('generic'); ?>
 		<?= $this->Html->css('header'); ?>
-		<?= $this->fetch('meta'); ?>
 		<?= $this->fetch('css'); ?>
+		<?= $this->Html->script('/js/jquery.js', array('block' => 'requiredScript')); ?>
+		<?= $this->fetch('requiredScript'); ?>
 		<?= $this->fetch('script'); ?>
 	</head>
 	<body>

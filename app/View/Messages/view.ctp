@@ -1,4 +1,3 @@
-<?= $this->Html->script('jquery', array('inline' => false)); ?>
 <?= $this->Html->script('dynamic_refresh_messages', array('inline' => false)); ?>
 <h1><?= $this->params['named']['name'] ?></h1>
 <div id="messages"></div>
