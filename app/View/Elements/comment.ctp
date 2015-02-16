@@ -1,17 +1,21 @@
-<?=$this->Html->css('comment');?>
+<?=
+
+	$comment = $this->requestAction(
+		'users/getComment',
+		array('pass' => array($content['Content']['id']))
+	);
+
+?>
 
 <?="<script type='text/javascript' src='http://code.jquery.com/jquery-1.7.1.min.js'></script>"?>
 
 <?=$this->Html->script('text_area');?>
-<?= $this->Form->create('post', array('novalidate')); ?>
+<?= $this->Form->create('Comment', array('novalidate')); ?>
 <?= "<div>"?>
 
-<?php foreach ($comment as $text)
+ <?php foreach ($comment as $text)
 {
-	echo "<div class='comments'>".
-	$this->Html->link($text['Comment']['from_id'].
-	array('controller' => 'Users', 'action' => 'view', 1)
-) . $text['Comment']['content']."</div>";
+	echo "<div class='comments'>".$text['Comment']['content']."</div>";
 }
 ?>
 <?= $this->Form->textarea('text-area', array('label' => '', 

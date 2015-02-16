@@ -2,7 +2,7 @@
 
 class UsersController extends AppController {
     public $helpers = array('Html', 'Form');
-    var $uses = array('User', 'Content', 'Post');
+    var $uses = array('User', 'Content', 'Post', 'Comment');
 
     public function beforeFilter() {
     	parent::beforeFilter();
@@ -15,6 +15,14 @@ class UsersController extends AppController {
 
     public function getUser($from_id) {
     	return $this->User->findById($from_id);
+    }
+
+    public function getTarget($target_id) {
+    	return $this->User->findById($target_id);
+    }
+    public function getComment($content_id) {
+    	return $this->Comment->find('all', array('fields' => array('content', 'from_id')),
+				 array('conditions' => array('content_id' => $content_id)));
     }
 
     public function view($id = null) {
@@ -134,7 +142,55 @@ class UsersController extends AppController {
 	    }
 	}
 
-	public function delete($id) {
+	public function sendPost($id = null) {
+		if (!$id) {
+	        throw new NotFoundException(__('Le profil spécifié est invalide'));
+	    }
+
+	    $user = $this->User->findById($id);
+	    if (!$user) {
+	        throw new NotFoundException(__('Le profil spécifié est invalide'));
+	    }
+	    $this->set('user', $user);
+
+        if ($this->request->is('post')) {
+            $this->Post->create();
+            $this->Content->create();
+
+        	$d = $this->request->data;
+			if ( $this->Post->save($d) ) {
+				$d2 = array(
+					'Content' => array(
+						'contentType_id' => 1,
+						'targetType_id' => 1,
+						'content_id' => $this->Post->id,
+						'from_id' => $this->Session->read('Auth.User.id'),
+						'target_id' => $id,
+						'points_like' => 0,
+						'points_connard' => 0
+					)
+				);
+				$this->Content->save($d2);
+				$this->Session->setFlash(__('Votre post a bien été publié'));
+				return $this->redirect(array('action' => 'view', $user['User']['id']));
+			}
+            $this->Session->setFlash(__('Impossible de publier votre post'));
+        }
+    }
+
+    public function friends($id = null) {
+    	if (!$id) {
+	        throw new NotFoundException(__('Le profil spécifié est invalide'));
+	    }
+
+	    $user = $this->User->findById($id);
+	    if (!$user) {
+	        throw new NotFoundException(__('Le profil spécifié est invalide'));
+	    }
+	    $this->set('user', $user);
+    }
+
+	public function adminDelete($id) {
 	    if ($this->request->is('get')) {
 	        throw new MethodNotAllowedException();
 	    }
@@ -147,7 +203,6 @@ class UsersController extends AppController {
 	}
 
     public function login() {
-    	// $this->layout = 'default_visitor';
     	if ($this->Session->read('Auth.User')) {
     		return $this->redirect(array('controller' => 'users', 'action' => 'index', $this->Auth->user('id')));
     	}

@@ -145,24 +145,9 @@ p {
 	padding: 10px;
 }
 
-.likes_connards {
+.post_comment {
 	background: rgba(210,216,255,1.0);
-	height: 30px;
-}
-
-.likes_connards img {
-	display: inline-block;
-	width: 20px;
-	margin: 5px;
-	vertical-align: top;
-}
-
-.likes_connards span {
-	display: inline-block;
-	padding-right: 10px;
-	font-weight: bold;
-	line-height: 30px;
-	vertical-align: top;
+	height: auto;
 }
 
 
