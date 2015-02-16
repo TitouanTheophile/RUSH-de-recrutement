@@ -1,4 +1,4 @@
-<?= $this->element('profile_photo');?>
+<?= $this->element('user_photo', array('user' => $this->Session->read('Auth.User'))); ?>
 <?= $this->Html->css('album', array('inline' => false)) ?>
 <?= $this->Html->div('section_title', "<h3>Albums</h3>") ?>
 <?= $this->Html->div('section_nav', $this->Html->link('Créer un album', array('controller' => 'albums', 'action' => 'newAlbum'))); ?>

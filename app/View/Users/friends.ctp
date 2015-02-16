@@ -1,9 +1,7 @@
-<div id="profile_header">
-	<?php 
-		echo $this->element('profile_photo');
-	?>
+<div id="user_header">
+	<?= $this->element('user_photo', array('user' => $user['User']));	?>
 </div>
 
-<div class="profile_publication">
+<div class="user_publication">
 	<h4>Liste de mes amis</h4>
 </div>

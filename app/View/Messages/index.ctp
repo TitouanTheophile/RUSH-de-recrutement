@@ -10,4 +10,3 @@
    <?= $this->Html->link('Voir les messages', $message['Message']['url']); ?>
 <?php endforeach; ?>
 </div>
-

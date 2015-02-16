@@ -1,15 +1,13 @@
+<?= $this->Html->css('users', array('inline' => false)); ?>
 <div id="news_profil">
-	<?php 
-		echo $this->element('profile_photo');
-	?>
+	<?= $this->element('user_photo', array('user' => $user['User'])); ?>
 	<div id="wall_infos">
 		<div class="container_padding20">
 			Hey Hey Hey !! Sauce moi ca !
 		</div>
 	</div>
-</div><!--
-
---><div id="news_wall">
+</div>
+<div id="news_wall">
 	<div class="container_padding">
 		<h4>Fil d'actualite</h4>
 		<hr />

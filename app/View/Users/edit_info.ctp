@@ -1,10 +1,8 @@
-<div id="profile_header">
-	<?php 
-		echo $this->element('profile_photo');
-	?>
+<div id="user_header">
+	<?= $this->element('user_photo', array('user' => $this->Session->read('Auth.User'))); ?>
 </div>
 
-<div id="profile_edit">
+<div id="user_edit">
 	<div class="container_padding">
 		<h4>Éditer les informations publiques de mon profil</h4>
 		<hr />

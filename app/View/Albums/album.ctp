@@ -1,4 +1,4 @@
-<?= $this->element('profile_photo'); ?>
+<?= $this->element('user_photo', array('user' => $this->Session->read('Auth.User')));?>
 <?= $this->Html->css('album', array('inline' => false)); ?>
 <?= $this->Html->div('section_title', "<h3>$title</h3>"); ?>
 <?php 
