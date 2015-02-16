@@ -1,8 +1,14 @@
+div#messages {
+	overflow-y:scroll;
+	height:400px;
+}
+
 div#results_search {
 	position: absolute;
 	background-color: white;
 	width: 99.5%;
 }
+
 div#results_search img.search {
 	width: 50px;
     height: auto;
@@ -14,4 +20,8 @@ div#results_search div.profile {
 
 div#results_search div.profile:hover {
 	background-color: #CCFFFF;
+}
+
+h1#message_profile_name {
+	text-align: center;
 }

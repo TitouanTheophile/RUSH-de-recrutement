@@ -1,0 +1,144 @@
+div#header_container {
+	width: 960px;
+	margin: 0 auto;
+}
+
+div#header_title {
+	display: block;
+	position: relative;
+	float: left;
+	height: inherit;
+}
+
+div#header_title a {
+	display: inline-block;
+}
+
+div#header_menu {
+	display: block;
+	position: relative;
+	float: left;
+	height: 50px;
+	padding: 5px;
+	float: right;
+}
+
+div#header_menu a {
+	display: inline-block;
+	background: rgba(0,0,0,0.1);
+	width: auto;
+	height: 30px;
+	padding: 5px 14px;
+	margin: 5px;
+	line-height: 30px;
+	transition: 0.2s;
+}
+
+div#header_menu a:hover {
+	background: rgba(0,0,0,0.2);
+}
+
+div#header_option {
+	float: right;
+	background-image: url(../img/option.png);
+	width: 60px;
+	height: 60px;
+	transition: 0.2s;
+
+}
+
+div#header_option:hover {
+	background-color: rgba(0,0,0,0.25);
+}
+
+div#header_option ul {
+	display: block;
+	position: absolute;
+	background: linear-gradient(rgba(255,186,42,1.0),rgba(200,100,00,1.0));
+	width: 200px;
+	list-style: none;
+	margin: 0;
+	padding: 0px;
+	top: 60px;
+	margin-left: -140px;
+	border-radius: 5px 0px 5px 5px;
+	box-shadow: 2px 2px 6px rgba(0,0,0,0.75);
+	transition: 0.2s;
+	opacity: 0;
+	transform: scale(0);
+	transform-origin: 100% 0%;
+	z-index: 42;
+}
+
+div#header_option:hover ul {
+	opacity: 1;
+	transform: scale(1);
+}
+
+div#header_option ul li {
+	float: left;
+	padding: 10px 5%;
+	margin: 0;
+	font-size: 16px;
+	width: 90%;
+	transition: 0.1s;
+}
+
+div#header_option ul li:hover {
+	background: rgba(0,0,0,0.2);
+	box-shadow: 0px 0px 10px rgba(0,0,0,0.2) inset;
+	cursor: pointer;
+}
+
+div#header_option ul li:active {
+	box-shadow: 0px 0px 10px rgba(0,0,0,0.6) inset;
+}
+
+div#notifications_count {
+	background-color: red;
+	display: inline-block;
+	border-radius: 35px;
+	height: 20px;
+	width: 20px;
+	text-align: center;
+	color: white;
+}
+
+img#notifications {
+	display: inline-block;
+	height: 40px;
+	position: relative;
+  	top: 50%;
+  	transform: translateY(-50%);
+}
+
+div#notifications_list {
+	display: none;
+	background: white;
+	border: 3px grey solid;
+	overflow-y: scroll
+	height: 150px;
+	width: 500px;
+	word-wrap: break-word;
+	position: absolute;
+	top: 60px;
+	z-index: 42;
+}
+
+div#notifications_list a {
+	color: blue;
+	width: inherit;
+}
+
+div.notification {
+	width: inherit;
+}
+
+div#notifications_list div.notification:hover {
+	background-color: #CCFFFF;
+}
+
+div#notifications_list div.notification img {
+	width: 50px;
+    height: auto;
+}

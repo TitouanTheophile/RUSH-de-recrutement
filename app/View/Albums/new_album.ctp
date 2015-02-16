@@ -1,3 +1,4 @@
+<?= $this->element('profile_photo'); ?>
 <?= $this->Html->css('album', array('inline' => false)) ?>
 <?= $this->Html->div('section_title', "<h3>Nouvel album</h3>") ?>
 <?= $this->Form->create(); ?>

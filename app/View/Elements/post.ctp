@@ -1,62 +1,31 @@
 <div class="content_wall">
-
 	<div class="content_wall_header">
 		<?php
-
-			$user = $this->requestAction(
-				'users/getFrom',
-				array('pass' => array($content['Content']['from_id']))
-			);
-			$target = $this->requestAction(
-				'users/getTarget',
-				array('pass' => array($content['Content']['target_id']))
-			);
-
-			if ( empty($user['User']['picture_id']) || $user['User']['picture_id'] == NULL ) {
-				echo $this->Html->link(
-			        $this->Html->image('inconnu.jpg', array('alt' => 'Photo de profil', 'title' => 'Changer ma photo de profil')),
-			        array('action' => 'view', $user['User']['id']),
-			        array('escape' => false)
-			    );
-			}
-			else {
-				echo $this->Html->link(
-			        $this->Html->image( $user['User']['picture_id'] . '.jpg', array('alt' => 'Photo de profil', 'title' => 'Changer ma photo de profil')),
-			        array('action' => 'view', $user['User']['id']),
-			        array('escape' => false)
-			    );
-			}
+			$from = $this->requestAction('users/getUser', array('pass' => array($content['Content']['from_id'])));
+			$target = $this->requestAction('users/getUser', array('pass' => array($content['Content']['target_id'])));
+			echo $this->Html->image((empty($from['User']['picture_id']) ? 'inconnu.jpg' : $from['User']['picture_id']),
+									  array('alt' => 'Photo de profil',
+										    'url' => array('controller' => 'users', 'action' => 'view', $from['User']['id'])));
 		?>
 		<span>
 			<?php
-				echo $this->Html->link((
-					$user['User']['firstname']." ".$user['User']['lastname']),
-           			array('controller' => 'users', 'action' => 'view', $user['User']['id'])
-           		);
-           		echo '<div class="content_wall_date">publié le ' . $content['Content']['created'];
-           		if ( $user['User']['id'] != $target['User']['id'] ) {
-					echo ' envoyé à <strong>' . $target['User']['firstname'] . '</strong>';
-           		}
-           		echo '</div>';
+				$name_from = $this->Html->link($from['User']['firstname']." ".$from['User']['lastname'],
+           							   array('controller' => 'users', 'action' => 'view', $from['User']['id']));
+				$post_head = 'publié le ' . $content['Content']['created'];
+           		if ($from['User']['id'] != $target['User']['id'])
+           			$post_head .= ' envoyé à ' . $this->Html->tag('span', $target['User']['firstname'], array('class' => 'bold'));
+				$post_head = $this->Html->div('content_wall_date', $post_head);
+           		echo $name_from . $post_head;
            	?>
 		</span>
-			<?php /*echo $this->Form->postLink(
-                'Supprimer',
-                array('action' => 'adminDelete', $user['User']['id']),
-                array('confirm' => 'Etes-vous sûr ?'));*/
-            ?>
 	</div>
-
-	<p>
-		<?php echo $post_content; ?>
-	</p>
-	<div class="likes_connards">
+	<?= $this->Html->para(null, $post_content); ?>
+	<!-- <div class="likes_connards">
 		<?php
 			echo $this->Html->image('like.png', array('alt' => 'pl', 'title' => 'Trop bien !')) .
 			'<span>' . $content['Content']['points_like'] . '</span>';
 			echo $this->Html->image('fuck.png', array('alt' => 'pc', 'title' => "Dégage connard !")) .
 			'<span>' . $content['Content']['points_connard'] . '</span>';
 		?>
-	</div>
-
+	</div> -->
 </div>
