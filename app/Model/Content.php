@@ -9,8 +9,7 @@ class Content extends AppModel {
 		'Groups' => array(
 			'foreignKey' => 'id'));
 
-	// public $hasAndBelongsToMany = array("User");
-
+	public $hasMany = array('ContentP');
 
 }
 ?>

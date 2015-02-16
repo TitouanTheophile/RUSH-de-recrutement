@@ -12,7 +12,7 @@ class PicturesController extends AppController {
 		$userPoint = $this->Picture->Content->ContentP->find('first', array(
 			'conditions' => array(
 				'ContentP.content_id' => $content_id,
-				'ContentP.user_id' => $this->Session->read('id')),
+				'ContentP.user_id' => $this->Session->read('Auth.User.id')),
 			'fields' => array('ContentP.user_id', 'ContentP.pointType')));
 		$likeP = $this->Picture->Content->ContentP->find('list', array(
 			'conditions' => array(
@@ -26,7 +26,7 @@ class PicturesController extends AppController {
 			'fields' => array('ContentP.user_id', 'ContentP.pointType')));
 
 		$this->set('pic', $pic);
-		$this->set('user', $this->Session->read('id'));
+		$this->set('user', $this->Session->read('Auth.User.id'));
 		$this->set('title', $album['Album']['title']);
 		$this->set('album', $album['Album']['id']);
 		$this->set('likeP', count($likeP));
@@ -44,7 +44,7 @@ class PicturesController extends AppController {
 		$end = $this->Picture->find('first', array(
 			'order' => 'Picture.id desc'));
 		$end = $end['Picture']['id'];
-		while (empty($current) || $current['Content']['from_id'] != $this->Session->read('id')
+		while (empty($current) || $current['Content']['from_id'] != $this->Session->read('Auth.User.id')
 							   || $current['Picture']['album_id'] != $album) {
 			$next_id = ($next_id >= $end ? 1 : $next_id + 1);
 			$current = $this->Picture->findById($next_id);
@@ -64,7 +64,7 @@ class PicturesController extends AppController {
 		$end = $this->Picture->find('first', array(
 			'order' => 'Picture.id desc'));
 		$end = $end['Picture']['id'];
-		while (empty($current) || $current['Content']['from_id'] != $this->Session->read('id')
+		while (empty($current) || $current['Content']['from_id'] != $this->Session->read('Auth.User.id')
 							   || $current['Picture']['album_id'] != $album) {
 			$previous_id = ($previous_id <= 0 ? $end : $previous_id - 1);
 			$current = $this->Picture->findById($previous_id);
@@ -91,8 +91,8 @@ class PicturesController extends AppController {
 					'contentType_id' => 1,
 					'targetType_id' => 1,
 					'content_id' => $this->Picture->id,
-					'from_id' => $this->Session->read('id'),
-					'target_id' => $this->Session->read('id'),
+					'from_id' => $this->Session->read('Auth.User.id'),
+					'target_id' => $this->Session->read('Auth.User.id'),
 					'points_like' => 0,
 					'points_connard' => 0);
 			if(!($this->Picture->Content->save($content_data))) {
@@ -144,7 +144,7 @@ class PicturesController extends AppController {
 		$pic = $this->Picture->Content->ContentP->find('first', array(
 			'conditions' => array(
 				'ContentP.content_id' => $content_id,
-				'ContentP.user_id' => $this->Session->read('id')),
+				'ContentP.user_id' => $this->Session->read('Auth.User.id')),
 			'fields' => 'ContentP.id, ContentP.user_id, ContentP.pointType'));
 		if (!empty($pic) && $pic['ContentP']['pointType'] != $pointType)
 			$this->Picture->Content->ContentP->delete($pic['ContentP']['id']);
@@ -153,7 +153,7 @@ class PicturesController extends AppController {
 			return $this->redirect(array('controller' => 'pictures', 'action' => 'view', $img_id));
 		}
 		$this->Picture->Content->ContentP->create(array(
-			'user_id' => $this->Session->read('id'),
+			'user_id' => $this->Session->read('Auth.User.id'),
 			'content_id' => $content_id,
 			'pointType' => $pointType));
 		$this->Picture->Content->ContentP->save(null, false, array('user_id', 'content_id', 'pointType'));
@@ -166,7 +166,7 @@ class PicturesController extends AppController {
 		$pic = $this->Picture->Content->ContentP->find('first', array(
 			'conditions' => array(
 				'ContentP.content_id' => $content_id,
-				'ContentP.user_id' => $this->Session->read('id')),
+				'ContentP.user_id' => $this->Session->read('Auth.User.id')),
 			'fields' => 'ContentP.id, ContentP.user_id, ContentP.pointType'));
 		if (!empty($pic) && $pic['ContentP']['pointType'] == $pointType) {
 			$this->Picture->Content->ContentP->delete($pic['ContentP']['id']);

@@ -45,13 +45,10 @@ ul.album_ul {
 
 li.album_li {
 	display: inline-block;
-	text-align: center;
+	background-color: white;
 	border: 2px solid #ccc;
-  	-webkit-box-shadow: 3px 3px 3px #777;
-       -moz-box-shadow: 3px 3px 3px #777;
-            box-shadow: 3px 3px 3px #777;
+    box-shadow: 3px 3px 3px #777;
 	text-align: center;
-	transfom: ;
 }
 
 li.album_li a {
