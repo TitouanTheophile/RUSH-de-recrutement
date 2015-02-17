@@ -9,18 +9,16 @@ class MessagesController extends AppController {
 					'Message.from_id' => $this->Auth->user('id')
 					)
 				),
-			'order' => 'Message.created DESC',
+			'order' => 'Message.created DESC'
 			));
 		$this->set('messages', $messages);
 	}
-
 
 	public function send($id = null) { // Add a new message into database
 		if ($this->request->is('post') && !empty($this->request->data)) { // If the user send a message
 			$this->Message->create(array( // Put the message into the database
 				'from_id' => $this->Auth->user('id'),
 				'target_id' => $id,
-
 				'content' => $this->request->data['Message']['content']
 				), true);
 			$this->Message->save(null, true, array('from_id', 'target_id', 'content'));
@@ -29,16 +27,12 @@ class MessagesController extends AppController {
 			$this->loadModel('Notification');
 			$this->Notification->create(array( //Put the notification about the message into the database
 				'from_id' => $this->Auth->user('id'),
-
 				'target_id' => $id,
-
 				'notificationType_id' => 1,
 				'content_id' => $this->Message->getInsertID(),
 				), true);
 			$this->Notification->save(null, true, array('from_id', 'target_id', 'notificationType_id', 'content_id'));
 		}
-
-
 		$this->loadModel('User');
 		$from = $this->User->findById($id);
 		$this->set('from', $from);

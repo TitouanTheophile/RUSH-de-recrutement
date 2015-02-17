@@ -29,9 +29,23 @@ h1#message_profile_name {
 div.message_div {
 	padding: 5px;
 	margin: 5px;
+	background: linear-gradient(rgba(142,142,245,0.5),rgba(100,100,186,0.5));
 }
 
-div.message_div a {
+div.message_div:hover {
+	background: linear-gradient(rgba(142,142,245,1),rgba(100,100,186,1));
+}
+
+div.message_div > a {
+	display: block;
+	margin-bottom: 5px;
+}
+
+div.message_div span a:hover {
+	color: #BEBEF0;
+}
+
+div.message_div > span {
 	display: block;
 	margin-bottom: 5px;
 }
