@@ -1,9 +1,8 @@
 $(document).ready( function() {
 
-  url = window.location.pathname + '/get_users';
-
   $('#ProfileId_messages').keyup( function() {
     if( $(this).val().length > 1 ) {
+      url = window.location.pathname + '/get_users_messages';
       $.ajax( {
         type : 'GET',
         url : url ,

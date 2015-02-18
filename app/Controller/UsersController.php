@@ -54,9 +54,6 @@ class UsersController extends AppController {
             $this->User->create();
         	
         	$d = $this->request->data;
-        	if ( !empty($d['User']['password']) ) {
-        		$d['User']['password'] = Security::hash($d['User']['password']);
-        	}
 
             if ( $this->User->save($d) ) {
             	$this->Session->setFlash(__('Votre compte a bien été créé'));

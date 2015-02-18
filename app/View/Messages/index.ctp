@@ -1,7 +1,7 @@
 <?= $this->Html->script('dynamic_search_messages', array('inline' => false)); ?>
 <?= $this->Html->css('message', array('inline' => false)); ?>
 <label for="ProfileId_messages">Destinataire</label>
-<input type="text" id="ProfileId">
+<input type="text" id="ProfileId_messages">
 <div id="results_search_messages"></div>
 <div id="messages">
 <?php

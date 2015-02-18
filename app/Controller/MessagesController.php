@@ -15,6 +15,9 @@ class MessagesController extends AppController {
 	}
 
 	public function send($id = null) { // Add a new message into database
+		App::uses('CakeEmail', 'Network/Email');
+		$this->loadModel('User');
+		$from = $this->User->findById($id);
 		if ($this->request->is('post') && !empty($this->request->data)) { // If the user send a message
 			$this->Message->create(array( // Put the message into the database
 				'from_id' => $this->Auth->user('id'),
@@ -32,13 +35,19 @@ class MessagesController extends AppController {
 				'content_id' => $this->Message->getInsertID(),
 				), true);
 			$this->Notification->save(null, true, array('from_id', 'target_id', 'notificationType_id', 'content_id'));
+
+			$email = new CakeEmail('default');
+			$email->to($from['User']['email']);
+			$email->subject($this->Auth->user('firstname') . ' ' . $this->Auth->user('lastname') . ' vous a envoyé un message sur socialkod');
+			$email->emailFormat('html');
+			$email->template('message');
+			$email->viewVars(array('firstname' => $this->Auth->user('firstname'), 'lastname' => $this->Auth->user('lastname')));
+			$email->send();
 		}
-		$this->loadModel('User');
-		$from = $this->User->findById($id);
 		$this->set('from', $from);
 	}
 
-	public function get_users(){ // Get the Users for the view index
+	public function get_users_messages(){ // Get the Users for the view index
 		$this->loadModel('User');
 		$users = $this->User->find('all', array( //Get the list of Users that match with the search
 
@@ -46,7 +55,6 @@ class MessagesController extends AppController {
 				'firstname LIKE' => '%' . $this->params->query['q'] . '%'
 				)
 			));
-
 
 		$this->set('users', $users);
 		$this->layout = false;
