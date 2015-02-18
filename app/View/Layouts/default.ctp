@@ -16,6 +16,7 @@
 		<?= $this->Html->css('header'); ?>
 		<?= $this->fetch('css'); ?>
 		<?= $this->Html->script('/js/jquery.js', array('block' => 'requiredScript')); ?>
+		<?= $this->Html->script('dynamic_search', array('inline' => false)); ?>
 		<?= $this->fetch('requiredScript'); ?>
 		<?= $this->fetch('script'); ?>
 	</head>
@@ -26,6 +27,10 @@
 				<?php if ($user) echo $notifications; ?>
 		    </div>
 			<?php if ($user) : ?>
+				<div id="container_search">
+					<input type="text" id="ProfileId" placeholder="Chercher des personnes">
+					<div id="results_search"></div>
+				</div>
 		    	<?= $options ?>
         		<?= $menu ?>
 	    	<?php endif ?>

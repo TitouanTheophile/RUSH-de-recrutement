@@ -220,4 +220,14 @@ class UsersController extends AppController {
     	return $this->redirect(array('controller' => 'pages', 'action' => 'home'));
     }
 
+    public function get_users(){ // Get the Users for the view index
+		$users = $this->User->find('all', array( //Get the list of Users that match with the search
+			'conditions' => array(
+				'firstname LIKE' => '%' . $this->params->query['q'] . '%'
+				)
+			));
+		$this->set('users', $users);
+		$this->layout = false;
+		$this->render('/Elements/get_users');
+	}
 }

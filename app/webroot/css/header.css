@@ -17,7 +17,6 @@ div#header_title a {
 div#header_menu {
 	display: block;
 	position: relative;
-	float: left;
 	height: 50px;
 	padding: 5px;
 	float: right;
@@ -141,4 +140,39 @@ div#notifications_list div.notification:hover {
 div#notifications_list div.notification img {
 	width: 50px;
     height: auto;
+}
+
+div#container_search {
+	margin-left: 150px;
+	display: inline-block;
+}
+
+input#ProfileId {
+	width: 500px;
+	padding: 0px;
+	margin-top: 15px;
+}
+
+div#results_search {
+	position: absolute;
+	background-color: white;
+	width: 504px;
+	z-index: 42;
+}
+
+div#results_search img.search {
+	width: 50px;
+    height: auto;
+}
+
+div#results_search div.profile {
+	vertical-align: top;
+}
+
+div#results_search div.profile:hover {
+	background-color: #CCFFFF;
+}
+
+div#results_search a {
+	color: blue;
 }

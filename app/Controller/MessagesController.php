@@ -50,7 +50,7 @@ class MessagesController extends AppController {
 
 		$this->set('users', $users);
 		$this->layout = false;
-		$this->render('/Elements/get_users');
+		$this->render('/Elements/get_users_messages');
 	}
 
 	public function get_messages($id = null) { // Get the message for the view send

@@ -1,8 +1,8 @@
-<?= $this->Html->script('dynamic_search', array('inline' => false)); ?>
+<?= $this->Html->script('dynamic_search_messages', array('inline' => false)); ?>
 <?= $this->Html->css('message', array('inline' => false)); ?>
-<label for="ProfileId">Destinataire</label>
+<label for="ProfileId_messages">Destinataire</label>
 <input type="text" id="ProfileId">
-<div id="results_search"></div>
+<div id="results_search_messages"></div>
 <div id="messages">
 <?php
 	foreach ($messages as $message) {
