@@ -96,63 +96,6 @@ p {
 	padding: 20px;
 }
 
-/* Content
---------------------------------------------------------- */
-
-.content_wall {
-	background: linear-gradient(rgba(242,242,255,1.0),rgba(232,232,255,1.0));
-	box-shadow: 2px 2px 12px rgba(0,0,0,0.4);
-	padding: 10px;
-	border-radius: 3px;
-	margin: 20px 0px;
-	transition: 0.1s;
-}
-
-.content_wall:hover {
-	background: linear-gradient(rgba(242,242,255,1.0),rgba(232,232,255,1.0));
-	box-shadow: 2px 2px 12px 6px rgba(142,142,245,0.8);
-}
-
-.content_wall_header {
-	display: block;
-	height: 40px;
-}
-
-.content_wall_header img {
-	float: left;
-	width: 40px;
-	height: 40px;
-	border-radius: 50%;
-}
-
-.content_wall_header > span {
-	display: inline-block;
-	padding: 0px 10px;
-	line-height: 40px;
-	max-width: 480px;
-	max-height: 40px;
-	overflow: hidden;
-}
-
-.content_wall_date {
-	display: inline-block;
-	position: relative;
-	padding: 0px 10px;
-	color: rgba(100,100,100,1.0);
-}
-
-.content_wall p {
-	padding: 10px;
-}
-
-.post_comment {
-	background: rgba(210,216,255,1.0);
-	height: auto;
-}
-
-
-
-
 /** Layout **/
 #container {
 	display: block;
@@ -567,7 +510,7 @@ p.error,
 	background-image: -webkit-linear-gradient(top, #ee5f5b, #c43c35);
 	background-image: -o-linear-gradient(top, #ee5f5b, #c43c35);
 	background-image: linear-gradient(top, #ee5f5b, #c43c35);
-	background: linear-gradient(rgba(255,186,42,1.0),rgba(200,100,00,1.0));
+	background: linear-gradient(rgba(64,64,64,1.0),rgba(32,32,32,1.0));
 	text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.3);
 	text-align: center;
 }

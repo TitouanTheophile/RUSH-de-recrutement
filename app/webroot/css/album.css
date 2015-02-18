@@ -157,7 +157,7 @@ div.big_pic	{
 
 div.big_pic img {
 	display: block;
-	width: auto;
+	width: 600px;
 	margin: auto;
 	padding: 30px;
 	padding-bottom: 40px;
