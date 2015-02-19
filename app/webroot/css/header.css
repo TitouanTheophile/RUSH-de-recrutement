@@ -218,3 +218,8 @@ div#results_search a span {
 	padding-left: 20px;
 	font-size: 1.2em;
 }
+
+div#notifs {
+	display: inline-block;
+	height: 60px;
+}
