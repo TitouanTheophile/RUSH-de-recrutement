@@ -1,7 +1,7 @@
+<?= $this->Html->css('users', array('inline' => false)); ?>
 <div id="user_header">
 	<?= $this->element('user_photo', array('user' => $this->Session->read('Auth.User'))); ?>
 </div>
-
 <div id="user_edit">
 	<div class="container_padding">
 		<h4>Changer ma photo de profil</h4>

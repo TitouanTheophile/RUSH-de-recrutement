@@ -210,15 +210,12 @@ class UsersController extends AppController {
 	    	$this->User->id = $id;
 	    	$this->User->save($this->request->data);
 	    	$extension = strtolower(pathinfo($this->request->data['User']['avatar_file']['name'], PATHINFO_EXTENSION));
-	    	if (
-	    		!empty($this->request->data['User']['avatar_file']['tmp_name']) &&
-	    		in_array($extension, array('jpg'))
-	    	){
+	    	if (!empty($this->request->data['User']['avatar_file']['tmp_name']) &&
+	    		in_array($extension, array('jpg'))) {
 	    		move_uploaded_file(
 	    			$this->request->data['User']['avatar_file']['tmp_name'],
 	    			IMAGES . 'avatars' . DS . $id . '.' . $extension
 	    		);
-	    		$this->User->saveField('picture_id', $id);
 	    		$this->Session->setFlash(__('Votre photo a bien été mise a jour'));
 	    		return $this->redirect(array('action' => 'view', $user['User']['id']));
 	    	}

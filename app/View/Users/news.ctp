@@ -32,9 +32,7 @@
 										'post',
 										array (
 											'post_content' => $post['Post']['content'],
-
 											'content' => $content
-
 										)
 									);
 								}

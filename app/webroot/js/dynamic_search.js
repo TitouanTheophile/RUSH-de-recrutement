@@ -17,4 +17,9 @@ $(document).ready( function() {
       $('#results_search').html('');
     }
   });
+
+  $('#ProfileId').on('focusout', function() {
+    $(this).val('');
+    $('#results_search').html('');
+  })
 });

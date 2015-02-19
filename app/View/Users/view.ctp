@@ -1,7 +1,6 @@
 <?= $this->Html->css('users', array('inline' => false)); ?>
 <?= $this->Html->css('content', array('inline' => false)); ?>
 <?= $this->Html->css('friend', array('inline' => false)); ?>
-<?= $this->Html->script('fixmethat', array('inline' => false)); ?>
 <div id="user_header">
 	<?= $this->element('user_photo', array('user' => $user['User']));?>
 	<div id="friend_box">

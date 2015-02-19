@@ -4,7 +4,7 @@
 <?= $this->Html->image('logo-notifications.png', array('id' => 'notifications')); ?>
 <?php
 if (isset($notifications_count) && $notifications_count > 0)
-	echo ('<div id="notifications_count">' . $notifications_count . '</div>');
+	echo $this->Html->div(null, $notifications_count, array('id' => 'notifications_count'));
 ?>
 <div id="notifications_list">
 <?php 
@@ -13,12 +13,11 @@ if (isset($notifications_count) && $notifications_count > 0)
 		$lastname = $notification['From']['lastname'];
 		$date = $this->Time->format($notification['Notification']['created'], '%#d/%m/%y');
 		$date_time = $this->Time->format($notification['Notification']['created'], '%H:%M');
-		$pic_url = (empty($from['From']['picture_id']) || $from['From']['picture_id'] == NULL ? 'inconnu.jpg' :
-																								$notification['From']['picture_id'] . '.jpg');
+		$pic_url = (!file_exists(IMAGES . 'avatars' . DS . $notification['From']['id'] . '.jpg') ? 'inconnu.jpg' : $notification['From']['id'] . '.jpg');
 		$picture = $this->Html->image($pic_url, array('alt' => 'Photo de profil', 'class' => 'search'));
 		if ($notification['NotificationTypes']['name'] == 'Message')
-			$sentence = "$picture $firstname $lastname vous a envoyé un message le $date ȧ $date_time";
-		echo $this->Html->link($this->Html->div('notification', $sentence),
+			$sentence = $this->Html->tag('span', "$firstname $lastname vous a envoyé un message le $date ȧ $date_time");
+		echo $this->Html->link($picture . $sentence,
 							   array('controller' => 'messages', 'action' => 'send', $notification['From']['id']),
 							   array('escape' => false));
 	}
