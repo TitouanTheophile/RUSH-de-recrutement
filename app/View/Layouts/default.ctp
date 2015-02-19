@@ -1,9 +1,11 @@
 <?php
 	$user = $this->Session->read('Auth.User');
 	if (!empty($user)) {
-		$notifications = $this->element('notifications');
 		$options = $this->element('options');
 		$menu = $this->element('menu');
+		echo $this->Html->script('dynamic_search', array('inline' => false));
+		echo $this->Html->script('dynamic_refresh_notifications', array('inline' => false));
+		echo $this->Html->script('notifications_display', array('inline' => false));
 	}
 ?>
 <!DOCTYPE html>
@@ -16,7 +18,6 @@
 		<?= $this->Html->css('header'); ?>
 		<?= $this->fetch('css'); ?>
 		<?= $this->Html->script('/js/jquery.js', array('block' => 'requiredScript')); ?>
-		<?= $this->Html->script('dynamic_search', array('inline' => false)); ?>
 		<?= $this->fetch('requiredScript'); ?>
 		<?= $this->fetch('script'); ?>
 	</head>
@@ -24,7 +25,7 @@
 		<div id="header">
 			<div id="header_title">
 				<?= $this->Html->link('<h1>SocialKOD</h1>', '/', array('escape' => false)); ?>
-				<?php if ($user) echo $notifications; ?>
+				<?php if ($user) echo $this->Html->image('logo-notifications.png', array('id' => 'notifications')) . '<div id="notifications_count"></div><div id="notifications_list"></div>' ?>
 		    </div>
 			<?php if ($user) : ?>
 				<div id="container_search">

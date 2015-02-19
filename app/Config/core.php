@@ -18,6 +18,18 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
 
+
+/**
+ * Socialkod Email Level:
+ *
+ * Avoid Emails:
+ * 	0: No emails.
+ *
+ * Email Mode:
+ * 	1: Send Emails but very slow.
+ */
+	Configure::write('email', 0);
+
 /**
  * CakePHP Debug Level:
  *

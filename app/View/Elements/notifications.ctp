@@ -1,12 +1,3 @@
-<?= $this->Html->script('notifications_display', array('inline' => false)); ?>
-<?php $notifications = $this->requestAction(array('controller' => 'notifications', 'action' => 'get_notifications')); ?>
-<?php $notifications_count = $this->requestAction(array('controller' => 'notifications', 'action' => 'get_count')); ?>
-<?= $this->Html->image('logo-notifications.png', array('id' => 'notifications')); ?>
-<?php
-if (isset($notifications_count) && $notifications_count > 0)
-	echo $this->Html->div(null, $notifications_count, array('id' => 'notifications_count'));
-?>
-<div id="notifications_list">
 <?php 
 	foreach ($notifications as $notification) {
 		$firstname = $notification['From']['firstname'];
@@ -22,4 +13,3 @@ if (isset($notifications_count) && $notifications_count > 0)
 							   array('escape' => false));
 	}
 ?>
-</div>
