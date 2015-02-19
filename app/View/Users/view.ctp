@@ -3,35 +3,22 @@
 <?= $this->Html->css('friend', array('inline' => false)); ?>
 <div id="user_header">
 	<?= $this->element('user_photo', array('user' => $user['User']));?>
+	<?php if ($this->Session->read('Auth.User.id') != $user['User']['id']): ?>
 	<div id="friend_box">
 		<?php
-			if ( $this->Session->read('Auth.User.id') != $user['User']['id'] ) {
-				$friends_verification = $this->requestAction(
-					'friends/isFriend',
-					array('pass' => array($this->Session->read('Auth.User.id'), $user['User']['id']))
-				);
-				if ( $friends_verification == 1 ) {
-					echo $this->Form->postLink(
-						'Supprimer',
-						array('controller' => 'friends', 'action' => 'deleteFriend', $user['User']['id']),
-						array('confirm' => 'Etes-vous sûr ?')
-					);
-				}
-				else if ( $friends_verification == 0 ) {
-					echo "En attente d'amitie <3";
-				}
-				else if ( $friends_verification == -1 ) {
-					echo $this->Form->postLink(
-						'Ajouter',
-						array('controller' => 'friends', 'action' => 'addFriend', $user['User']['id'])
-					);
-				}
-			}
-			else {
-				$friends_verification = 1;
-			}
+				$friends_verification = $this->requestAction('friends/isFriend',
+															 array('pass' => array($this->Session->read('Auth.User.id'), $user['User']['id'])));
+				if ($friends_verification == 1)
+					echo $this->Form->postLink('Supprimer', array('controller' => 'friends', 'action' => 'deleteFriend', $user['User']['id']),
+															array('confirm' => 'Etes-vous sûr ?'));
+				else if ( $friends_verification == 0 )
+					echo "En attente d'amitié <3";
+				else if ( $friends_verification == -1 )
+					echo $this->Form->postLink('Ajouter', array('controller' => 'friends', 'action' => 'addFriend', $user['User']['id']));
 		?>
 	</div>
+	<?php else: $friends_verification = 1; ?>
+	<?php endif ?>
 </div>
 
 <div id="wall_infos" class="container_padding">

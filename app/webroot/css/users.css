@@ -65,6 +65,7 @@
 
 #user_element_name a {
 	color: white;
+	font-size: 1.5em;
 }
 
 #black_background {
@@ -137,6 +138,11 @@
 	width: 100%;
 	min-height: auto;
 	margin: 10px 0px;
+}
+
+#user_edit a.delAccount {
+	color: red;
+	float: right;
 }
 
 .user_publication {

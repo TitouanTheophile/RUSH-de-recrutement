@@ -1,4 +1,4 @@
-$(document).ready( function() {
+$(document).ready(function() {
 
   url = '/users/get_users';
 
@@ -18,8 +18,12 @@ $(document).ready( function() {
     }
   });
 
-  $('#ProfileId').on('focusout', function() {
-    $(this).val('');
+  $('html').on('click', function() {
+    $('#ProfileId').val('');
     $('#results_search').html('');
+  });
+
+  $('#ProfileId').on('click', function() {
+        event.stopPropagation();
   })
 });

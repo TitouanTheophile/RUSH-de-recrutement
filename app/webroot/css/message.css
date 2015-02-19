@@ -34,6 +34,7 @@ div.message_div {
 
 div.message_div:hover {
 	background: linear-gradient(rgba(142,142,245,1),rgba(100,100,186,1));
+	color: white;
 }
 
 div.message_div > a {

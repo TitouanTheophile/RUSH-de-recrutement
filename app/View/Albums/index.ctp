@@ -1,5 +1,6 @@
-<?= $this->element('user_photo', array('user' => $this->Session->read('Auth.User'))); ?>
+<?= $this->Html->div(null, $this->element('user_photo', array('user' => $this->Session->read('Auth.User'))), array('id' => 'user_header')); ?>
 <?= $this->Html->css('album', array('inline' => false)) ?>
+<?= $this->Html->css('users', array('inline' => false)); ?>
 <?= $this->Html->div('section_title', "<h3>Albums</h3>") ?>
 <?= $this->Html->div('section_nav', $this->Html->link('Créer un album', array('controller' => 'albums', 'action' => 'newAlbum'))); ?>
 <?php $album_list = array(); ?>

@@ -1,6 +1,7 @@
 <?= $this->Html->css('users', array('inline' => false)); ?>
+<?= $this->Html->css('content', array('inline' => false)); ?>
 <div id="news_profil">
-	<div id="black_background">
+	<div id="user_header">
 	<?php
 		header('Refresh: 60; URL=');
 	 	echo $this->element('user_photo', array('user' => $user['User'])); 
@@ -8,7 +9,6 @@
 	 </div>
 	<div id="wall_infos">
 		<div class="container_padding20">
-			Hey Hey Hey !! Sauce moi ca !
 		</div>
 	</div>
 </div>
