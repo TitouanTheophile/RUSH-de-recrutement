@@ -22,68 +22,48 @@
 </div>
 
 <div id="wall_infos" class="container_padding">
-		<table>
-			<td><h4>Infos publiques</h4></td>
+		<div class="container_padding wall_infos_section">
+			<h4>Infos publiques</h4>
 			<?php if ($this->Session->read('Auth.User.id') == $user['User']['id']) : ?>
-				<td><?= $this->Html->link('Éditer', array ('action' => 'editInfo', $this->Session->read('Auth.User.id'))); ?></td>
+				<?= $this->Html->tag('span', $this->Html->link('Éditer', array ('action' => 'editInfo', $this->Session->read('Auth.User.id')))); ?>
             <?php endif ?>
-        </table>
-		<hr />
+		</div>
 		<div class="container_padding">
 			<?php
-				if (!empty($user['User']['gender']) && $friends_verification == 1 ) {
+				if (!empty($user['User']['gender']) && $friends_verification == 1) {
 					echo "<p>Sexe : <strong>";
-					if ($user['User']['gender'] == 1) {
-						echo "Masculin";
-					}
-					else if ($user['User']['gender'] == 2) {
-						echo "Feminin";
-					}
-					else if ($user['User']['gender'] == 3) {
-						echo "Hermaphrodite";
-					}
+					echo ($user['User']['gender'] == 1 ? "Masculin" : ($user['User']['gender'] == 2 ? "Feminin" : "Hermaphrodite"));
 					echo "</strong></p>";
 				}
-				if ( !empty($user['User']['study_place']) && $friends_verification == 1 ) {
+				if (!empty($user['User']['study_place']) && $friends_verification == 1)
 					echo "<p>Étudie à <strong>" . $user['User']['study_place'] . "</strong></p>";
-				}
-				if ( !empty($user['User']['work_place']) && $friends_verification == 1 ) {
+				if (!empty($user['User']['work_place']) && $friends_verification == 1)
 					echo "<p>Travaille à <strong>" . $user['User']['work_place'] . "</strong></p>";
-				}
-				if ( !empty($user['User']['user_place']) && $friends_verification == 1 ) {
+				if (!empty($user['User']['user_place']) && $friends_verification == 1)
 					echo "<p>Habite à <strong>" . $user['User']['user_place'] . "</strong></p>";
-				}
-				if ( !empty($user['User']['birthday']) && $friends_verification == 1 ) {
-					echo "<p>Date d'anniversaire : <strong>" . $user['User']['birthday'] . "</strong></p>";
-				}
-				if ( !empty($user['User']['created']) ) {
-					echo "<p>Present sur SocialKOD depuis le <strong>" . $user['User']['created'] . "</strong></p>";
-				}
+				if (!empty($user['User']['birthday']) && $friends_verification == 1)
+					echo "<p>Date de naissance : <strong>" . $this->Time->format($user['User']['birthday'], '%e %B %Y') . "</strong></p>";
+				if (!empty($user['User']['created']))
+					echo "<p>Inscrit depuis le <strong>" . $this->Time->format($user['User']['created'], '%e %B %Y') . "</strong></p>";
 			?>
 		</div>
-		<table>
-			<td><h4>Cordonnées</h4></td>
+		<div class="container_padding wall_infos_section">
+			<h4>Cordonnées</h4>
 			<?php if ($this->Session->read('Auth.User.id') == $user['User']['id']) : ?>
-				<td><?= $this->Html->link('Éditer', array ('action' => 'editData', $this->Session->read('Auth.User.id'))); ?></td>
+				<?= $this->Html->tag('span', $this->Html->link('Éditer', array ('action' => 'editData', $this->Session->read('Auth.User.id')))); ?>
             <?php endif ?>
-        </table>
-		<hr />
+		</div>
 		<div class="container_padding">
-			<?php
-				if ( $friends_verification == 1 ) {
-					echo "<p>Mon email : <strong>" . $user['User']['email'] . "</strong></p>";
-					echo $this->Html->link(
-						'<div id="wall_infos_friend">'.$this->Html->image('friends.png', array('alt' => "Liste d'amis"))."<span>Liste d'amis</span></div>",
+			<?php if ($friends_verification == 1) : ?>
+				<p>Mon email : <strong><?= $user['User']['email'] ?></strong></p>
+				<?= $this->Html->link($this->Html->image('friends.png', array('alt' => "Liste d'amis"))."<span>Liste d'amis</span>",
                 		array('controller' => 'users', 'action' => 'friends', $user['User']['id']),
-                		array('escape' => false)
-                	);
-				}
-			?>
+                		array('escape' => false, 'id' => 'wall_infos_friend')); ?>
+			<?php endif ?>
 		</div>
 	</div>
 	<div id="user_wall" class="container_padding">
-		<h4>Mon actualité</h4>
-		<hr />
+		<h3>Mon actualité</h3>
 		<div class="container_padding">
 			<?php
 				if ( $user['User']['id'] == $this->Session->read('Auth.User.id') || $friends_verification == 1 ) {

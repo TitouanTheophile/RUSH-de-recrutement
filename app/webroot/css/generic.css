@@ -61,9 +61,8 @@ h2 {
 
 h3 {
 	display: inline-block;
+	color: #424242;
 	padding: 10px;
-	color: #ff8800;
-	background: rgba(0,0,0,0.8);
 	font-family:'Gill Sans','lucida grande', helvetica, arial, sans-serif;
 	font-size: 165%;
 	font-weight: bold;

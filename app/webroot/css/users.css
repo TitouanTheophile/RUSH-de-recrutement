@@ -93,6 +93,20 @@
 	vertical-align: top;
 }
 
+#wall_infos .wall_infos_section {
+	border-bottom: 1px solid grey;
+}
+
+#wall_infos .wall_infos_section h4 {
+	display: inline-block;
+}
+
+#wall_infos .wall_infos_section span {
+	display: inline-block;
+	float: right;
+	top: 0px;
+}
+
 #wall_infos.fixe {
 	position: fixed;
 	top: 70px;
@@ -107,10 +121,14 @@
 	-webkit-transition: 0.2s;
 	transition: 0.2s;
 	opacity: 0.8;
-}#wall_infos_friend:hover {
+}
+
+#wall_infos_friend:hover {
 	background: linear-gradient(rgba(142,142,245,0.9),rgba(100,100,186,0.9));
 	opacity: 1.0;
-}#wall_infos_friend:active {
+}
+
+#wall_infos_friend:active {
 	box-shadow: 0px 0px 10px rgba(0,0,0,0.5) inset;
 }
 
