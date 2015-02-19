@@ -31,7 +31,7 @@
 		<hr />
 		<div class="container_padding">
 			<?php
-				if ( !empty($user['User']['gender']) && $friends_verification == 1 ) {
+				if (!empty($user['User']['gender']) && $friends_verification == 1 ) {
 					echo "<p>Sexe : <strong>";
 					if ($user['User']['gender'] == 1) {
 						echo "Masculin";
