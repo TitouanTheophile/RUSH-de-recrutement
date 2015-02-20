@@ -21,7 +21,7 @@
            	}
            	else if ($content['Content']['targetType_id'] == 2) {
            		$header .= ' publié sur ';
-				$header .= $this->Html->link($target['User']['firstname']." ".$target['User']['lastname'],
+				$header .= $this->Html->link($target['User']['name'],
            							   	 	 array('controller' => 'users', 'action' => 'view', $target['User']['id']));
            	}
 			echo $user_picture . $this->Html->tag('span', $header);
