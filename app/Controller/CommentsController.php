@@ -2,17 +2,8 @@
 class CommentsController extends AppController
 {
 
-	function comment($content_id)
+	function getComment($content_id)
 	{
-		if ($this->request->is('post'))
-		{
-			$this->Comment->create(array(
-				'from_id' => $this->Session->read('id'),
-				'content_id' => $content_id,
-				'content' => $this->request->data['post']['text-area']
-				), true);
-				$this->Comment->save(NULL, true);
-		}
 		$allCom = $this->Comment->find('all', array(
 		    'joins' => array(
 		        array(
@@ -26,14 +17,29 @@ class CommentsController extends AppController
 		    'conditions' => array(
 		        'content_id' => $content_id
 		    ),
-		    'fields' => array('users.firstname','users.lastname', 'Comment.content', 'Comment.created', 'Comment.from_id')
+		    'fields' => array('users.firstname','users.lastname', 'Comment.content', 'Comment.created', 'Comment.from_id', 'Comment.content_id'
+		    ),
+		    'order' => array('Comment.created' => 'ASC')
 			));
-		$this->layout = false;
-		$view = new View($this, false);
-		$content = $view->element('comment', $allCom);
-//		$this->view = $content;
-		// $this->set(array('comment' => $allCom));
 
+		$content['Content']['id'] = $content_id;
+		$this->set('comment', $allCom);
+		$this->set('content', $content);
+		$this->layout = false;
+		$this->render('/Elements/comment');
+	}
+
+	function postComment()
+	{
+			if ($this->request->is('post'))
+			{
+				$this->Comment->create(array(
+					'from_id' => $this->Session->read('Auth.User.id'),
+					'content_id' => $this->request->data['Comment']['content_id'],
+					'content' => $this->request->data['Comment']['content']
+					), true);
+					$this->Comment->save(NULL, true);
+			}
 	}
 }
 ?>

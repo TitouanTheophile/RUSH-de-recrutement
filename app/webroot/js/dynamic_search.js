@@ -1,6 +1,6 @@
 $(document).ready( function() {
 
-  url = window.location.pathname + '/get_users';
+  url = window.location.pathname + 'get_users';
 
   $('#ProfileId').keyup( function() {
     if( $(this).val().length > 1 ) {

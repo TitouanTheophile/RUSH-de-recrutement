@@ -1,42 +1,69 @@
-.comment_area
-{
-	background-color: #dcdcee;
-	height: 20px;
-	width: 300px;
- 	overflow: hidden;
- 	position: relative;
- 	resize: none;
-}
-
 .comment_button
 {
 	background-color: #9999dd;
  	position: relative;
- 	top: 15px;
- 	left: -57px;
+ 	left: 465px;
 }
 
 .comments
 {
+    margin-left: 20px;
+}
+.comment
+{
 	border: 1px solid;
 	overflow: hidden;
-	width: 300px;
+	width: 495px;
     word-wrap: break-word;
-}
-
-.comment_ronly
-{
-	background-color: #ececff;
-	resize: none;
- 	overflow: hidden;
 }
 
 .comment_date
 {
 	font-size: 13px;
+    position: relative;
+    top: 3px;
 }
 
-a
+.comment_area
 {
+    margin: 0;
+    padding: 0;
+}
+
+.profile_links
+{
+    font-size: 15px;
 	color: #284370;
+    text-decoration: none;
+}
+
+textarea {
+    color: #444;
+    padding: 5px;
+        resize: none;
+    overflow: hidden;
+}
+
+.txtstuff {
+    resize: none;
+    overflow: hidden;
+}
+
+.hiddendiv {
+    display: none;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    overflow-wrap: break-word; /* future version of deprecated 'word-wrap' */
+}
+
+.common {
+    width: 500px;
+    min-height: 30px;
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    overflow: hidden;
+}
+
+.lbr {
+    line-height: 3px;
 }

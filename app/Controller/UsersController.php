@@ -20,9 +20,25 @@ class UsersController extends AppController {
     public function getTarget($target_id) {
     	return $this->User->findById($target_id);
     }
-    public function getComment($content_id) {
-    	return $this->Comment->find('all', array('fields' => array('content', 'from_id')),
-				 array('conditions' => array('content_id' => $content_id)));
+    public function getComment($content_id)
+    {
+    	return $this->Comment->find('all', array(
+		    'joins' => array(
+		        array(
+		            'table' => 'users',
+		            'type' => 'INNER',
+		            'conditions' => array(
+		                'users.id = Comment.from_id'
+		            )
+		        )
+		    ),
+		    'conditions' => array(
+		        'content_id' => $content_id
+		    ),
+		    'fields' => array('users.firstname','users.lastname', 'Comment.content', 'Comment.created', 'Comment.from_id', 'Comment.content_id'
+		    ),
+		    'order' => array('Comment.created' => 'ASC')
+			));
     }
 
     public function view($id = null) {
@@ -33,6 +49,7 @@ class UsersController extends AppController {
         if (!$user) {
             throw new NotFoundException(__('Le profil spécifié est invalide'));
         }
+        $this->layout = "default";
         $this->set('contents', $this->Content->find('all'));
         $this->set('posts', $this->Post->find('all'));
         $this->set('user', $user);

@@ -46,8 +46,13 @@
 		<?php echo $post_content; ?>
 	</p>
 	<div class="post_comment">
-		<?php echo $this->element('comment', array('content' => $content));
-        ?>
+		<?php
+			$comment = $this->requestAction(
+				'users/getComment',
+				array('pass' => array($content['Content']['id']))
+			);
+		?>
+		<?php echo $this->element('comment', array('content' => $content, 'comment' => $comment));
+	    ?>
 	</div>
-
 </div>
