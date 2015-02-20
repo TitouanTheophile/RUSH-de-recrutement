@@ -31,12 +31,23 @@
 	z-index: 1;
 }
 
-#user_element_photo:hover img {
+#user_element_photo img.long {
+	width: 130px;
+}
+
+#user_element_photo img.large {
+	height: 130px;
+}
+
+#user_element_photo:hover img.long {
 	width: 150px;
 }
 
+#user_element_photo:hover img.large {
+	height: 150px;
+}
+
 #user_element_photo img {
-	width: 130px;
 	position: relative;
 	top: 50%;
 	left: 50%;

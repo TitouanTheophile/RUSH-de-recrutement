@@ -12,9 +12,9 @@
 				if ($friends_verification == 1)
 					echo $this->Form->postLink('Supprimer', array('controller' => 'friends', 'action' => 'deleteFriend', $user['User']['id']),
 															array('confirm' => 'Etes-vous sûr ?'));
-				else if ( $friends_verification == 0 )
+				else if ($friends_verification == 0)
 					echo "En attente d'amitié <3";
-				else if ( $friends_verification == -1 )
+				else if ($friends_verification == -1)
 					echo $this->Form->postLink('Ajouter', array('controller' => 'friends', 'action' => 'addFriend', $user['User']['id']));
 		?>
 	</div>
@@ -67,14 +67,14 @@
 		<h3>Mon actualité</h3>
 		<div class="container_padding">
 			<?php
-				if ( $user['User']['id'] == $this->Session->read('Auth.User.id') || $friends_verification == 1 ) {
+				if ($user['User']['id'] == $this->Session->read('Auth.User.id') || $friends_verification == 1 ) {
 					echo $this->Html->link('Publier un post',
                 		array ('action' => 'sendPost', $user['User']['id']));
 		    		$index = count($contents);
 		    		while($index) {
 		    			$content = $contents[--$index];
 			    		foreach ($posts as $post) {
-			    			if ( $post['Post']['id'] == $content['Content']['content_id'] ) {
+			    			if ($post['Post']['id'] == $content['Content']['content_id'] ) {
 								echo $this->element(
 									'post',
 									array (

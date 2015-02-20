@@ -1,8 +1,10 @@
 <div id="user_element">
 	<div id="user_element_photo">
 		<?php
-			$picture = (!file_exists(IMAGES . 'avatars' . DS . $user['id'] . '.jpg') ? 'inconnu.jpg' : 'avatars/' . $user['id'] . '.jpg');
-			$picture = $this->Html->image($picture, array('alt' => 'Photo de profil', 'title' => 'Profil'));
+			$picture = (!file_exists(IMAGES . 'avatars' . DS . $user['id'] . '.jpg') ? 'inconnu.jpg' : 'avatars' . DS .  $user['id'] . '.jpg');
+			$scale = getimagesize(IMAGES . DS. $picture);
+			$scale = ($scale[0] >= $scale[1] ? 'large' : 'long');
+			$picture = $this->Html->image($picture, array('alt' => 'Photo de profil', 'title' => 'Profil', 'class' => $scale));
 			echo $this->Html->link($picture, array('action' => 'view', $user['id']), array('escape' => false));
 			?>
 	</div>

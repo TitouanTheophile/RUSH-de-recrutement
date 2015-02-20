@@ -46,10 +46,6 @@ class UsersController extends AppController {
 		    'order' => array('Comment.created' => 'ASC')
 			));
     }
-    public function getPending($pending) {
-    	if ( $pending == $this->Auth->user('id') ) {return 1;}
-    	else {return 0;}
-    }
 
     public function get_users(){ // Get the Users for the view index
 		$users = $this->User->find('all', array( //Get the list of Users that match with the search
@@ -101,7 +97,7 @@ class UsersController extends AppController {
 				'conditions' =>	array('user2_id' => $this->Auth->user('id') )));
 
 	    $index = count($my_friends);
-		while ( $index ) {
+		while ($index) {
 			$my_friend = $my_friends[--$index];
 			if ( isset($my_friend['Friend']['user1_id']) && $my_friend['Friend']['pending'] == NULL ) {
 				array_push($arr, $my_friend['Friend']['user1_id']);

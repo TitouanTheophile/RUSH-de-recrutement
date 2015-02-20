@@ -1,6 +1,7 @@
 <?php
 
 class PicturesController extends AppController {
+	public $components = 'SecureImport';
 
 	public function view($img_id) {
 		$pic = $this->Picture->findById($img_id);
@@ -84,6 +85,7 @@ class PicturesController extends AppController {
 				return $this->redirect(array('controller' => 'pictures', 'action' => 'add'));
 			}
 			$pic_id = $this->Picture->id;
+			$this->
 			move_uploaded_file($this->request->data['Picture']['img']['tmp_name'], WWW_ROOT . "/img/$pic_id.jpg");
 			$this->Picture->Content->create();
 			$content_data = array(

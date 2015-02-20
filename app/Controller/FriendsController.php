@@ -78,7 +78,7 @@ class FriendsController extends AppController {
 		if ($this->request->is('get')) {
 			throw new MethodNotAllowedException();
 		}
-		if ($this->Auth->user('id') < $id) {
+		if ($this->Auth->user('id') <= $id) {
 			$deleteTarget = $this->Friend->find('first', array(
 				'fields' => 'id',
 				'conditions' =>	array('user1_id' => $this->Auth->user('id'), 'user2_id' => $id))
@@ -93,7 +93,7 @@ class FriendsController extends AppController {
 		if ($this->Friend->delete($deleteTarget['Friend']['id'], true)) {
 			$this->Session->setFlash(__("Votre ami n'en est plus un desormais :("));
 		}
-		//$this->Session->setFlash(" [".$id."]  [".$this->Auth->user('id')."] === [".$deleteTarget['Friend']['id']."]");
+		$this->Session->setFlash(" [".$id."]  [".$this->Auth->user('id')."] === [".$deleteTarget['Friend']['id']."]");
 		return $this->redirect(array('controller' => 'users', 'action' => 'view', $this->Auth->user('id')));
 	}
 }
