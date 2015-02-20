@@ -2,7 +2,8 @@
 	<div class="content_wall_header">
 		<?php
 			$user = $this->requestAction('users/getUser', array('pass' => array($content['Content']['from_id'])));
-			$target = $this->requestAction('users/getUser', array('pass' => array($content['Content']['target_id'])));
+			$target = $this->requestAction(($content['Content']['targetType_id'] == 1 ? 'users/getUser' : 'groups/getGroup'),
+											array('pass' => array($content['Content']['target_id'])));
 			$user_picture = (!file_exists(IMAGES.'avatars'.DS.$user['User']['id'].'.jpg') ?
 							   'inconnu.jpg' : 'avatars'.DS.$user['User']['id'].'.jpg');
 			$user_picture = $this->Html->link($this->Html->image($user_picture, array('alt' => 'Photo de profil')),
