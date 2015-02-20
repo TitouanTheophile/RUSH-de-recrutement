@@ -7,7 +7,7 @@ foreach ($messages as $message) {
 						   array('controller' => 'Users', 'action' => 'view', $message['From']['id']),
 						   array('escape' => false, 'class' => 'message_author'));
 	$message_content .= $this->Html->tag('span', $this->Time->format($message['Message']['created'], '%e/%m/%G %H:%M'), array('class' => 'message_date'));
-	$message_content .= $this->Html->tag('span', $message['Message']['content'], array('class' => 'message_text'));
+	$message_content .= $this->Html->tag('span', htmlentities($message['Message']['content']), array('class' => 'message_text'));
 	echo $this->Html->div('message_div', $message_content);
 }
 ?>
