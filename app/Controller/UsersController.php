@@ -4,7 +4,7 @@ App::uses('Sanitize', 'Utility');
 
 class UsersController extends AppController {
     public $helpers = array('Html', 'Form');
-    var $uses = array('User', 'Content', 'Post', 'Comment', 'Friend');
+    var $uses = array('User', 'Content', 'Post', 'Comment', 'Friend', 'Group');
 
     /*** BEFORE FILTER ***/
     public function beforeFilter() {
@@ -64,7 +64,6 @@ class UsersController extends AppController {
         $this->set('contents', $contents);
         $this->set('posts', $this->Post->find('all'));
         $this->set('user', $user);
-        $this->set('friends', $this->Friend->find('all'));
     }
 
     /*** NEWS ***/
