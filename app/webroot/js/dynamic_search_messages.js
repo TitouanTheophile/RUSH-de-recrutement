@@ -19,6 +19,13 @@ $(document).ready( function() {
       $('#results_search_messages').css('border-color', '');
       $('#results_search_messages').css('border-style', '');
     }
-
   });
+
+  $('html').on('click', function() {
+    $('#ProfileId_messages').val('');
+    $('#results_search_messages').html('');
+  });
+  $('#ProfileId_messages').on('click', function() {
+        event.stopPropagation();
+  })
 });
