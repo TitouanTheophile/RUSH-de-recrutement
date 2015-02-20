@@ -62,6 +62,11 @@ div#header_drop a {
 	transition: 0.2s;
 }
 
+div#header_drop a:hover {
+	background: rgba(0,0,0,0.2);
+	box-shadow: 0px 0px 10px rgba(0,0,0,0.2) inset;
+}
+
 div#header_menu a:hover {
 	background: rgba(0,0,0,0.2);
 }
@@ -71,15 +76,14 @@ div#header_option {
 	background-image: url(../img/option.png);
 	width: 60px;
 	height: 60px;
-	transition: 0.2s;
-
 }
 
-div#header_option:hover {
-	background-color: rgba(0,0,0,0.25);
+div#header_option:hover div#header_option_drop {
+	opacity: 1;
+	transform: scale(1);
 }
 
-div#header_option ul {
+div#header_option_drop {
 	display: block;
 	position: absolute;
 	background: linear-gradient(rgba(142,142,245,0.9),rgba(100,100,186,0.9));
@@ -94,17 +98,12 @@ div#header_option ul {
 	transition: 0.2s;
 	opacity: 0;
 	transform: scale(0);
-	transform-origin: 100% 0%;
+	transform-origin: 90% 0%;
 	z-index: 42;
 }
 
-div#header_option:hover ul {
-	opacity: 1;
-	transform: scale(1);
-}
-
-div#header_option ul li {
-	float: left;
+div#header_option_drop a {
+	display: block;
 	padding: 10px 5%;
 	margin: 0;
 	font-size: 16px;
@@ -112,13 +111,13 @@ div#header_option ul li {
 	transition: 0.1s;
 }
 
-div#header_option ul li:hover {
+div#header_option_drop a:hover {
 	background: rgba(0,0,0,0.2);
 	box-shadow: 0px 0px 10px rgba(0,0,0,0.2) inset;
 	cursor: pointer;
 }
 
-div#header_option ul li:active {
+div#header_option_drop a:active {
 	box-shadow: 0px 0px 10px rgba(0,0,0,0.6) inset;
 }
 
