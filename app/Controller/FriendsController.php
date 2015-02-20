@@ -1,7 +1,7 @@
 <?php
 
 class FriendsController extends AppController {
-	var $uses = array('Friend', 'User');
+	var $uses = array('Friend', 'User', 'Notification');
 
 	public function index() {
         $this->set('friends', $this->Friend->find('all'));
@@ -38,6 +38,7 @@ class FriendsController extends AppController {
 	}
 
 	function addFriend($id) {
+		App::uses('CakeEmail', 'Network/Email');
 		if ($this->request->is('get')) {
 			throw new MethodNotAllowedException();
 		}
@@ -59,7 +60,24 @@ class FriendsController extends AppController {
 				'pending' => $id
 			)
 		);
+		$from = $this->User->findById($id);
 		$this->Friend->save($d);
+		$this->Notification->create(array(
+				'from_id' => $this->Auth->user('id'),
+				'target_id' => $id,
+				'notificationType_id' => 2,
+				'content_id' => $this->Friend->getInsertID(),
+				), true);
+		$this->Notification->save(null, true, array('from_id', 'target_id', 'notificationType_id', 'content_id'));
+		if (Configure::read('email')) {
+				$email = new CakeEmail('default');
+				$email->to($from['User']['email']);
+				$email->subject($this->Auth->user('firstname') . ' ' . $this->Auth->user('lastname') . ' vous a envoyé un message sur socialkod');
+				$email->emailFormat('html');
+				$email->template('message');
+				$email->viewVars(array('firstname' => $this->Auth->user('firstname'), 'lastname' => $this->Auth->user('lastname')));
+				$email->send();
+			}
 		$this->Session->setFlash(__("Votre demande d'ami a ete envoye"));
 		return $this->redirect(array('controller' => 'users', 'action' => 'view', $this->Auth->user('id')));
 	}

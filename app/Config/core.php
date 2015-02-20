@@ -28,7 +28,7 @@
  * Email Mode:
  * 	1: Send Emails but very slow.
  */
-	Configure::write('email', 0);
+	Configure::write('email', 1);
 
 /**
  * CakePHP Debug Level:

@@ -4,7 +4,7 @@ App::uses('Sanitize', 'Utility');
 
 class UsersController extends AppController {
     public $helpers = array('Html', 'Form');
-    var $uses = array('User', 'Content', 'Post', 'Comment', 'Friend', 'Group');
+    var $uses = array('User', 'Content', 'Post', 'Comment', 'Friend', 'Group', 'Notification');
 
     /*** BEFORE FILTER ***/
     public function beforeFilter() {
@@ -75,7 +75,7 @@ class UsersController extends AppController {
             throw new NotFoundException(__('Le profil spécifié est invalide'));
         }
         $contents = $this->Content->find('all',
-        	array('conditions' => array('OR' => array('from_id' => $this->Auth->user('id'), 'target_id' => $this->Auth->user('id'))))
+        	array('conditions' => array('OR' => array('from_id' => $id, 'target_id' => $id)))
         );
         $this->set('contents', $contents);
         $this->set('posts', $this->Post->find('all'));
@@ -327,6 +327,15 @@ class UsersController extends AppController {
 			array( 'fields'  =>	array('id', 'user1_id', 'pending'),
 				'conditions' =>	array('user2_id' => $user['User']['id'])));
 	    $this->set('my_friends', $my_friends);
+
+	    $this->Notification->updateAll(
+			array(
+				'viewed' => 1
+				),
+			array(
+				'target_id' => $this->Auth->user('id'),
+				'notificationType_id' => 2
+				));
     }
 
     /* Account Deletion Section
