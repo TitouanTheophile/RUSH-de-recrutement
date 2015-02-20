@@ -1,6 +1,6 @@
 $(document).ready(function() {
-
-	$(window).on('resize', function() {
+	update_menu();
+	function update_menu() {
 		if ($(document).width() < 1240) {
 			if ($('#header_drop').length === 0) {
 				$('<div>', {id: 'header_drop'}).appendTo($('#header'));
@@ -8,6 +8,8 @@ $(document).ready(function() {
 				$('<a>', {html: '≡', href: '#', class: 'menu_drop'}).appendTo($('#header_menu'));
 				$('div#header_menu a.menu_drop').on('click', function() {
 					event.preventDefault();
+					event.stopPropagation();
+					$(this).toggleClass('active');
 					$('div#header_drop').toggle();
 				});
 			}
@@ -19,6 +21,12 @@ $(document).ready(function() {
 				$('div#header_drop').remove();
 			}
 		}
-	});
+	}
 
+	$(window).on('resize', update_menu);
+
+	$('html').on('click', function() {
+		$('div#header_menu a.menu_drop').removeClass('active');
+		$('div#header_drop').hide();
+	});
 });
