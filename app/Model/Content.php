@@ -4,9 +4,9 @@ class Content extends AppModel {
 	public $displayField = 'content_id';
 
 	public $belongsTo = array(
-		'Users' => array(
+		'User' => array(
 			'foreignKey' => 'id'),
-		'Groups' => array(
+		'Group' => array(
 			'foreignKey' => 'id'));
 
 	public $hasMany = array('ContentP');
