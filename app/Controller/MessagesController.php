@@ -1,8 +1,8 @@
 <?php
 class MessagesController extends AppController {
 
-	public function index() { // Get latest messages for the index view
-		$messages = $this->Message->find('all', array( //Display the latest message
+	public function index() { //Get latest messages for the index view
+		$messages = $this->Message->find('all', array( //Get the latest message
 			'conditions' => array(
 				'OR' => array(
 					'Message.target_id' => $this->Auth->user('id'),
@@ -14,12 +14,12 @@ class MessagesController extends AppController {
 		$this->set('messages', $messages);
 	}
 
-	public function send($id = null) { // Add a new message into database
-		App::uses('CakeEmail', 'Network/Email');
+	public function send($id) { //Add a new message into database
 		$this->loadModel('User');
 		$from = $this->User->findById($id);
-		if ($this->request->is('post') && !empty($this->request->data)) { // If the user send a message
-			$this->Message->create(array( // Put the message into the database
+
+		if ($this->request->is('post') && !empty($this->request->data)) { //If the user send a message
+			$this->Message->create(array( //Put the message into the database
 				'from_id' => $this->Auth->user('id'),
 				'target_id' => $id,
 				'content' => $this->request->data['Message']['content']
@@ -36,7 +36,8 @@ class MessagesController extends AppController {
 				), true);
 			$this->Notification->save(null, true, array('from_id', 'target_id', 'notificationType_id', 'content_id'));
 
-			if (Configure::read('email')) {
+			if (Configure::read('email')) { //Generation of the mail
+				App::uses('CakeEmail', 'Network/Email');
 				$email = new CakeEmail('default');
 				$email->to($from['User']['email']);
 				$email->subject($this->Auth->user('firstname') . ' ' . $this->Auth->user('lastname') . ' vous a envoyé un message sur socialkod');
@@ -49,10 +50,9 @@ class MessagesController extends AppController {
 		$this->set('from', $from);
 	}
 
-	public function get_users_messages(){ // Get the Users for the view index
+	public function get_users_messages(){ //Get the Users for the view index
 		$this->loadModel('User');
 		$users = $this->User->find('all', array( //Get the list of Users that match with the search
-
 			'conditions' => array(
 				'firstname LIKE' => '%' . $this->params->query['q'] . '%'
 				)
@@ -63,19 +63,18 @@ class MessagesController extends AppController {
 		$this->render('/Elements/get_users_messages');
 	}
 
-	public function get_messages($id = null) { // Get the message for the view send
-		$this->Message->updateAll( // To mark the message as viewed
+	public function get_messages($id = null) { //Get the message for the view send
+		$this->Message->updateAll( //To mark the messages as viewed
 			array(
 				'viewed' => 1
 				),
 			array(
 				'from_id' => $id,
-
 				'target_id' => $this->Auth->user('id')
 				));
 
 		$this->loadModel('Notification');
-		$this->Notification->updateAll( // To update the notifications about the messages
+		$this->Notification->updateAll( //To update the notifications about the messages
 			array(
 				'viewed' => 1
 				),
@@ -85,7 +84,7 @@ class MessagesController extends AppController {
 				'notificationType_id' => 1
 				));
 
-		$messages = $this->Message->find('all', array( // Get all the messages of the conversation
+		$messages = $this->Message->find('all', array( //Get all the messages of the conversation
 			'conditions' => array(
 				'OR' => array(
 					array(
@@ -106,7 +105,6 @@ class MessagesController extends AppController {
 		$this->set('messages', $messages);
 		$this->layout = false;
 		$this->render('/Elements/get_messages');
-
 	}
 }
 ?>

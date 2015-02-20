@@ -73,6 +73,15 @@ class UsersController extends AppController {
         $contents = $this->Content->find('all',
         	array('conditions' => array('OR' => array('from_id' => $id, 'target_id' => $id)))
         );
+        $this->Notification->updateAll(
+			array(
+				'viewed' => 1
+				),
+			array(
+				'from_id' => $id,
+				'target_id' => $this->Auth->user('id'),
+				'notificationType_id' => 3
+				));
         $this->set('contents', $contents);
         $this->set('posts', $this->Post->find('all'));
         $this->set('user', $user);
@@ -275,6 +284,25 @@ class UsersController extends AppController {
 				);
 				$this->Content->save($d2);
 				$this->Session->setFlash(__('Votre post a bien été publié'));
+
+				if ($id != $this->Session->read('Auth.User.id')) {
+					// $this->Notification->create(array(
+					// 	'from_id' => $this->Auth->user('id'),
+					// 	'target_id' => $id,
+					// 	'notificationType_id' => 3,
+					// 	'content_id' => $this->Friend->getInsertID(),
+					// 	), true);
+					// $this->Notification->save(null, true, array('from_id', 'target_id', 'notificationType_id', 'content_id'));
+					// if (Configure::read('email')) {
+					// 	$email = new CakeEmail('default');
+					// 	$email->to($from['User']['email']);
+					// 	$email->subject($this->Auth->user('firstname') . ' ' . $this->Auth->user('lastname') . ' a publié sur votre mur sur socialkod');
+					// 	$email->emailFormat('html');
+					// 	$email->template('post');
+					// 	$email->viewVars(array('firstname' => $this->Auth->user('firstname'), 'lastname' => $this->Auth->user('lastname')));
+					// 	$email->send();
+					// }
+				}
 				return $this->redirect(array('action' => 'view', $user['User']['id']));
 			}
             $this->Session->setFlash(__('Impossible de publier votre post'));

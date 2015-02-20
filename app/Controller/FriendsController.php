@@ -83,13 +83,13 @@ class FriendsController extends AppController {
 	}
 
 	function acceptFriend($id) {
+		App::uses('CakeEmail', 'Network/Email');
 		if ($this->request->is('get')) {
 			throw new MethodNotAllowedException();
 		}
 		$this->Friend->id = $id;
 		$this->Friend->saveField('pending', NULL);
 		$this->Session->setFlash(__("Vous avez bien valide la demande d'amitie"));
-		return $this->redirect(array('controller' => 'users', 'action' => 'view', $this->Auth->user('id')));
 
 		$from = $this->User->findById($id);
 		$this->Notification->create(array(
@@ -108,6 +108,7 @@ class FriendsController extends AppController {
 				$email->viewVars(array('firstname' => $this->Auth->user('firstname'), 'lastname' => $this->Auth->user('lastname')));
 				$email->send();
 			}
+			return $this->redirect(array('controller' => 'users', 'action' => 'view', $this->Auth->user('id')));
 	}
 
 	function deleteFriend($id) {
