@@ -60,8 +60,8 @@ class FriendsController extends AppController {
 				'pending' => $id
 			)
 		);
-		$from = $this->User->findById($id);
 		$this->Friend->save($d);
+		$from = $this->User->findById($id);
 		$this->Notification->create(array(
 				'from_id' => $this->Auth->user('id'),
 				'target_id' => $id,
@@ -72,9 +72,9 @@ class FriendsController extends AppController {
 		if (Configure::read('email')) {
 				$email = new CakeEmail('default');
 				$email->to($from['User']['email']);
-				$email->subject($this->Auth->user('firstname') . ' ' . $this->Auth->user('lastname') . ' vous a envoyé un message sur socialkod');
+				$email->subject($this->Auth->user('firstname') . ' ' . $this->Auth->user('lastname') . ' vous a demandé en ami sur socialkod');
 				$email->emailFormat('html');
-				$email->template('message');
+				$email->template('add_friend');
 				$email->viewVars(array('firstname' => $this->Auth->user('firstname'), 'lastname' => $this->Auth->user('lastname')));
 				$email->send();
 			}
@@ -90,6 +90,24 @@ class FriendsController extends AppController {
 		$this->Friend->saveField('pending', NULL);
 		$this->Session->setFlash(__("Vous avez bien valide la demande d'amitie"));
 		return $this->redirect(array('controller' => 'users', 'action' => 'view', $this->Auth->user('id')));
+
+		$from = $this->User->findById($id);
+		$this->Notification->create(array(
+				'from_id' => $this->Auth->user('id'),
+				'target_id' => $id,
+				'notificationType_id' => 3,
+				'content_id' => $this->Friend->getInsertID(),
+				), true);
+		$this->Notification->save(null, true, array('from_id', 'target_id', 'notificationType_id', 'content_id'));
+		if (Configure::read('email')) {
+				$email = new CakeEmail('default');
+				$email->to($from['User']['email']);
+				$email->subject($this->Auth->user('firstname') . ' ' . $this->Auth->user('lastname') . ' a accepté votre demande d\'ami sur socialkod');
+				$email->emailFormat('html');
+				$email->template('accept_friend');
+				$email->viewVars(array('firstname' => $this->Auth->user('firstname'), 'lastname' => $this->Auth->user('lastname')));
+				$email->send();
+			}
 	}
 
 	function deleteFriend($id) {

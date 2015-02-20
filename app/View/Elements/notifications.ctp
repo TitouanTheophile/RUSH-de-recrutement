@@ -12,11 +12,17 @@
 			$action = 'send';
 			$param = $notification['From']['id'];
 		}
-		if ($notification['NotificationTypes']['name'] == 'Ajout_amis') {
+		if ($notification['NotificationTypes']['name'] == 'Add_friend') {
 			$sentence = $this->Html->tag('span', "$firstname $lastname vous a demandé en ami le $date ȧ $date_time");
 			$controller = 'users';
 			$action = 'friends';
 			$param = $this->Session->read('Auth.User.id');
+		}
+		if ($notification['NotificationTypes']['name'] == 'Accept_friend') {
+			$sentence = $this->Html->tag('span', "$firstname $lastname vous a accepté en ami le $date ȧ $date_time");
+			$controller = 'users';
+			$action = 'view';
+			$param = $notification['From']['id'];
 		}
 		echo $this->Html->link($picture . $sentence,
 							   array('controller' => $controller, 'action' => $action, $param),

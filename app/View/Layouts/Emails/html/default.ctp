@@ -22,4 +22,5 @@
 <body>
 	<?php echo $this->fetch('content'); ?>
 </body>
+<div>Allez vite le voir sur <a href="socialkod.com">socialkod</a> !</div>
 </html>

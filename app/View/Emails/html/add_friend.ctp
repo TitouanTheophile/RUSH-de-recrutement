@@ -1,0 +1,1 @@
+<?= "$firstname $lastname" ?> Vous a demandé en ami sur socialkod!<br>
