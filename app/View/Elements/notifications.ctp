@@ -4,7 +4,7 @@
 		$lastname = $notification['From']['lastname'];
 		$date = $this->Time->format($notification['Notification']['created'], '%#d/%m/%y');
 		$date_time = $this->Time->format($notification['Notification']['created'], '%H:%M');
-		$pic_url = (!file_exists(IMAGES . 'avatars' . DS . $notification['From']['id'] . '.jpg') ? 'inconnu.jpg' : 'avatars' . DS .$notification['From']['id'] . '.jpg');
+		$pic_url = (!file_exists(IMAGES . 'avatars/' . $notification['From']['id'] . '.jpg') ? 'inconnu.jpg' : 'avatars/' . $notification['From']['id'] . '.jpg');
 		$picture = $this->Html->image($pic_url, array('alt' => 'Photo de profil', 'class' => 'search'));
 		if ($notification['NotificationTypes']['name'] == 'Message') {
 			$sentence = $this->Html->tag('span', "$firstname $lastname vous a envoyé un message le $date ȧ $date_time");
