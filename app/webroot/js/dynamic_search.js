@@ -1,7 +1,7 @@
-$(document).ready( function() {
+$(document).ready(function() {
 
-  url = window.location.pathname + 'get_users';
 
+  url = '/users/get_users';
   $('#ProfileId').keyup( function() {
     if( $(this).val().length > 1 ) {
       $.ajax( {
@@ -10,16 +10,20 @@ $(document).ready( function() {
         data : 'q='+$(this).val() ,
         success : function(data) {
           $('#results_search').html(data);
-          $('#results_search').css('border-color', 'black');
-          $('#results_search').css('border-style', 'solid');
         }
       });
     }
     else {
       $('#results_search').html('');
-      $('#results_search').css('border-color', '');
-      $('#results_search').css('border-style', '');
     }
-
   });
+
+  $('html').on('click', function() {
+    $('#ProfileId').val('');
+    $('#results_search').html('');
+  });
+
+  $('#ProfileId').on('click', function() {
+        event.stopPropagation();
+  })
 });

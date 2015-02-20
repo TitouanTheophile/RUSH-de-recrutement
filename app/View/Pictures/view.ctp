@@ -7,7 +7,7 @@
 								   		   array('confirm' => 'Voulez-vous vraiment supprimer cette image ?'));
 	$nav .= $this->Html->link('Retour à l\'album', array('controller' => 'albums', 'action' => 'album', $album));
 ?>
-<?= $this->Html->div('section_nav', $nav) ?>
+<?= $this->Html->div('section_nav', $nav); ?>
 <?php
 	$previous = $this->Html->div('previous_button', $this->Html->para(null, '<'));
 	$big_pic  = $this->Html->link($previous, array('controller' => 'pictures', 'action' => 'previous', $pic['Picture']['id']),
@@ -24,7 +24,7 @@
 									   array('class' => ($action == 'removePoint' ? array('like_logo', 'active') : 'like_logo')));
 	$action = (!empty($userPoint) && $userPoint['ContentP']['pointType'] == 2 ? 'removePoint' : 'addPoint');
 	$big_pic .= $this->Html->div('like_div', $like);
-	$connard = $this->Html->para('connardP', $connardP);
+	$connard  = $this->Html->para('connardP', $connardP);
 	$connard .= $this->Html->link('Connard', array('controller' => 'pictures', 'action' => $action,	$pic['Picture']['id'], 2),
 										  	 array('class' => ($action == 'removePoint' ? array('connard_logo', 'active') : 'connard_logo')));
 	$big_pic .= $this->Html->div('connard_div', $connard);

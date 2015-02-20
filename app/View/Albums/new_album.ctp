@@ -1,3 +1,4 @@
+<?= $this->element('user_photo', array('user' => $this->Session->read('Auth.User'))); ?>
 <?= $this->Html->css('album', array('inline' => false)) ?>
 <?= $this->Html->div('section_title', "<h3>Nouvel album</h3>") ?>
 <?= $this->Form->create(); ?>

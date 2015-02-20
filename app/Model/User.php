@@ -2,12 +2,20 @@
 
 class User extends AppModel {
     var $hasMany = array(
-         'Content' => array(
+        'Content' => array(
             'foreignKey' => 'from_id',
             'dependent'=> true
         )
     );
-
+    public $hasAndBelongsToMany = array(
+        'Group' =>
+            array(
+                'className' => 'Group',
+                'joinTable' => 'groups_users',
+                'foreignKey' => 'user_id',
+                'associationForeignKey' => 'group_id',
+            )
+    );
 
 	public $validate = array(
         'firstname' => array(

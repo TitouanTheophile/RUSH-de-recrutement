@@ -18,6 +18,18 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
 
+
+/**
+ * Socialkod Email Level:
+ *
+ * Avoid Emails:
+ * 	0: No emails.
+ *
+ * Email Mode:
+ * 	1: Send Emails but very slow.
+ */
+	Configure::write('email', 0);
+
 /**
  * CakePHP Debug Level:
  *
@@ -31,7 +43,7 @@
  * In production mode, flash messages redirect after a time interval.
  * In development mode, you need to click the flash message to continue.
  */
-	Configure::write('debug', 1);
+	Configure::write('debug', 2);
 
 /**
  * Configure the Error handler used to handle errors for your application. By default

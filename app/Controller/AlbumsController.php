@@ -3,7 +3,7 @@ class AlbumsController extends AppController {
 	
 	public function index() {
 		$albums = $this->Album->find('all', array(
-			"conditions" => array("Album.user_id" => $this->Session->read('id')),
+			"conditions" => array("Album.user_id" => $this->Session->read('Auth.User.id')),
 			"fields" => array("Album.id", "Album.title", "Album.description")));
 		$this->set('albums', $albums);
 	}
@@ -11,7 +11,7 @@ class AlbumsController extends AppController {
 	public function newAlbum() {
 		if ($this->request->is('post') && !empty($this->request->data)) {
 			$this->Album->create(array(
-				'user_id' => $this->Session->read('id'),
+				'user_id' => $this->Session->read('Auth.User.id'),
 				'title' => $this->request->data['Album']['title'],
 				'description' => $this->request->data['Album']['description']));
 			if ($this->Album->save(null, true, array('user_id', 'title', 'description'))) {

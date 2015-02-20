@@ -1,4 +1,4 @@
-jQuery( document ).ready(function () {
+jQuery(document).ready(function () {
 	var offsetTop = $( "#wall_infos" ).offset().top;
 
 	$( window ).scroll(function () {

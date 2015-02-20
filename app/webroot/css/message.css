@@ -1,0 +1,56 @@
+div#messages {
+	overflow-y:scroll;
+	height:400px;
+}
+
+div#results_search_messages {
+	position: absolute;
+	background-color: white;
+	width: 99.5%;
+}
+
+div#results_search_messages img.search {
+	width: 50px;
+    height: auto;
+}
+
+div#results_search_messages div.profile {
+	vertical-align: top;
+}
+
+div#results_search_messages div.profile:hover {
+	background-color: #CCFFFF;
+}
+
+h1#message_profile_name {
+	text-align: center;
+}
+
+div.message_div {
+	padding: 5px;
+	margin: 5px;
+	background: linear-gradient(rgba(142,142,245,0.5),rgba(100,100,186,0.5));
+}
+
+div.message_div:hover {
+	background: linear-gradient(rgba(142,142,245,1),rgba(100,100,186,1));
+	color: white;
+}
+
+div.message_div > a {
+	display: block;
+	margin-bottom: 5px;
+}
+
+div.message_div span a:hover {
+	color: #BEBEF0;
+}
+
+div.message_div > span {
+	display: block;
+	margin-bottom: 5px;
+}
+
+div.message_div span.message_date {
+	float: right;
+}

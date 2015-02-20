@@ -1,5 +1,5 @@
+<?= $this->Html->css('home', array('inline' => false)); ?>
 <h1>Bienvenue sur SocialKOD !</h1>
-
 <div id="signup_logo">
 	<?php echo $this->Html->image('logo_terre.png', array('alt' => 'CakePHP')); ?>
 </div><!--

@@ -1,0 +1,110 @@
+/* Home
+--------------------------------------------------------- */
+
+#home {
+	width: 100%;
+	background: transparent;
+	margin-top: 42px;
+}
+
+#home_comment {
+	background: rgba(0,0,0,0.6);
+	padding: 20px;
+	margin: 40px 0;
+	border-radius: 3px;
+	text-align: center;
+}
+
+#home_comment span {
+	color: white;
+	font-size: 24px;
+	font-weight: bold;
+	text-shadow: 1px 1px 3px rgba(0,0,0,0.6);
+}
+
+.home_box {
+	display: inline-block;
+	position: relative;
+	width: 50%;
+	text-align: center;
+}
+
+.home_box_inner {
+	display: inline-block;
+	background: rgba(255,255,255,0.1);
+	width: 340px;
+	height: 340px;
+	padding: 20px;
+	border: 1px solid rgba(255,255,255,0.5);
+	border-radius: 50%;
+	box-shadow: 0px 0px 10px 0px rgba(255,255,255,0.5), 0px 0px 10px 0px rgba(255,255,255,0.5) inset;
+	overflow: hidden;
+}
+
+.home_box_inner:hover {
+	background: rgba(255,255,255,0.3);
+	border: 1px solid rgba(255,255,255,1.0);
+	border-left: 6px solid rgba(0,0,0,1.0);
+	border-right: 6px solid rgba(0,0,0,1.0);
+	box-shadow: 0px 0px 10px 0px rgba(255,255,255,1.0), 0px 0px 60px 0px rgba(255,255,255,1.0) inset;
+	cursor: pointer;
+}
+
+.home_box_inner img {
+	background: transparent;
+	height: 280px;
+}
+
+.home_box_inner span {
+	display: inline-block;
+	background: rgba(0,0,0,0.4);
+	width: 100%;
+	color: white;
+	font-size: 24px;
+	font-weight: bold;
+	text-shadow: 2px 2px 4px rgba(0,0,0,0.6);
+	padding: 14px 0 40px;
+	
+}
+.home_box_inner:hover span {
+	color: white;
+	background: rgba(0,0,0,0.6);
+	border-top: 3px solid rgba(142,142,245,1.0);
+	text-shadow: 2px 2px 4px rgba(0,0,0,0.0);
+	box-shadow: 0px 0px 20px rgba(142,142,245,1.0);
+}
+
+/* Signup
+--------------------------------------------------------- */
+
+#signup_logo {
+	display: inline-block;
+	position: relative;
+	background: transparent;
+	width: 420px;
+	height: auto;
+	margin: 10px 0px;
+	vertical-align: top;
+}
+
+#signup_form {
+	display: inline-block;
+	position: relative;
+	background: rgba(255,255,255,0.2);
+	border-radius: 3px;
+	width: 500px;
+	height: auto;
+	margin: 10px 0px 10px 10px;
+	vertical-align: top;
+}
+
+#signin_form {
+	display: block;
+	position: relative;
+	background: rgba(255,255,255,0.2);
+	border-radius: 3px;
+	width: 360px;
+	height: auto;
+	padding: 20px;
+	margin: 0 auto;
+}

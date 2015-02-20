@@ -1,0 +1,254 @@
+div#header_container {
+	width: 960px;
+	margin: 0 auto;
+}
+
+div#header_title {
+	display: block;
+	position: relative;
+	float: left;
+	height: inherit;
+}
+
+div#header_title a {
+	display: inline-block;
+}
+
+div#header_menu {
+	display: block;
+	position: relative;
+	height: 50px;
+	padding: 5px;
+	float: right;
+}
+
+div#header_drop {
+	display: none;
+	background: linear-gradient(rgba(142,142,245,0.9),rgba(100,100,186,0.9));
+	height: auto;
+	position: absolute;
+	height: auto;
+	padding: 5px;
+	right: 0px;
+	top: 50px;
+}
+
+div#header_menu a.menu_drop {
+	font-size: 2em;
+	text-decoration: none;
+}
+
+div#header_menu a.menu_drop.active {
+	background: rgba(142,142,245,0.9);
+}
+
+div#header_menu a {
+	display: inline-block;
+	background: rgba(0,0,0,0.1);
+	width: auto;
+	height: 30px;
+	padding: 5px 14px;
+	margin: 5px;
+	line-height: 30px;
+	transition: 0.2s;
+}
+
+div#header_drop a {
+	display: block;
+	width: auto;
+	height: 30px;
+	padding: 5px 14px;
+	line-height: 30px;
+	transition: 0.2s;
+}
+
+div#header_drop a:hover {
+	background: rgba(0,0,0,0.2);
+	box-shadow: 0px 0px 10px rgba(0,0,0,0.2) inset;
+}
+
+div#header_menu a:hover {
+	background: rgba(0,0,0,0.2);
+}
+
+div#header_option {
+	float: right;
+	background-image: url(../img/option.png);
+	width: 60px;
+	height: 60px;
+}
+
+div#header_option:hover div#header_option_drop {
+	opacity: 1;
+	transform: scale(1);
+}
+
+div#header_option_drop {
+	display: block;
+	position: absolute;
+	background: linear-gradient(rgba(142,142,245,0.9),rgba(100,100,186,0.9));
+	width: 200px;
+	list-style: none;
+	margin: 0;
+	padding: 0px;
+	top: 60px;
+	margin-left: -140px;
+	border-radius: 5px 0px 5px 5px;
+	box-shadow: 2px 2px 6px rgba(0,0,0,0.75);
+	transition: 0.2s;
+	opacity: 0;
+	transform: scale(0);
+	transform-origin: 90% 0%;
+	z-index: 42;
+}
+
+div#header_option_drop a {
+	display: block;
+	padding: 10px 5%;
+	margin: 0;
+	font-size: 16px;
+	width: 90%;
+	transition: 0.1s;
+}
+
+div#header_option_drop a:hover {
+	background: rgba(0,0,0,0.2);
+	box-shadow: 0px 0px 10px rgba(0,0,0,0.2) inset;
+	cursor: pointer;
+}
+
+div#header_option_drop a:active {
+	box-shadow: 0px 0px 10px rgba(0,0,0,0.6) inset;
+}
+
+div#notifications_count {
+	background-color: red;
+	display: inline-block;
+	border-radius: 35px;
+	height: 20px;
+	width: 20px;
+	text-align: center;
+	color: white;
+}
+
+img#notifications {
+	display: inline-block;
+	height: 40px;
+	position: relative;
+  	top: 50%;
+  	transform: translateY(-50%);
+}
+
+div#notifications_list {
+	display: none;
+	border: 3px grey solid;
+	width: 500px;
+	word-wrap: break-word;
+	top: 60px;
+	position: absolute;
+	background: linear-gradient(rgba(142,142,245,0.9),rgba(100,100,186,0.9));
+	max-height: 200px;
+	overflow-y: scroll;
+	overflow-x: hidden;
+	border: 2px solid grey;
+	z-index: 42;
+}
+
+div#notifications_list a {
+	width: inherit;
+	padding: 10px;
+}
+
+div#notifications_list a img {
+	width: 40px;
+	height: 40px;
+    display: inline-block;
+	background: #424242;
+	border: 4px solid #fff;
+	border-radius: 50%;
+	box-shadow: 0px 0px 20px rgba(64,64,64,1.0);
+	overflow: hidden;
+	z-index: 1;
+}
+
+div#notifications_list a:hover {
+	background-color: #CCFFFF;
+}
+
+div#notifications_list a span {
+	color: black;
+	display: inline-block;
+	vertical-align: top;
+	margin-top: 15px;
+	padding-left: 20px;
+	font-size: 1em;
+}
+
+div#container_search {
+	margin-left: 20px;
+	display: inline-block;
+}
+
+input#ProfileId {
+	width: 330px;
+	padding: 0px;
+	margin-top: 15px;
+}
+
+div#results_search {
+	position: absolute;
+	background: linear-gradient(rgba(142,142,245,0.9),rgba(100,100,186,0.9));
+	width: 330px;
+	max-height: 200px;
+	overflow-y: scroll;
+	overflow-x: hidden;
+	border: 2px solid grey;
+	z-index: 42;
+}
+
+div#results_search::-webkit-scrollbar,
+div#notifications_list::-webkit-scrollbar {
+ display: none;
+}
+
+div#results_search > h3 {
+	background: none;
+	color: black;
+	font-size: 1em;
+}
+div#results_search a.user {
+	display: block;
+	width: 310px;
+	height: auto;
+	padding: 10px;
+}
+
+div#results_search a.user:hover {
+	background-color: #CCFFFF;
+}
+
+div#results_search img.search {
+	width: 40px;
+	height: 40px;
+    display: inline-block;
+	background: #424242;
+	border: 4px solid #fff;
+	border-radius: 50%;
+	box-shadow: 0px 0px 20px rgba(64,64,64,1.0);
+	overflow: hidden;
+	z-index: 1;
+}
+
+div#results_search a span {
+	color: black;
+	display: inline-block;
+	vertical-align: top;
+	margin-top: 15px;
+	padding-left: 20px;
+	font-size: 1.2em;
+}
+
+div#notifs {
+	display: inline-block;
+	height: 60px;
+}
