@@ -53,7 +53,7 @@ class GroupsController extends AppController {
 		$this->set('pictures', $pictures);
 	}
 
-	public function get_group($id) {
+	public function getgroup($id) {
 		return $this->Group->findById($id);
 	}
 }
