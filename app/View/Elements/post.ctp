@@ -13,8 +13,13 @@
 			$header .= ' publié le ';
 			$header .= $this->Time->format($content['Content']['created'], '%#d/%m/%y') . ' à ';
 			$header .= $this->Time->format($content['Content']['created'], '%H:%M');
-			if ($user['User']['id'] != $target['User']['id']) {
+			if ($content['Content']['targetType_id'] == 1 && $user['User']['id'] != $target['User']['id']) {
 				$header .= ' envoyé à ';
+				$header .= $this->Html->link($target['User']['firstname']." ".$target['User']['lastname'],
+           							   	 	 array('controller' => 'users', 'action' => 'view', $target['User']['id']));
+           	}
+           	else if ($content['Content']['targetType_id'] == 2) {
+           		$header .= ' publié sur ';
 				$header .= $this->Html->link($target['User']['firstname']." ".$target['User']['lastname'],
            							   	 	 array('controller' => 'users', 'action' => 'view', $target['User']['id']));
            	}

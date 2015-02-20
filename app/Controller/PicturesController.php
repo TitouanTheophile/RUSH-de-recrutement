@@ -24,7 +24,6 @@ class PicturesController extends AppController {
 				'ContentP.content_id' => $content_id,
 				'ContentP.pointType' => 2),
 			'fields' => array('ContentP.user_id', 'ContentP.pointType')));
-
 		$this->set('pic', $pic);
 		$this->set('user', $this->Session->read('Auth.User.id'));
 		$this->set('title', $album['Album']['title']);
