@@ -1,8 +1,12 @@
-
+  ____             _       _ _             _ 
+ / ___|  ___   ___(_) __ _| | | _____   __| |
+ \___ \ / _ \ / __| |/ _` | | |/ / _ \ / _` |
+  ___) | (_) | (__| | (_| | |   < (_) | (_| |
+ |____/ \___/ \___|_|\__,_|_|_|\_\___/ \__,_|
  
 RUSH de Recrutement KOD 2014
 
-############## COMMENT CREER UNE BRANCHE ##################
+COMMENT CREER UNE BRANCHE
 
 - creer une branche local dev sur laquelle travailler 
   git checkout -b dev
@@ -20,4 +24,3 @@ C'est un raccourcie de :
     - git merge dev (pour ajouter tes changement à la branche master )
     - git push (pour envoyer tes changements )que je vais ensuite recuperer sur mon pc)
 
-############# FINIT ##############
