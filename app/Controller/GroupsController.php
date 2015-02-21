@@ -56,5 +56,28 @@ class GroupsController extends AppController {
 	public function getgroup($id) {
 		return $this->Group->findById($id);
 	}
+
+	public function members($id ) {
+		if (!$id || !($group = $this->Group->findById($id)))
+			throw new NotFoundException(__('Le groupe spécifié est invalide'));
+		
+		$members_temp = $this->Group->GroupsUser->find('all', array(
+			'conditions' => array(
+				'group_id' => $id
+				)
+			));
+		$array_members_id = array();
+		foreach ($members_temp as $member_temp) {
+			$array_members_id[] = $member_temp['GroupsUser']['user_id'];
+		}
+		$members = $this->Group->User->find('all', array(
+			'conditions' => array(
+				'id' => $array_members_id
+				)
+			));
+	    $this->set('group', $group);
+	    $this->set('members', $members);
+
+    }
 }
 ?>
