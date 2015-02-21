@@ -6,21 +6,22 @@
  
 RUSH de Recrutement KOD 2014
 
-COMMENT CREER UNE BRANCHE
+######### COMMENT CREER UNE BRANCHE ######### 
 
-- creer une branche local dev sur laquelle travailler 
-  git checkout -b dev
-C'est un raccourcie de :
-         - git branche dev (crée une branche local dev que toi seul peux utiliser)
-         - git checkout dev (permet de travailler sur )l branche dev)
+- Crée une branche local dev sur laquelle travailler :
+    git checkout -b dev
+C'est un raccourci de :
+         - git branche dev (crée une branche locale dev que toi seul peux utiliser)
+         - git checkout dev (permet de travailler sur la branche dev)
 
-- Apres tu fais ton taffe dans ton coin.
+- Après tu fais ton taf dans ton coin.
 
-- Quand tu ve avancé dans ton code mais que tu n'as pas finis tu add puis committtes changements
- Inutile de push tu ne pourras pas puisque ta branche est local et non remote.
+- Quand tu veux avancer dans ton code mais que tu n'as pas fini, tu add puis commit tes changements
+ Inutile de push, tu ne pourras pas puisque ta branche est locale et non remote.
 
-- Quand tu as finis ton taffe sur ta branche et que le code est prête à aller en prod :
-    - git checkout master (pour retourner sur lla prod)
+- Quand tu as fini ton taffe sur ta branche et que le code est prête à aller en prod :
+    - git checkout master (pour retourner sur la prod)
     - git merge dev (pour ajouter tes changement à la branche master )
-    - git push (pour envoyer tes changements )que je vais ensuite recuperer sur mon pc)
+    - git push (pour envoyer tes changements que je vais ensuite récuperer sur mon pc)
 
+######### FIN ######### 
