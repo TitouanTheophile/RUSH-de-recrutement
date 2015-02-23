@@ -19,7 +19,7 @@ $(document).ready(function() {
     $('#results_search').html('');
   });
 
-  $('#ProfileId').on('click', function() {
+  $('#ProfileId').on('click', function(event) {
         event.stopPropagation();
   })
  

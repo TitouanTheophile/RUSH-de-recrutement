@@ -201,7 +201,7 @@ div#results_search {
 	background: linear-gradient(rgba(142,142,245,0.9),rgba(100,100,186,0.9));
 	width: 330px;
 	max-height: 200px;
-	overflow-y: scroll;
+	overflow-y: auto;
 	overflow-x: hidden;
 	border: 2px solid grey;
 	z-index: 42;

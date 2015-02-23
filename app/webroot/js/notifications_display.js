@@ -1,5 +1,5 @@
 $(document).ready( function() {
-  $('#notifications').on('click', function() {
+  $('#notifications').on('click', function(event) {
   	event.stopPropagation();
     $('#notifications_list').toggle();
   });
