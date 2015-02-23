@@ -385,7 +385,8 @@ class UsersController extends AppController {
 	    if ($this->request->is('get')) {
 	        throw new MethodNotAllowedException();
 	    }
-	    if ($this->User->delete($id, true)) {
+	    $user = $this->User->findById($id);
+	    if ($this->User->save($user, true, array('password'))) {
 	        $this->Session->setFlash(__('Votre compte a bien été supprimé'));
 	        return $this->redirect($this->Auth->logout());
 	    }
