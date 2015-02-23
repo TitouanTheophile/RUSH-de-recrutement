@@ -1,15 +1,24 @@
 $(document).ready(function() {
 
 
-  url = '/users/get_users';
   $('#ProfileId').keyup( function() {
     if( $(this).val().length > 1 ) {
+      url = '/users/get_users';
       $.ajax( {
         type : 'GET',
         url : url ,
         data : 'q='+$(this).val() ,
         success : function(data) {
           $('#results_search').html(data);
+        }
+      });
+      url = '/groups/get_groups';
+      $.ajax( {
+        type : 'GET',
+        url : url ,
+        data : 'q='+$(this).val() ,
+        success : function(data) {
+          $('#results_search').append(data);
         }
       });
     }
