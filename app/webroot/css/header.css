@@ -213,6 +213,7 @@ div#notifications_list::-webkit-scrollbar {
 }
 
 div#results_search > h3 {
+	display: block;
 	background: none;
 	color: black;
 	font-size: 1em;
