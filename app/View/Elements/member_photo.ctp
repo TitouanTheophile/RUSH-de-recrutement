@@ -5,7 +5,7 @@
 				$scale = getimagesize(IMAGES . '/'. $member_picture);
 				$scale = ($scale[0] >= $scale[1] ? 'large' : 'long');
 				$member_picture = $this->Html->link($this->Html->image($member_picture, array('alt' => 'Photo de profil', 'class' => $scale)),
-				        							array('action' => 'view', $member['User']['id']),
+				        							array('controller' => 'users', 'action' => 'view', $member['User']['id']),
 				        							array('escape' => false));
 				echo $member_picture;
 			?>

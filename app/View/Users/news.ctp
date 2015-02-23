@@ -9,6 +9,20 @@
 	 </div>
 	<div id="wall_infos">
 		<div class="container_padding20">
+			<h1>Mes groupes</h1>
+			<?= $this->Html->link($this->Html->image('plus.png'),
+				array('controller' => 'groups', 'action' => 'create_group'),
+				array('escape' => false)); ?>
+			<?php
+				if (empty($user['Group']))
+					echo "Vous n'avez pas de groupe";
+				else {
+					foreach ($user['Group'] as $group) {
+						echo $this->Html->link($group['name'],
+		           						   	array('controller' => 'groups', 'action' => 'view', $group['id']));
+					}
+				}
+			?>
 		</div>
 	</div>
 </div>

@@ -130,7 +130,6 @@ class FriendsController extends AppController {
 		if ($this->Friend->delete($deleteTarget['Friend']['id'], true)) {
 			$this->Session->setFlash(__("Votre ami n'en est plus un desormais :("));
 		}
-		$this->Session->setFlash(" [".$id."]  [".$this->Auth->user('id')."] === [".$deleteTarget['Friend']['id']."]");
 		return $this->redirect(array('controller' => 'users', 'action' => 'view', $this->Auth->user('id')));
 	}
 }
