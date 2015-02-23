@@ -315,13 +315,15 @@ class UsersController extends AppController {
 	        throw new MethodNotAllowedException();
 	    }
 	    $content = $this->Content->findById($id);
-	    if ($this->Content->delete($id)) {
+	    $this->Comment->deleteAll(array(
+	    	'content_id' => $id));
+	    if ($this->Content->delete($id, true)) {
 	    	$postRef = $this->Post->find('all',
 	    		array( 'fields'  =>	array('id'),
 	    			'conditions' =>	array('id' => $content['Content']['content_id'])
 	    		)
 	    	);
-	    	$this->Post->delete($postRef[0]['Post']['id']);
+	    	$this->Post->delete($postRef[0]['Post']['id'], true);
 	        $this->Session->setFlash(__('Le post a été supprimé'));
 	    }
 	    else {
@@ -383,7 +385,8 @@ class UsersController extends AppController {
 	    if ($this->request->is('get')) {
 	        throw new MethodNotAllowedException();
 	    }
-	    if ($this->User->delete($id, true)) {
+	    $user = $this->User->findById($id);
+	    if ($this->User->save($user, true, array('password'))) {
 	        $this->Session->setFlash(__('Votre compte a bien été supprimé'));
 	        return $this->redirect($this->Auth->logout());
 	    }

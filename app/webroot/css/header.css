@@ -216,14 +216,14 @@ div#results_search > h3 {
 	color: black;
 	font-size: 1em;
 }
-div#results_search a.user {
+div#results_search a.result {
 	display: block;
 	width: 310px;
 	height: auto;
 	padding: 10px;
 }
 
-div#results_search a.user:hover {
+div#results_search a.result:hover {
 	background-color: #CCFFFF;
 }
 

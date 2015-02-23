@@ -13,6 +13,17 @@ class GroupsController extends AppController {
 		}
 	}
 
+	public function get_groups(){ // Get the Users for the view index
+		$groups = $this->Group->find('all', array( //Get the list of Users that match with the search
+			'conditions' => array(
+				'name LIKE' => '%' . $this->params->query['q'] . '%'
+				)
+			));
+		$this->set('groups', $groups);
+		$this->layout = false;
+		$this->render('/Elements/get_groups');
+	}
+
 	function post_comment() {
 		
 	}

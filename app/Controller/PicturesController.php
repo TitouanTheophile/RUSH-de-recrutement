@@ -1,7 +1,6 @@
 <?php
 
 class PicturesController extends AppController {
-	public $components = 'SecureImport';
 
 	public function view($img_id) {
 		$pic = $this->Picture->findById($img_id);
@@ -85,7 +84,6 @@ class PicturesController extends AppController {
 				return $this->redirect(array('controller' => 'pictures', 'action' => 'add'));
 			}
 			$pic_id = $this->Picture->id;
-			$this->
 			move_uploaded_file($this->request->data['Picture']['img']['tmp_name'], WWW_ROOT . "/img/$pic_id.jpg");
 			$this->Picture->Content->create();
 			$content_data = array(
@@ -131,8 +129,10 @@ class PicturesController extends AppController {
 				'conditions' => array(
 				"Content.content_id" => $id)));
 			$content_id = $content_id['Content']['id'];
-			$this->Picture->delete($id);
-			$this->Picture->Content->delete($content_id);
+			$this->Picture->Content->ContentP->deleteAll(array(
+				'ContentP.content_id' => $content_id));
+			$this->Picture->delete($id, true);
+			$this->Picture->Content->delete($content_id, true);
 			if (file_exists(WWW_ROOT . "/img/$id.jpg"))
 				unlink(WWW_ROOT . "/img/$id.jpg");
 			$this->Session->setFlash(__('Votre image a été supprimée.'));
@@ -141,6 +141,7 @@ class PicturesController extends AppController {
 
 	public function addPoint($img_id, $pointType) {
 		$content_id = $this->Picture->findById($img_id);
+		debug($content_id);
 		$content_id = $content_id['Content']['id'];
 		$pic = $this->Picture->Content->ContentP->find('first', array(
 			'conditions' => array(
