@@ -1,8 +1,11 @@
 .comment_button
 {
 	background-color: #9999dd;
- 	position: relative;
- 	left: 465px;
+ 	border-radius: 2px;
+    padding: 5px;
+    display: inline-block;
+    vertical-align: bottom;
+    margin-bottom: 10px;
 }
 
 .comments
