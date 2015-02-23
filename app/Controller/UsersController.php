@@ -315,13 +315,15 @@ class UsersController extends AppController {
 	        throw new MethodNotAllowedException();
 	    }
 	    $content = $this->Content->findById($id);
-	    if ($this->Content->delete($id)) {
+	    $this->Comment->deleteAll(array(
+	    	'content_id' => $id));
+	    if ($this->Content->delete($id, true)) {
 	    	$postRef = $this->Post->find('all',
 	    		array( 'fields'  =>	array('id'),
 	    			'conditions' =>	array('id' => $content['Content']['content_id'])
 	    		)
 	    	);
-	    	$this->Post->delete($postRef[0]['Post']['id']);
+	    	$this->Post->delete($postRef[0]['Post']['id'], true);
 	        $this->Session->setFlash(__('Le post a été supprimé'));
 	    }
 	    else {

@@ -39,6 +39,7 @@ class CommentsController extends AppController
 					'content' => $this->request->data['Comment']['content']
 					), true);
 					$this->Comment->save(NULL, true);
+					return $this->redirect($this->referer);
 			}
 	}
 }
