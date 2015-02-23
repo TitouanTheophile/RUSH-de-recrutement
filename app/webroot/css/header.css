@@ -182,6 +182,7 @@ div#notifications_list a span {
 	margin-top: 15px;
 	padding-left: 20px;
 	font-size: 1em;
+	width: 420px;
 }
 
 div#container_search {

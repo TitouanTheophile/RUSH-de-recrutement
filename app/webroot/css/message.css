@@ -6,12 +6,12 @@ div#messages {
 div#results_search_messages {
 	position: absolute;
 	background: linear-gradient(rgba(142,142,245,0.9),rgba(100,100,186,0.9));
-	width: 1675px;
 	max-height: 200px;
 	overflow-y: scroll;
 	overflow-x: hidden;
 	border: 2px solid grey;
 	z-index: 42;
+	width: 97%;
 }
 
 div#results_search_messages::-webkit-scrollbar {
@@ -25,7 +25,7 @@ div#results_search_messages > h3 {
 }
 div#results_search_messages a.user {
 	display: block;
-	width: 1675px;
+	width: 97%;
 	height: auto;
 	padding: 10px;
 }
