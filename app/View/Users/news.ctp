@@ -18,8 +18,8 @@
 					echo "Vous n'avez pas de groupe";
 				else {
 					foreach ($user['Group'] as $group) {
-						echo $this->Html->link($group['name'],
-		           						   	array('controller' => 'groups', 'action' => 'view', $group['id']));
+						echo '<div>' . $this->Html->link($group['name'],
+		           						   	array('controller' => 'groups', 'action' => 'view', $group['id'])) . '</div>';
 					}
 				}
 			?>
