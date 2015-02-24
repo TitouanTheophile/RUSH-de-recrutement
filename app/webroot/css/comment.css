@@ -2,26 +2,32 @@
 {
 	background-color: #9999dd;
  	position: relative;
- 	left: 465px;
+
 }
 
 .comments
 {
     margin-left: 20px;
 }
+
+xmp 
+{
+    font-size: 17px;
+
+}
 .comment
 {
-	border: 1px solid;
 	overflow: hidden;
 	width: 495px;
     word-wrap: break-word;
+    margin-bottom: 1px;
 }
 
 .comment_date
 {
-	font-size: 13px;
+	font-size: 15px;
     position: relative;
-    top: 3px;
+    top: 1px;
 }
 
 .comment_area
@@ -32,7 +38,7 @@
 
 .profile_links
 {
-    font-size: 15px;
+    font-size: 18px;
 	color: #284370;
     text-decoration: none;
 }

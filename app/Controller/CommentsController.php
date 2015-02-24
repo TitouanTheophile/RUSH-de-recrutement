@@ -2,7 +2,7 @@
 class CommentsController extends AppController
 {
 
-	function getComment($content_id)
+	function getComment($content_id, $reload)
 	{
 		$allCom = $this->Comment->find('all', array(
 		    'joins' => array(
@@ -15,18 +15,38 @@ class CommentsController extends AppController
 		        )
 		    ),
 		    'conditions' => array(
-		        'content_id' => $content_id
-		    ),
-		    'fields' => array('users.firstname','users.lastname', 'Comment.content', 'Comment.created', 'Comment.from_id', 'Comment.content_id'
-		    ),
+		        'content_id' => $content_id),
+		    'fields' => array('users.firstname','users.lastname', "users.picture_id", 'Comment.content', 'Comment.created',
+		    				  'Comment.from_id', 'Comment.content_id'),
 		    'order' => array('Comment.created' => 'ASC')
 			));
+		foreach ($allCom as $key => $val) {
+    		$val['Comment']['created'] = date_diff(
+    									 date_create($val['Comment']['created']),
+    									 date_create(date("c")));
+    		if ($val['Comment']['created']->format('%d') > "0")
+    			$val['Comment']['created'] = $val['Comment']['created']->format('%d') . " jour";
+			else if ($val['Comment']['created']->format('%h') > "0")
+    			$val['Comment']['created'] = $val['Comment']['created']->format('%h') . " heure";
+			else if ($val['Comment']['created']->format('%i') > "0")
+    			$val['Comment']['created'] = $val['Comment']['created']->format('%i') . " minute";
+   			else
+   				$val['Comment']['created'] = "quelques seconde";
+   			if ($val['Comment']['created'][0] != '1')
+   				$val['Comment']['created'] = $val['Comment']['created'] . "s";
 
-		$content['Content']['id'] = $content_id;
-		$this->set('comment', $allCom);
-		$this->set('content', $content);
-		$this->layout = false;
-		$this->render('/Elements/comment');
+  			$allCom[$key] = $val;
+  		}
+  		if ($reload == "true")
+	  	{
+			$content['Content']['id'] = $content_id;
+			$this->set('comment', $allCom);
+			$this->set('content', $content);
+			$this->layout = false;
+			$this->render('/Elements/comment');
+		}
+		else
+			return $allCom;
 	}
 
 	function postComment()

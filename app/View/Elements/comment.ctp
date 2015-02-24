@@ -3,7 +3,9 @@
 <?= $this->Html->script('text_area');?>
 <?= $this->Form->create('Comments'); ?>
 <div class="comments">	
-<?php foreach ($comment as $text)
+<?php
+
+ foreach ($comment as $text)
 {
 	echo "<div class='comment'>".
 	$this->Html->link($text['users']['firstname']." ".$text['users']['lastname'],
@@ -11,8 +13,9 @@
 		$text['Comment']['from_id']), array("class" => "profile_links")).
 		"<xmp style='display:inline'>"." ".$text['Comment']['content'].
 		"</xmp><br /><span class='comment_date'>".
-		$text['Comment']['created'].
+		"envoyé il y a ". $text['Comment']['created'] .
 		"</span></div>";
+
 }
 ?>
 <div class="comment_area">
