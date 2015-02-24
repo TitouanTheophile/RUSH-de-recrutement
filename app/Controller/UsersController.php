@@ -96,11 +96,15 @@ class UsersController extends AppController {
 				array_push($arr, $my_friend['Friend']['user2_id']);
 			}
 		}
+		$array_id = array();
+		foreach ($user['Group'] as $group) {
+			$array_id[] = $group['id'];
+		}
         $contents = $this->Content->find('all',
         	array('conditions' => array(
         		'OR' => array(
         			array('from_id' => $arr, 'targetType_id' => 1),
-        			array('target_id' => 1, 'targetType_id' => 2)
+        			array('target_id' => $array_id, 'targetType_id' => 2)
         			)
         		)
         	));
