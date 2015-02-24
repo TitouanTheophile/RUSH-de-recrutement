@@ -23,8 +23,7 @@
 	margin-right: 35px;
 }
 
-.content_wall_header_pic,
-.comment_header_pic {
+.content_wall_header_pic {
 	display: block;
 	float: left;
 	width: 40px;
@@ -33,18 +32,15 @@
 	overflow: hidden;
 }
 
-.content_wall_header_pic img.long,
-.comment_header_pic img.long {
+.content_wall_header_pic img.long {
 	width: 40px;
 }
 
-.content_wall_header_pic img.large,
-.comment_header_pic img.large {
+.content_wall_header_pic img.large{
 	height: 40px;
 }
 
-.content_wall_header_pic img,
-.comment_header_pic img {
+.content_wall_header_pic img {
 	position: relative;
 	top: 50%;
 	left: 50%;

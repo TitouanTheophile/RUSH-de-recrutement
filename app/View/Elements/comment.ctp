@@ -1,6 +1,4 @@
-<script type='text/javascript' src='http://code.jquery.com/jquery-1.7.1.min.js'></script>
-
-<?= $this->Html->script('text_area');?>
+<?= $this->Html->script('text_area', array('inline' => false));?>
 <?= $this->Form->create('Comments'); ?>
 <div class="comments">	
 <?php

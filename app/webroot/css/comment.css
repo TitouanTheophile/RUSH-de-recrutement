@@ -7,16 +7,36 @@
     margin: 5px;
 }
 
-.comments
-{
-    margin-left: 20px;
+.comment_header_pic {
+    display: block;
+    float: left;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.comment_header_pic img.long {
+        width: 40px;
+}
+
+
+.comment_header_pic img.large {
+    height: 40px;
+}
+
+.comment_header_pic img {
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
     
 xmp 
 {
     font-size: 17px;
-
 }
+
 .comment
 {
 	overflow: hidden;
