@@ -1,6 +1,8 @@
 $(document).ready(function(){
     $(".comment_button").on("click", function(){
-      var url = window.location.pathname;
+     
+            console.log("DDD");
+     var url = window.location.pathname;
       url = url.substr(0, url.indexOf('users', 0));
       url = url.concat('Comments/postComment/');
       var id = $(this).val();
@@ -12,7 +14,6 @@ $(document).ready(function(){
         data    : "data[Comment][content_id]=" + id + "&data[Comment][content]=" + $(this).prev().val(),
         success : function()
         {
-            console.log(id);
             url = url.replace("post", "get");
             url = url.concat(id);
             url = url.concat("/true");

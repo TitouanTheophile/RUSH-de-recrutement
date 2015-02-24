@@ -1,6 +1,4 @@
 <?= $this->Html->script('text_area', array('inline' => false));?>
-<?= $this->Form->create('Comments'); ?>
-<div class="comments">	
 <?php
 
  foreach ($comment as $text)
@@ -24,6 +22,7 @@
 }
 ?>
 <div class="comment_area">
+<?= $this->Form->create('Comments'); ?>
 <?= $this->Form->textarea('text-area', array('label' => '', 
 										  "placeholder" => "Écrire un commentaire...",
 										  "class" => "common ",

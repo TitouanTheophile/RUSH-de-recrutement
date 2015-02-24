@@ -2,9 +2,7 @@
 {
 	background-color: #9999dd;
 
- 	border-radius: 2px;
-    padding: 5px;
-    margin: 5px;
+
 }
 
 .comment_header_pic {
@@ -41,16 +39,15 @@ xmp
 {
 	overflow: hidden;
     word-wrap: break-word;
-    margin-bottom: 1px;
-    height: 50px;
+    min-height: 50px;
+    margin-bottom: 15px;
 }
 
 .comment_date
 {
 	font-size: 15px;
     position: relative;
-    top: 1px;
-    left: 5px;
+    left: 25px;
 }
 
 form {

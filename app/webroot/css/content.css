@@ -88,4 +88,5 @@
 .post_comment {
 	background: rgba(210,216,255,1.0);
 	height: auto;
+	padding: 10px;
 }
