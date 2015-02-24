@@ -1,13 +1,17 @@
 <?= $this->Html->css('album', array('inline' => false)) ?>
-<?= $this->Html->div('section_title', "<h3>$title</h3>") ?>
+<?= $this->Html->div('section_title', "<h3>".$album['Album']['title']."</h3>") ?>
 <?php 
-	$nav  = $this->Html->link('Ajouter une image',  array('controller' => 'pictures', 'action' => 'add', $album));
-	$nav .= $this->Html->link('Modifier',  array('controller' => 'pictures', 'action' => 'edit', $pic['Picture']['id'], $album));
-	$nav .= $this->Html->link('Supprimer', array('controller' => 'pictures', 'action' => 'delete', $pic['Picture']['id'], $album),
+	$nav  = $this->Html->link('Ajouter une image',  array('controller' => 'pictures', 'action' => 'add', $album['Album']['id']));
+	$nav .= $this->Html->link('Modifier',  array('controller' => 'pictures', 'action' => 'edit', $pic['Picture']['id'], $album['Album']['id']));
+	$nav .= $this->Html->link('Supprimer', array('controller' => 'pictures', 'action' => 'delete', $pic['Picture']['id'], $album['Album']['id']),
 								   		   array('confirm' => 'Voulez-vous vraiment supprimer cette image ?'));
-	$nav .= $this->Html->link('Retour à l\'album', array('controller' => 'albums', 'action' => 'album', $album));
+	$back = $this->Html->link('Retour à l\'album', array('controller' => 'albums', 'action' => 'album', $album['Album']['id']));
+	$nav .= $back;
+	if ($album['Album']['user_id'] == $this->Session->read('Auth.User.id'))
+		echo $this->Html->div('section_nav', $nav); 
+	else
+		echo $this->Html->div('section_nav', $back);
 ?>
-<?= $this->Html->div('section_nav', $nav); ?>
 <?php
 	$previous = $this->Html->div('previous_button', $this->Html->para(null, '<'));
 	$big_pic  = $this->Html->link($previous, array('controller' => 'pictures', 'action' => 'previous', $pic['Picture']['id']),

@@ -48,7 +48,10 @@ foreach ($group['User'] as $user) { // Check if user is in the group
 		if (!$ismember)
 			echo "Vous devez être dans le groupe <strong>" . $group['Group']['name'] . "</strong> pour suivre son activite ou publier sur son mur.";
 		else {
+			echo $this->Html->link('Publier un post',
+				array ('action' => 'sendPost', $group['Group']['id']));
 			foreach ($contents as $content) {
+				debug($content);
 				if ($content['Content']['targetType_id'] == 2) {
 					if ($content['Content']['contentType_id'] == 1) {
 						foreach ($posts as $post) {

@@ -137,5 +137,37 @@ class GroupsController extends AppController {
 	    $this->set('members', $members);
 
     }
+
+    public function sendPost($id) {
+    	$this->loadModel('Post');
+    	$this->loadModel('Content');
+		if (!$id || !($group = $this->Group->User->findById($id)))
+	        throw new NotFoundException(__('Le groupe spécifié est invalide'));
+	    
+	    $this->set('group', $group);
+
+        if ($this->request->is('post')) {
+            $this->Post->create();
+        $this->Content->create();
+
+        $d = $this->request->data;
+        $d['Post']['content'] = nl2br(htmlspecialchars($d['Post']['content']));
+		if ( $this->Post->save($d) ) {
+			$d2 = array(
+				'Content' => array(
+					'contentType_id' => 1,
+					'targetType_id' => 2,
+					'content_id' => $this->Post->id,
+					'from_id' => $this->Session->read('Auth.User.id'),
+					'target_id' => $id,
+				)
+			);
+			$this->Content->save($d2);
+			$this->Session->setFlash(__('Votre post a bien été publié'));
+
+			}
+			return $this->redirect(array('action' => 'view', $id));
+		}
+    }
 }
 ?>
