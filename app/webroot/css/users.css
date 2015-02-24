@@ -207,3 +207,19 @@
 	width: 320px;
 	vertical-align: top;
 }
+
+a.add_group {
+	position: absolute;
+	top: 20px;
+	right: 20px;
+}
+
+a.add_group img {
+	width: 30px;
+	opacity: 1;
+}
+
+a.add_group img:hover {
+		opacity: 0.7;
+}
+

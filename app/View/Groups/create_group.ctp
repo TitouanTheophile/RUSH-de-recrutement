@@ -1,4 +1,4 @@
-<?=$this->Html->css('buttons');?>
+<?=$this->Html->css('buttons', array('inline' => false));?>
 <div>
 <h1 align="center">Creer un nouveau groupe</h1>
 <?= $this->Form->create('Info', array('novalidate')); ?>

@@ -12,8 +12,8 @@
 		<div class="container_padding20">
 			<h1>Mes groupes</h1>
 			<?= $this->Html->link($this->Html->image('plus.png'),
-				array('controller' => 'groups', 'action' => 'create_group'),
-				array('escape' => false)); ?>
+								  array('controller' => 'groups', 'action' => 'create_group'),
+								  array('escape' => false, 'class' => 'add_group')); ?>
 			<?php
 				if (empty($user['Group']))
 					echo "Vous n'avez pas de groupe";
