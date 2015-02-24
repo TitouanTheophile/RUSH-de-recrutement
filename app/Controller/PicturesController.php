@@ -3,6 +3,8 @@
 class PicturesController extends AppController {
 
 	public function view($img_id) {
+		if (!$img_id)
+			throw new NotFoundException(__('Image introuvable'));
 		$pic = $this->Picture->findById($img_id);
 		$album = $this->Picture->findById($img_id);
 		$album = $this->Picture->Album->findById($album['Picture']['album_id']);
@@ -32,10 +34,12 @@ class PicturesController extends AppController {
 	}
 
 	public function next($img_id) {
+		if (!$img_id)
+			throw new NotFoundException(__('Image introuvable'));
 		$album = $this->Picture->findById($img_id);
 		$album = $album['Picture']['album_id'];
 		if (empty($album))
-			return $this->redirect($this->referer());
+			$this->redirect($this->referer());
 		$next_id = $img_id + 1;
 		$current = $this->Picture->findById($next_id);
 		$end = $this->Picture->find('first', array(
@@ -45,16 +49,18 @@ class PicturesController extends AppController {
 			$next_id = ($next_id >= $end ? 1 : $next_id + 1);
 			$current = $this->Picture->findById($next_id);
 			if ($next_id == $img_id)
-				return $this->redirect($this->referer());
+				$this->redirect($this->referer());
 		}
-		return $this->redirect(array('controller' => 'pictures', 'action' => 'view', $next_id));
+		$this->redirect(array('controller' => 'pictures', 'action' => 'view', $next_id));
 	}
 
 	public function previous($img_id) {
+		if (!$img_id)
+			throw new NotFoundException(__('Image introuvable'));
 		$album = $this->Picture->findById($img_id);
 		$album = $album['Picture']['album_id'];
 		if (empty($album))
-			return $this->redirect($this->referer());
+			$this->redirect($this->referer());
 		$previous_id = $img_id - 1;
 		$current = $this->Picture->findById($previous_id);
 		$end = $this->Picture->find('first', array(
@@ -65,9 +71,9 @@ class PicturesController extends AppController {
 			$previous_id = ($previous_id <= 0 ? $end : $previous_id - 1);
 			$current = $this->Picture->findById($previous_id);
 			if ($previous_id == $img_id)
-				return $this->redirect($this->referer());
+				$this->redirect($this->referer());
 		}
-		return $this->redirect(array('controller' => 'pictures', 'action' => 'view', $previous_id));
+		$this->redirect(array('controller' => 'pictures', 'action' => 'view', $previous_id));
 	}
 
 	public function add($album = null) {
@@ -78,7 +84,7 @@ class PicturesController extends AppController {
 					'description' => $this->request->data['Picture']['description']);
 			if(!($this->Picture->save($pic_data))) {
 				$this->Session->setFlash(__('Erreur lors de l\'ajout de l\'image'));
-				return $this->redirect(array('controller' => 'pictures', 'action' => 'add'));
+				$this->redirect(array('controller' => 'pictures', 'action' => 'add'));
 			}
 			$pic_id = $this->Picture->id;
 			move_uploaded_file($this->request->data['Picture']['img']['tmp_name'], WWW_ROOT . "/img/$pic_id.jpg");
@@ -93,47 +99,51 @@ class PicturesController extends AppController {
 					'points_connard' => 0);
 			if(!($this->Picture->Content->save($content_data))) {
 				$this->Session->setFlash(__('Erreur lors de l\'ajout de l\'image'));
-				return $this->redirect(array('controller' => 'pictures', 'action' => 'add'));
+				$this->redirect(array('controller' => 'pictures', 'action' => 'add'));
 			}
             $this->Session->setFlash(__('Votre image a été ajoutée.'));
-            return $this->redirect(array('controller' => 'albums', 'action' => 'album', $album));
+            $this->redirect(array('controller' => 'albums', 'action' => 'album', $album));
 		}
 	}
 
-	public function edit($id, $album) {
-		if (!$id) {throw new NotFoundException(__('Album introuvable'));}
-		$pic = $this->Picture->findById($id);
-		if (!$pic) {throw new NotFoundException(__('Album introuvable'));}
+	public function edit($img_id, $album) {
+		if (!$img_id)
+			throw new NotFoundException(__('Image introuvable'));
+		$pic = $this->Picture->findById($img_id);
+		if (!$pic)
+			throw new NotFoundException(__('Image introuvable'));
 		if ($this->request->is('put') && !empty($this->request->data)) {
 			$this->Picture->create(array(
-				'id' => $id,
+				'id' => $img_id,
 				'album_id' => $album,
 				'description' => $this->request->data['Picture']['description']));
 			if ($this->Picture->save(null, false, array('description'))) {
                 $this->Session->setFlash(__('Vos modifications ont été enregistrées.'));
-                return $this->redirect(array('action' => 'view', $id));
+                $this->redirect(array('action' => 'view', $img_id));
             }
             $this->Session->setFlash(__('Erreur lors de la modification de l\'image'));
 		}
 		if (empty($this->request->data)) {
-			$this->set('id', $id);
+			$this->set('id', $img_id);
 			$this->request->data = $pic;
 		}
 	}
 
-	public function delete($id, $album) {
-			$content_id = $this->Picture->Content->find('first', array(
-				'conditions' => array(
-				"Content.content_id" => $id)));
-			$content_id = $content_id['Content']['id'];
-			$this->Picture->Content->ContentP->deleteAll(array(
-				'ContentP.content_id' => $content_id));
-			$this->Picture->delete($id, true);
-			$this->Picture->Content->delete($content_id, true);
-			if (file_exists(WWW_ROOT . "/img/$id.jpg"))
-				unlink(WWW_ROOT . "/img/$id.jpg");
-			$this->Session->setFlash(__('Votre image a été supprimée.'));
-			return $this->redirect(array('controller' => 'albums', 'action' => 'album', $album));
+	public function delete($img_id, $album) {
+		if (!$img_id)
+			throw new NotFoundException(__('Image introuvable'));
+		$content_id = $this->Picture->Content->find('first', array(
+			'conditions' => array(
+			"Content.content_id" => $img_id)));
+		$content_id = $content_id['Content']['id'];
+		$this->Picture->Content->ContentP->deleteAll(array(
+			'ContentP.content_id' => $content_id));
+		$this->Picture->delete($img_id, true);
+		$this->Picture->Content->delete($content_id, true);
+		if (file_exists(WWW_ROOT . "/img/$id.jpg"))
+			unlink(WWW_ROOT . "/img/$id.jpg");
+		$this->Session->setFlash(__('Votre image a été supprimée.'));
+		$this->redirect(array('controller' => 'albums', 'action' => 'album', $album));
 	}
 
 	public function addPoint($img_id, $pointType) {
@@ -149,14 +159,14 @@ class PicturesController extends AppController {
 			$this->Picture->Content->ContentP->delete($pic['ContentP']['id']);
 		else if (!empty($pic) && $pic['ContentP']['pointType'] == $pointType) {
 			$this->Picture->Content->ContentP->delete($pic['ContentP']['id']);
-			return $this->redirect(array('controller' => 'pictures', 'action' => 'view', $img_id));
+			$this->redirect(array('controller' => 'pictures', 'action' => 'view', $img_id));
 		}
 		$this->Picture->Content->ContentP->create(array(
 			'user_id' => $this->Session->read('Auth.User.id'),
 			'content_id' => $content_id,
 			'pointType' => $pointType));
 		$this->Picture->Content->ContentP->save(null, false, array('user_id', 'content_id', 'pointType'));
-		return $this->redirect(array('controller' => 'pictures', 'action' => 'view', $img_id));
+		$this->redirect(array('controller' => 'pictures', 'action' => 'view', $img_id));
 	}
 
 	public function removePoint($img_id, $pointType) {
@@ -169,10 +179,10 @@ class PicturesController extends AppController {
 			'fields' => 'ContentP.id, ContentP.user_id, ContentP.pointType'));
 		if (!empty($pic) && $pic['ContentP']['pointType'] == $pointType) {
 			$this->Picture->Content->ContentP->delete($pic['ContentP']['id']);
-			return $this->redirect(array('controller' => 'pictures', 'action' => 'view', $img_id));
+			$this->redirect(array('controller' => 'pictures', 'action' => 'view', $img_id));
 		}
 		else
-			return $this->redirect(array('controller' => 'pictures', 'action' => 'view', $img_id));
+			$this->redirect(array('controller' => 'pictures', 'action' => 'view', $img_id));
 	}
 
 }
