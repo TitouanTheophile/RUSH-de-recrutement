@@ -1,5 +1,3 @@
-<?= $this->Html->script('text_area', array('inline' => false));?>
-
 <div class="comments">	
 <?php foreach ($comment as $text): ?>
 	<div class='comment'>
@@ -16,14 +14,14 @@
 	</div></div>
 <?php endforeach ?>
 <div class="comment_area">
-<?= $this->Form->create('Comments'); ?>
+<?= $this->Form->create('Comments', array( 'action' => "/RUSH/Users/view/9")); ?>
 <?= $this->Form->textarea('text-area', array('label' => '', 
 										     "placeholder" => "Écrire un commentaire...",
 										     "class" => "common ",
 										     "value" => "",
 										     "required"));?>
 
-<?= $this->Form->button("Publier", array('class' => 'comment_button', 'type' => 'button','value' => $content['Content']['id'])); ?>
+<?= $this->Form->button("Publier", array('class' => 'comment_button s', 'type' => 'button','value' => $content['Content']['id'])); ?>
 <?= $this->Form->end();?>
 </div>
 </div>

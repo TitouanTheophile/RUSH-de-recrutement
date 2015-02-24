@@ -1,9 +1,7 @@
 $(document).ready(function(){
     $(".comment_button").on("click", function(){
-     
-            console.log("DDD");
      var url = window.location.pathname;
-      url = url.substr(0, url.indexOf('users', 0));
+      url = url.substr(0, url.indexOf('Users', 0));
       url = url.concat('Comments/postComment/');
       var id = $(this).val();
       var comment_area = $(this).parent().parent().parent();
@@ -22,7 +20,7 @@ $(document).ready(function(){
                 success : function(data)
                 {
 
-                   comment_area.html(data);
+                   $('.post_comment').html(data);
                 }
             });
         }
@@ -46,7 +44,6 @@ $(document).ready(function(){
             hiddenDiv.html(content + '<br class="lbr">');
 
             $(this).css('height', hiddenDiv.height());
-
         });
     });
 

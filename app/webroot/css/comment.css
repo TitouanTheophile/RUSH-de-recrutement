@@ -1,9 +1,11 @@
-.comment_button
+button.comment_button
 {
 	background-color: #9999dd;
+    height: 20px;
+    width: 50px;
 }
 
-.comment_header_pic {
+a.comment_header_pic {
     display: block;
     float: left;
     width: 40px;
@@ -12,30 +14,30 @@
     overflow: hidden;
 }
 
-.comment_header_pic img.long {
+a.comment_header_pic img.long {
         width: 40px;
 }
 
 
-.comment_header_pic img.large {
+a.comment_header_pic img.large {
     height: 40px;
 }
 
-.comment_header_pic img {
+a.comment_header_pic img {
     position: relative;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
 }
     
-xmp 
+div .post_comment div .comment div xmp 
 {
 display: inline;
     
     font-size: 17px;
 }
 
-.comment
+div .post_comment div .comment
 {
 	overflow: hidden;
     word-wrap: break-word;
@@ -43,55 +45,47 @@ display: inline;
     margin-bottom: 15px;
 }
 
-.comment_date
+    
+div .post_comment div .comment span.comment_date
 {
 	font-size: 15px;
 }
 
-form {
-    margin-right: 0px;
-    width: 100%;
-}
-
-.comment_area
+div .post_comment div .comment_area
 {
     padding: 5px;
     text-align: right;
 }
 
-.profile_links
+div .post_comment div .comment .profile_links
 {
     font-size: 18px;
 	color: #284370;
     text-decoration: none;
 }
 
-textarea {
-    color: #444;
-    padding: 5px;
+div .post_comment div .comment_area .txtstuff {
     resize: none;
+    height: 30px;
     overflow: hidden;
 }
 
-.txtstuff {
-    resize: none;
-    overflow: hidden;
-}
-
-.hiddendiv {
+div .post_comment div .comment_area .hiddendiv {
     display: none;
     white-space: pre-wrap;
     word-wrap: break-word;
     overflow-wrap: break-word; /* future version of deprecated 'word-wrap' */
 }
 
-.common {
+
+div .post_comment div .comment_area .common {
+    resize: none;
     min-height: 30px;
     font-family: Arial, sans-serif;
     font-size: 17px;
     overflow: hidden;
 }
 
-.lbr {
+div .post_comment div .comment_area .hiddendiv .lbr {
     line-height: 3px;
 }

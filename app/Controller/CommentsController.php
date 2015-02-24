@@ -53,6 +53,7 @@ class CommentsController extends AppController
 			return $allCom;
 	}
 
+
 	function postComment()
 	{
 			if ($this->request->is('post'))
