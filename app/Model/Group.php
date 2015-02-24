@@ -2,13 +2,11 @@
 
 class Group extends AppModel {
 
-	public $validate = array(
-
-	'name' => array(
-		'rule' => 'url',
-		'allowEmpty' => false,
-		'required' => true,
-		'message' => 'FAUX'));
+	// public $validate = array(
+	// 'name' => array(
+	// 	'allowEmpty' => false,
+	// 	'required' => true
+	// 	));
 
 
 	public $hasMany = array(

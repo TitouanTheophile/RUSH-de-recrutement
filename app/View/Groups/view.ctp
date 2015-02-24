@@ -15,6 +15,15 @@ foreach ($group['User'] as $user) { // Check if user is in the group
 			<?= $this->Html->link($group['Group']['name'], array('controller' => 'groups', 'action' => 'view', $group['Group']['id'])); ?>
 		</div>
 	</div>
+	<div id="friend_box">
+		<?php
+			if ($ismember == 1)
+				echo $this->Form->postLink('Quitter le groupe', array('action' => 'leave', $group['Group']['id']),
+														array('confirm' => 'Etes-vous sûr ?'));
+			else if ($ismember == 0)
+				echo $this->Form->postLink('Rejoindre le groupe', array('action' => 'join', $group['Group']['id']));
+		?>
+	</div>
 </div>
 
 <div id="wall_infos" class="container_padding">
@@ -32,7 +41,7 @@ foreach ($group['User'] as $user) { // Check if user is in the group
 </div>
 
 <div id="user_wall" class="container_padding">
-	<h4>Actulité</h4>
+	<h4>Actulaité</h4>
 	<hr />
 	<div class="container_padding">
 	<?php

@@ -1,8 +1,9 @@
 .comment_button
 {
 	background-color: #9999dd;
- 	position: relative;
- 	left: 465px;
+ 	border-radius: 2px;
+    padding: 5px;
+    margin: 5px;
 }
 
 .comments
@@ -13,7 +14,6 @@
 {
 	border: 1px solid;
 	overflow: hidden;
-	width: 495px;
     word-wrap: break-word;
 }
 
@@ -24,10 +24,16 @@
     top: 3px;
 }
 
+form {
+    margin-right: 0px;
+    width: 100%;
+}
+
 .comment_area
 {
     margin: 0;
-    padding: 0;
+    padding: 5px;
+    text-align: right;
 }
 
 .profile_links
@@ -40,7 +46,7 @@
 textarea {
     color: #444;
     padding: 5px;
-        resize: none;
+    resize: none;
     overflow: hidden;
 }
 
@@ -57,7 +63,6 @@ textarea {
 }
 
 .common {
-    width: 500px;
     min-height: 30px;
     font-family: Arial, sans-serif;
     font-size: 13px;

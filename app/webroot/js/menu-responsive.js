@@ -6,7 +6,7 @@ $(document).ready(function() {
 				$('<div>', {id: 'header_drop'}).appendTo($('#header'));
 				$('div#header_menu').children().appendTo($('#header_drop'));
 				$('<a>', {html: '≡', href: '#', class: 'menu_drop'}).appendTo($('#header_menu'));
-				$('div#header_menu a.menu_drop').on('click', function() {
+				$('div#header_menu a.menu_drop').on('click', function(event) {
 					event.preventDefault();
 					event.stopPropagation();
 					$(this).toggleClass('active');

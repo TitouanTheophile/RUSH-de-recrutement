@@ -1,26 +1,13 @@
 $(document).ready(function() {
-
-
+  
   $('#ProfileId').keyup( function() {
-    if( $(this).val().length > 1 ) {
-      url = '/users/get_users';
-      $.ajax( {
-        type : 'GET',
-        url : url ,
-        data : 'q='+$(this).val() ,
-        success : function(data) {
-          $('#results_search').html(data);
-        }
-      });
-      url = '/groups/get_groups';
-      $.ajax( {
-        type : 'GET',
-        url : url ,
-        data : 'q='+$(this).val() ,
-        success : function(data) {
-          $('#results_search').append(data);
-        }
-      });
+    if ($(this).val().length > 1) {
+      $.when(getResults('/users/get_users?q=', $(this).val()),
+             getResults('/groups/get_groups?q=', $(this).val())
+            ).done(function(users, groups) {
+                var data = users[0] + groups[0];
+                $('#results_search').html(data);
+            });
     }
     else {
       $('#results_search').html('');
@@ -32,7 +19,13 @@ $(document).ready(function() {
     $('#results_search').html('');
   });
 
-  $('#ProfileId').on('click', function() {
+  $('#ProfileId').on('click', function(event) {
         event.stopPropagation();
   })
+ 
+var getResults = function(url, query) {
+    var url = url + query;
+    return $.get(url);
+};
+
 });

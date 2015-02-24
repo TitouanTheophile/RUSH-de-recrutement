@@ -60,6 +60,9 @@
 				<?= $this->Html->link($this->Html->image('friends.png', array('alt' => "Liste d'amis"))."<span>Liste d'amis</span>",
                 		array('controller' => 'users', 'action' => 'friends', $user['User']['id']),
                 		array('escape' => false, 'id' => 'wall_infos_friend')); ?>
+                <?= $this->Html->link($this->Html->image('albums.png', array('alt' => "Albums photos"))."<span>Albums photos</span>",
+                		array('controller' => 'users', 'action' => 'friends', $user['User']['id']),
+                		array('escape' => false, 'id' => 'wall_infos_friend')); ?>
 			<?php endif ?>
 		</div>
 	</div>

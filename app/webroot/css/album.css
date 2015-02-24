@@ -104,6 +104,8 @@ div.pic img {
    left: 50%;
    top: 50%;
    -webkit-transform: translateY(-50%) translateX(-50%);
+      -moz-transform: translateY(-50%) translateX(-50%);
+    	   transform: translateY(-50%) translateX(-50%);
 }
 
 div.pic a.del_cross {
