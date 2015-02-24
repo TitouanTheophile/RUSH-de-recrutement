@@ -66,11 +66,9 @@ class AlbumsController extends AppController {
 			 "conditions" => array("Album.id" => $album)
 			));
 		$album = $this->Album->findById($album);
-		// $this->set('title', $album["Album"]["title"]);
-		// $this->set('description', $album["Album"]["description"]);
 		$this->set('pics', $pics);
 		$this->set('album', $album);
-
+		$this->set('owner', $this->Album->User->findById($album['Album']['user_id']));
 	}
 }
  ?>

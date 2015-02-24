@@ -10,12 +10,9 @@
 				$scale = getimagesize(IMAGES . '/'. $friend_picture);
 				$scale = ($scale[0] >= $scale[1] ? 'large' : 'long');
 				$friend_picture = $this->Html->link($this->Html->image($friend_picture, array('alt' => 'Photo de profil', 'class' => $scale)),
-				        							array('action' => 'view', $friend_data['User']['id']),
+				        							array('controller' => 'users', 'action' => 'view', $friend_data['User']['id']),
 				        							array('escape' => false));
 				echo $friend_picture;
-				if (!isset($my_friend['Friend']['pending'])) {
-					debug("here");
-				}
 			?>
 		</div>
 		<div id="friend_element_name">
