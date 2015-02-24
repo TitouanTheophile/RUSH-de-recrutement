@@ -57,12 +57,12 @@
 		<div class="container_padding">
 			<?php if ($friends_verification == 1) : ?>
 				<p>Mon email : <strong><?= $user['User']['email'] ?></strong></p>
-				<?= $this->Html->link($this->Html->image('friends.png', array('alt' => "Liste d'amis"))."<span>Liste d'amis</span>",
+				<?= $this->Html->link($this->Html->image('friends.png', array('alt' => "Liste d'array_multisort(arr)"))."<span>Liste d'amis</span>",
                 		array('controller' => 'users', 'action' => 'friends', $user['User']['id']),
                 		array('escape' => false, 'id' => 'wall_infos_friend')); ?>
-                <?= $this->Html->link($this->Html->image('albums.png', array('alt' => "Albums photos"))."<span>Albums photos</span>",
-                		array('controller' => 'users', 'action' => 'friends', $user['User']['id']),
-                		array('escape' => false, 'id' => 'wall_infos_friend')); ?>
+                <?= $this->Html->link($this->Html->image('albums2.png', array('alt' => "Albums photos"))."<span>Albums photos</span>",
+                		array('controller' => 'albums', 'action' => 'index', $user['User']['id']),
+                		array('escape' => false, 'id' => 'wall_infos_albums')); ?>
 			<?php endif ?>
 		</div>
 	</div>

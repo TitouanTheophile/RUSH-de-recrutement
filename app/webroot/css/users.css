@@ -123,7 +123,8 @@
 	top: 70px;
 }
 
-#wall_infos_friend {
+#wall_infos_friend,
+#wall_infos_albums {
 	display: block;
 	background: linear-gradient(rgba(142,142,245,0.8),rgba(100,100,186,0.8));
 	border-radius: 4px;
@@ -132,23 +133,33 @@
 	-webkit-transition: 0.2s;
 	transition: 0.2s;
 	opacity: 0.8;
+	margin: 5px 0px;
 }
 
-#wall_infos_friend:hover {
+#wall_infos_friend:hover,
+#wall_infos_albums:hover {
 	background: linear-gradient(rgba(142,142,245,0.9),rgba(100,100,186,0.9));
 	opacity: 1.0;
 }
 
-#wall_infos_friend:active {
+
+#wall_infos_friend:active,
+#wall_infos_albums:active {
 	box-shadow: 0px 0px 10px rgba(0,0,0,0.5) inset;
 }
 
-#wall_infos_friend span {
+#wall_infos_friend span,
+#wall_infos_albums span {
 	color: black;
 	display: inline-block;
 	vertical-align: top;
 	line-height: 80px;
 	padding-left: 20px;
+}
+
+#wall_infos_friend img,
+#wall_infos_albums img {
+	margin-top: 5px;
 }
 
 #user_wall {
