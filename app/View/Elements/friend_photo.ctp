@@ -5,14 +5,9 @@
 							  (isset($my_friend['Friend']['user1_id']) ? $my_friend['Friend']['user1_id'] : null));
 				$friend_data = $this->requestAction('users/getUser',
 													array('pass' => array($friend_id)));
-				$friend_picture = (!file_exists(IMAGES.'avatars'.DS.$friend_data['User']['id'].'.jpg') ?
-								   'inconnu.jpg' : 'avatars/'. $friend_data['User']['id'] . '.jpg');
-				$scale = getimagesize(IMAGES . '/'. $friend_picture);
-				$scale = ($scale[0] >= $scale[1] ? 'large' : 'long');
-				$friend_picture = $this->Html->link($this->Html->image($friend_picture, array('alt' => 'Photo de profil', 'class' => $scale)),
-				        							array('controller' => 'users', 'action' => 'view', $friend_data['User']['id']),
-				        							array('escape' => false));
-				echo $friend_picture;
+				echo $this->element('user_pic', array('id' => $friend_data['User']['id'],
+												  	  'url' => array('controller' => 'users', 'action' => 'view', $friend_data['User']['id']),
+											 	  	  'class' => ''));
 			?>
 		</div>
 		<div id="friend_element_name">
