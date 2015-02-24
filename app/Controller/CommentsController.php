@@ -1,7 +1,8 @@
 <?php
+
 class CommentsController extends AppController
 {
-
+    var $uses = array('Picture', 'Comment');
 	function getComment($content_id, $reload)
 	{
 		$allCom = $this->Comment->find('all', array(
@@ -16,7 +17,7 @@ class CommentsController extends AppController
 		    ),
 		    'conditions' => array(
 		        'content_id' => $content_id),
-		    'fields' => array('users.firstname','users.lastname', "users.picture_id", 'Comment.content', 'Comment.created',
+		    'fields' => array('users.firstname','users.lastname', 'Comment.content', 'Comment.created',
 		    				  'Comment.from_id', 'Comment.content_id'),
 		    'order' => array('Comment.created' => 'ASC')
 			));
@@ -34,7 +35,10 @@ class CommentsController extends AppController
    				$val['Comment']['created'] = "quelques seconde";
    			if ($val['Comment']['created'][0] != '1')
    				$val['Comment']['created'] = $val['Comment']['created'] . "s";
-
+   			if (file_exists("/RUSH/img/avatars/".$val['Comment']['from_id'].".jpg") == true)
+   				$val['users']['picture'] = "/RUSH/img/avatars/".$val['users']['id'].".png";
+   			else
+   				$val['users']['picture'] = "/RUSH/img/avatars/default.png";
   			$allCom[$key] = $val;
   		}
   		if ($reload == "true")
