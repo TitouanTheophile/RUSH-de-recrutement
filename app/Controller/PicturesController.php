@@ -2,14 +2,31 @@
 
 class PicturesController extends AppController {
 
+	private function try_arg($assert, $message, $url) {
+		if ($assert) {
+			$this->Session->setFlash(__($message));
+			$this->redirect($url);
+		}
+		else
+			return true;
+	}
+
+	private function allow($id, $message) {
+		$friends_verification = $this->requestAction('friends/isFriend',
+													 array('pass' => array($this->Session->read('Auth.User.id'), $id)));
+		$this->try_arg(($friends_verification != 1 && $id != $this->Session->read('Auth.User.id')), $message,
+					   array('controller' => 'users', 'action' => 'view', $this->Session->read('Auth.User.id')));
+		return true;
+	}
+
 	public function view($img_id) {
-		if (!$img_id)
-			throw new NotFoundException(__('Image introuvable'));
+		$this->try_arg((!isset($img_id) || $img_id <= 0), 'Image introuvable',
+					   array('controller' => 'users', 'action' => 'view', $this->Session->read('Auth.User.id')));
 		$pic = $this->Picture->findById($img_id);
-		$album = $this->Picture->findById($img_id);
-		$album = $this->Picture->Album->findById($album['Picture']['album_id']);
-		$content_id = $this->Picture->findById($img_id);
-		$content_id = $content_id['Content']['id'];
+		$album = $this->Picture->Album->findById($pic['Picture']['album_id']);
+		$content_id = $pic['Content']['id'];
+		$owner = $pic['Content']['from_id'];
+		$this->allow($owner, 'Vous n\'êtes pas autorisé à voir cette image.');
 		$userPoint = $this->Picture->Content->ContentP->find('first', array(
 			'conditions' => array(
 				'ContentP.content_id' => $content_id,
@@ -34,12 +51,11 @@ class PicturesController extends AppController {
 	}
 
 	public function next($img_id) {
-		if (!$img_id)
-			throw new NotFoundException(__('Image introuvable'));
+		$this->try_arg((!isset($img_id) || $img_id <= 0), 'Image introuvable',
+					   array('controller' => 'users', 'action' => 'view', $this->Session->read('Auth.User.id')));
 		$album = $this->Picture->findById($img_id);
 		$album = $album['Picture']['album_id'];
-		if (empty($album))
-			$this->redirect($this->referer());
+		$this->try_arg(empty($album), '', $this->referer());
 		$next_id = $img_id + 1;
 		$current = $this->Picture->findById($next_id);
 		$end = $this->Picture->find('first', array(
@@ -55,12 +71,11 @@ class PicturesController extends AppController {
 	}
 
 	public function previous($img_id) {
-		if (!$img_id)
-			throw new NotFoundException(__('Image introuvable'));
+		$this->try_arg((!isset($img_id) || $img_id <= 0), 'Image introuvable',
+					   array('controller' => 'users', 'action' => 'view', $this->Session->read('Auth.User.id')));
 		$album = $this->Picture->findById($img_id);
 		$album = $album['Picture']['album_id'];
-		if (empty($album))
-			$this->redirect($this->referer());
+		$this->try_arg(empty($album), '', $this->referer());
 		$previous_id = $img_id - 1;
 		$current = $this->Picture->findById($previous_id);
 		$end = $this->Picture->find('first', array(
@@ -82,7 +97,7 @@ class PicturesController extends AppController {
 			$pic_data = array(
 					'album_id' => $album,
 					'description' => $this->request->data['Picture']['description']);
-			if(!($this->Picture->save($pic_data))) {
+			if (!($this->Picture->save($pic_data))) {
 				$this->Session->setFlash(__('Erreur lors de l\'ajout de l\'image'));
 				$this->redirect(array('controller' => 'pictures', 'action' => 'add'));
 			}
