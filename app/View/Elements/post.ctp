@@ -6,7 +6,9 @@
 											array('pass' => array($content['Content']['target_id'])));
 			$user_picture = (!file_exists(IMAGES.'avatars/'.$user['User']['id'].'.jpg') ?
 							   'inconnu.jpg' : 'avatars/'.$user['User']['id'].'.jpg');
-			$user_picture = $this->Html->link($this->Html->image($user_picture, array('alt' => 'Photo de profil')),
+			$scale = getimagesize(IMAGES . '/' . $user_picture);
+			$scale = ($scale[0] >= $scale[1] ? 'large' : 'long');
+			$user_picture = $this->Html->link($this->Html->image($user_picture, array('alt' => 'Photo de profil', 'class' => $scale)),
 				        						array('action' => 'view', $user['User']['id']),
 				        						array('escape' => false, 'class' => 'content_wall_header_pic'));
 			$header  = $this->Html->link($user['User']['firstname']." ".$user['User']['lastname'],

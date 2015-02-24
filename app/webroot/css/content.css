@@ -20,6 +20,7 @@
 .content_wall_header {
 	display: block;
 	height: 40px;
+	margin-right: 35px;
 }
 
 .content_wall_header_pic {
@@ -31,15 +32,19 @@
 	overflow: hidden;
 }
 
-.content_wall_header_pic img {
+.content_wall_header_pic img.long {
 	width: 40px;
+}
+
+.content_wall_header_pic img.large {
+	height: 40px;
+}
+
+.content_wall_header_pic img {
 	position: relative;
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
-	-webkit-transition: 0.2s;
-	transition: 0.2s;
-	z-index: 0;
 }
 
 .content_wall_header span {

@@ -2,6 +2,8 @@
 class AlbumsController extends AppController {
 	
 	public function index($id) {
+		if ($album['user_id'] != $this->Session->read('Auth.User.id'))
+			throw new NotAllowedException(__('Vous n\'êtes pas à modifier cet album.'));
 		$albums = $this->Album->find('all', array(
 			"conditions" => array("Album.user_id" => $id),
 			"fields" => array("Album.id", "Album.title", "Album.description")));
