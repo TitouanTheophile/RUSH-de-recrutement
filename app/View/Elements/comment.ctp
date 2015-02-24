@@ -7,13 +7,18 @@
 
  foreach ($comment as $text)
 {
-	echo "<div class='comment'>".
+	$user_picture = (!file_exists(IMAGES.'avatars/'.$text['Comment']['from_id'].'.jpg') ?
+					   'inconnu.jpg' : 'avatars/'.$text['Comment']['from_id'].'.jpg');
+	$user_picture = $this->Html->link($this->Html->image($user_picture, array('alt' => 'Photo de profil')),
+					array('action' => 'view', $text['Comment']['from_id']),
+    				array('escape' => false, 'class' => 'content_wall_header_pic'));
+	echo "<div class='comment'>".$user_picture.
 	$this->Html->link($text['users']['firstname']." ".$text['users']['lastname'],
 	array('controller' => 'Users', 'action' => 'view',
 		$text['Comment']['from_id']), array("class" => "profile_links")).
 		"<xmp style='display:inline'>"." ".$text['Comment']['content'].
 		"</xmp><br /><span class='comment_date'>".
-		"envoyé il y a ". $text['Comment']['created'] .
+		"Envoyé il y a ". $text['Comment']['created'] .
 		"</span></div>";
 
 }
