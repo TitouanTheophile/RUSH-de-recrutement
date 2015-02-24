@@ -39,8 +39,7 @@
 	<div class="post_comment">
 		<?php
 			$comment = $this->requestAction(
-				'users/getComment',
-				array('pass' => array($content['Content']['id']))
+				'comments/getComment/' . $content['Content']['id'] . "/false"
 			);
 		?>
 		<?php echo $this->element('comment', array('content' => $content, 'comment' => $comment));

@@ -1,6 +1,7 @@
 .comment_button
 {
 	background-color: #9999dd;
+
  	border-radius: 2px;
     padding: 5px;
     margin: 5px;
@@ -10,18 +11,24 @@
 {
     margin-left: 20px;
 }
+
+xmp 
+{
+    font-size: 17px;
+
+}
 .comment
 {
-	border: 1px solid;
 	overflow: hidden;
     word-wrap: break-word;
+    margin-bottom: 1px;
 }
 
 .comment_date
 {
-	font-size: 13px;
+	font-size: 15px;
     position: relative;
-    top: 3px;
+    top: 1px;
 }
 
 form {
@@ -38,7 +45,7 @@ form {
 
 .profile_links
 {
-    font-size: 15px;
+    font-size: 18px;
 	color: #284370;
     text-decoration: none;
 }

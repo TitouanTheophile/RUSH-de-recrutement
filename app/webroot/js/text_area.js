@@ -15,11 +15,13 @@ $(document).ready(function(){
             console.log(id);
             url = url.replace("post", "get");
             url = url.concat(id);
+            url = url.concat("/true");
             jQuery.ajax({
                 url     : url,
                 success : function(data)
                 {
-                    comment_area.html(data);
+
+                   comment_area.html(data);
                 }
             });
         }
@@ -46,15 +48,4 @@ $(document).ready(function(){
 
         });
     });
-// setInterval(get_post, 3000);
 
-function get_post()
-{
-            jQuery.ajax({
-                url     : window.location.pathname,
-                success : function(data)
-                {
-                    $("html").html(data);
-                }
-                }); 
-}

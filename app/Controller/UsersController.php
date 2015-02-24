@@ -26,26 +26,7 @@ class UsersController extends AppController {
     public function getUser($id) {
     	return $this->User->findById($id);
     }
-    public function getComment($content_id)
-    {
-    	return $this->Comment->find('all', array(
-		    'joins' => array(
-		        array(
-		            'table' => 'users',
-		            'type' => 'INNER',
-		            'conditions' => array(
-		                'users.id = Comment.from_id'
-		            )
-		        )
-		    ),
-		    'conditions' => array(
-		        'content_id' => $content_id
-		    ),
-		    'fields' => array('users.firstname','users.lastname', 'Comment.content', 'Comment.created', 'Comment.from_id', 'Comment.content_id'
-		    ),
-		    'order' => array('Comment.created' => 'ASC')
-			));
-    }
+   
 
     public function get_users(){ // Get the Users for the view index
 		$users = $this->User->find('all', array( //Get the list of Users that match with the search
