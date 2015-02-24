@@ -162,7 +162,8 @@
 	margin-top: 5px;
 }
 
-#user_wall {
+#user_wall,
+#news_wall {
 	display: inline-block;
 	width: 65%;
 	height: auto;
@@ -203,16 +204,6 @@
 
 #news_profil {
 	display: inline-block;
-	position: fixed;
 	width: 320px;
-	vertical-align: top;
-}
-
-#news_wall {
-	display: inline-block;
-	position: relative;
-	width: 630px;
-	height: auto;
-	margin: 10px 0px 10px 330px;
 	vertical-align: top;
 }
