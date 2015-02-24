@@ -81,16 +81,20 @@ class GroupsController extends AppController {
 		$contents = $this->Group->Content->find('all', array(
 			'conditions' => array(
 				'Content.targetType_id' => 2,
-				'Content.target_id' => $id)
+				'Content.target_id' => $id
+				),
+			'order' => array(
+				'Content.created' => 'desc'
+				)
 			));
 		$group = $this->Group->findById($id);
 		$array_posts = array();
 		$array_pictures = array();
 		foreach ($contents as $content) {
 			if ($content['Content']['targetType_id'] == 2 && $content['Content']['contentType_id'] == 1)
-				$array_posts[] = $content['Content']['id'];
+				$array_posts[] = $content['Content']['content_id'];
 			else if ($content['Content']['targetType_id'] == 2 && $content['Content']['contentType_id'] == 2) {
-				$array_pictures[] = $content['Content']['id'];
+				$array_pictures[] = $content['Content']['content_id'];
 			}
 		}
 		$posts = $this->Post->find('all', array(
@@ -100,10 +104,9 @@ class GroupsController extends AppController {
 			));
 		$pictures = $this->Picture->find('all', array(
 			'conditions' => array(
-				'AND' => array(
-					'Picture.id' => $array_pictures,
-					'Content.contentType_id' => 2,
-					)),
+				'Picture.id' => $array_pictures,
+				'Content.contentType_id' => 2
+				)
 			));
 		$this->set('group', $group);
 		$this->set('contents', $contents);
@@ -141,7 +144,7 @@ class GroupsController extends AppController {
     public function sendPost($id) {
     	$this->loadModel('Post');
     	$this->loadModel('Content');
-		if (!$id || !($group = $this->Group->User->findById($id)))
+		if (!$id || !($group = $this->Group->findById($id)))
 	        throw new NotFoundException(__('Le groupe spécifié est invalide'));
 	    
 	    $this->set('group', $group);

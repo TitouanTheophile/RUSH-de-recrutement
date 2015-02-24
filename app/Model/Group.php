@@ -1,14 +1,6 @@
 <?php
 
 class Group extends AppModel {
-
-	// public $validate = array(
-	// 'name' => array(
-	// 	'allowEmpty' => false,
-	// 	'required' => true
-	// 	));
-
-
 	public $hasMany = array(
 		'Content' => array(
 			'foreignKey' => 'target_id'));
@@ -22,11 +14,5 @@ class Group extends AppModel {
                 'associationForeignKey' => 'user_id',
             )
     );
-
-	public function is_valid($data)
-	{
-		return false;
-	debug($data);
-	}
 }
 ?>

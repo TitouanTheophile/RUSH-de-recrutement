@@ -2,7 +2,7 @@
 <div id="user_header">
 	<div id="user_element">
 		<div id="user_element_name">
-			<?= $this->Html->link($group['Group'][0]['name'], array('controller' => 'groups', 'action' => 'view', $group['Group'][0]['id'])); ?>
+			<?= $this->Html->link($group['Group']['name'], array('controller' => 'groups', 'action' => 'view', $group['Group']['id'])); ?>
 		</div>
 	</div>
 </div>
