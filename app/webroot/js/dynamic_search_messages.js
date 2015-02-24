@@ -25,7 +25,7 @@ $(document).ready( function() {
     $('#ProfileId_messages').val('');
     $('#results_search_messages').html('');
   });
-  $('#ProfileId_messages').on('click', function() {
+  $('#ProfileId_messages').on('click', function(event) {
         event.stopPropagation();
   })
 });

@@ -1,16 +1,20 @@
 <?= $this->Html->div(null, $this->element('user_photo', array('user' => $this->Session->read('Auth.User'))), array('id' => 'user_header')); ?>
 <?= $this->Html->css('album', array('inline' => false)); ?>
 <?= $this->Html->css('users', array('inline' => false)); ?>
-<?= $this->Html->div('section_title', "<h3>$title</h3>"); ?>
+<?= $this->Html->div('section_title', "<h3>".$album['Album']['title']."</h3>"); ?>
 <?php 
 	$nav  = $this->Html->link('Ajouter une image', array('controller' => 'pictures', 'action' => 'add', $album));
 	$nav .= $this->Html->link('Modifier l\'album', array('controller' => 'albums', 'action' => 'editAlbum', $album));
 	$nav .= $this->Html->link('Suprimer l\'album', array('controller' => 'albums', 'action' => 'delAlbum', $album),
 												   array('confirm' => 'Voulez-vous vraiment supprimer cet album et toutes les images qu\'il contient ?'));
-	$nav .= $this->Html->link('Retour', array('controller' => 'albums', 'action' => 'index'));
+	$back = $this->Html->link('Retour', array('controller' => 'albums', 'action' => 'index'));
+	$nav .= $back;
+	if ($user['User']['id'] == $this->Session->read('Auth.User.id'))
+		echo $this->Html->div('section_nav', $nav); 
+	else
+		echo $this->Html->div('section_nav', $back);
 ?>
-<?= $this->Html->div('section_nav', $nav); ?>
-<?= $this->Html->div('section_text', $this->Html->para('album_desc', $description)); ?>
+<?= $this->Html->div('section_text', $this->Html->para('album_desc', $album['Album']['description'])); ?>
 <?php 
 	foreach ($pics as $pic) {
 		$pic_div = $this->Html->image("/img/" . $pic['Picture']['id']. ".jpg", array('alt' => '', 'url' => array('controller' => 'pictures', 
