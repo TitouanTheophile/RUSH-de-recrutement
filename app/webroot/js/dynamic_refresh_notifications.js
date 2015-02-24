@@ -4,7 +4,7 @@ $(document).ready( function() {
   setInterval(get_notifications, 3000);
 
   function get_notifications() {
-    var url = '/notifications/get_notifications';
+    var url = '/RUSH/notifications/get_notifications';
     $.ajax( {
       url : url,
       success : function(data) {
@@ -22,7 +22,7 @@ $(document).ready( function() {
   setInterval(get_notifications_count, 3000);
 
   function get_notifications_count() {
-    var url = '/notifications/get_notifications_count';
+    var url = '/RUSH/notifications/get_notifications_count';
     $.ajax( {
       url : url,
       success : function(data) {
