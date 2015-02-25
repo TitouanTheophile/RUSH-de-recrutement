@@ -3,8 +3,8 @@
 <?= $this->Html->css('friend', array('inline' => false)); ?>
 <?= $this->Html->css('comment', array('inline' => false)); ?>
 <?php
+$ismember = 0;
 foreach ($group['User'] as $user) { // Check if user is in the group
-	$ismember = 0;
 	if ($this->Session->read('Auth.User.id') == $user['id'] && $user['GroupsUser']['group_id'] == $group['Group']['id'])
 		$ismember = 1;
 }
@@ -14,14 +14,23 @@ foreach ($group['User'] as $user) { // Check if user is in the group
 		<div id="user_element_name">
 			<?= $this->Html->link($group['Group']['name'], array('controller' => 'groups', 'action' => 'view', $group['Group']['id'])); ?>
 		</div>
+		<div id="user_element_description">
+			<?= $group['Group']['description'] ?>
+		</div>
 	</div>
 	<div id="friend_box">
 		<?php
 			if ($ismember == 1)
-				echo $this->Form->postLink('Quitter le groupe', array('action' => 'leave', $group['Group']['id']),
+				echo $this->HTML->link('Quitter le groupe', array('action' => 'leave', $group['Group']['id']),
 														array('confirm' => 'Etes-vous sûr ?'));
 			else if ($ismember == 0)
-				echo $this->Form->postLink('Rejoindre le groupe', array('action' => 'join', $group['Group']['id']));
+				echo $this->HTML->link('Rejoindre le groupe', array('action' => 'join', $group['Group']['id']));
+		?>
+	</div>
+	<div id="editinfo_box">
+		<?php
+			if ($ismember == 1)
+				echo $this->HTML->link('Editer les informations', array('action' => 'edit', $group['Group']['id']));
 		?>
 	</div>
 </div>

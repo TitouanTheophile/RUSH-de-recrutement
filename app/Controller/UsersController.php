@@ -51,9 +51,18 @@ class UsersController extends AppController {
 	    if (!$user) {
             throw new NotFoundException(__('Le profil spécifié est invalide'));
         }
+        $array_id = array();
+		foreach ($user['Group'] as $group) {
+			$array_id[] = $group['id'];
+		}
         $contents = $this->Content->find('all',
-        	array('conditions' => array('OR' => array('from_id' => $id, 'target_id' => $id)))
-        );
+        	array('conditions' => array(
+        		'OR' => array(
+        			array('from_id' => $this->Auth->user('id'), 'targetType_id' => 1),
+        			array('from_id' => $this->Auth->user('id'), 'target_id' => $array_id, 'targetType_id' => 2)
+        			)
+        		)
+        	));
         $this->Notification->updateAll(
 			array(
 				'viewed' => 1
