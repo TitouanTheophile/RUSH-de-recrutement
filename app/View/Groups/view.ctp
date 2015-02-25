@@ -3,8 +3,8 @@
 <?= $this->Html->css('friend', array('inline' => false)); ?>
 <?= $this->Html->css('comment', array('inline' => false)); ?>
 <?php
+$ismember = 0;
 foreach ($group['User'] as $user) { // Check if user is in the group
-	$ismember = 0;
 	if ($this->Session->read('Auth.User.id') == $user['id'] && $user['GroupsUser']['group_id'] == $group['Group']['id'])
 		$ismember = 1;
 }
