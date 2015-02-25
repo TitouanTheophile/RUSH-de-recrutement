@@ -26,7 +26,7 @@
 		<div class="container_padding wall_infos_section">
 			<h4>Infos publiques</h4>
 			<?php if ($this->Session->read('Auth.User.id') == $user['User']['id']) : ?>
-				<?= $this->Html->tag('span', $this->Html->link('Éditer', array ('action' => 'editInfo', $this->Session->read('Auth.User.id')))); ?>
+				<span><?= $this->Html->link('Éditer', array ('action' => 'editInfo', $this->Session->read('Auth.User.id'))); ?></span>
             <?php endif ?>
 		</div>
 		<div class="container_padding">
@@ -37,11 +37,11 @@
 					echo "</strong></p>";
 				}
 				if (!empty($user['User']['study_place']) && $friends_verification == 1)
-					echo "<p>Étudie à <strong>" . $user['User']['study_place'] . "</strong></p>";
+					echo "<p>Étudie à <strong>" . htmlentities($user['User']['study_place']) . "</strong></p>";
 				if (!empty($user['User']['work_place']) && $friends_verification == 1)
-					echo "<p>Travaille à <strong>" . $user['User']['work_place'] . "</strong></p>";
+					echo "<p>Travaille à <strong>" . htmlentities($user['User']['work_place']) . "</strong></p>";
 				if (!empty($user['User']['user_place']) && $friends_verification == 1)
-					echo "<p>Habite à <strong>" . $user['User']['user_place'] . "</strong></p>";
+					echo "<p>Habite à <strong>" . htmlentities($user['User']['user_place']) . "</strong></p>";
 				if (!empty($user['User']['birthday']) && $friends_verification == 1)
 					echo "<p>Date de naissance : <strong>" . $this->Time->format($user['User']['birthday'], '%e %B %Y') . "</strong></p>";
 				if (!empty($user['User']['created']))
@@ -51,18 +51,18 @@
 		<div class="container_padding wall_infos_section">
 			<h4>Cordonnées</h4>
 			<?php if ($this->Session->read('Auth.User.id') == $user['User']['id']) : ?>
-				<?= $this->Html->tag('span', $this->Html->link('Éditer', array ('action' => 'editData', $this->Session->read('Auth.User.id')))); ?>
+				<span><?= $this->Html->link('Éditer', array ('action' => 'editData', $this->Session->read('Auth.User.id'))) ?></span>
             <?php endif ?>
 		</div>
 		<div class="container_padding">
 			<?php if ($friends_verification == 1) : ?>
-				<p>Mon email : <strong><?= $user['User']['email'] ?></strong></p>
+				<p>Mon email : <strong><?= htmlentities($user['User']['email']); ?></strong></p>
 				<?= $this->Html->link($this->Html->image('friends.png', array('alt' => "Liste d'array_multisort(arr)"))."<span>Liste d'amis</span>",
-                		array('controller' => 'users', 'action' => 'friends', $user['User']['id']),
-                		array('escape' => false, 'id' => 'wall_infos_friend')); ?>
+                					  array('controller' => 'users', 'action' => 'friends', $user['User']['id']),
+                					  array('escape' => false, 'id' => 'wall_infos_friend')); ?>
                 <?= $this->Html->link($this->Html->image('albums2.png', array('alt' => "Albums photos"))."<span>Albums photos</span>",
-                		array('controller' => 'albums', 'action' => 'index', $user['User']['id']),
-                		array('escape' => false, 'id' => 'wall_infos_albums')); ?>
+                					  array('controller' => 'albums', 'action' => 'index', $user['User']['id']),
+                					  array('escape' => false, 'id' => 'wall_infos_albums')); ?>
 			<?php endif ?>
 		</div>
 	</div>
@@ -77,21 +77,14 @@
 		    		while($index) {
 		    			$content = $contents[--$index];
 			    		foreach ($posts as $post) {
-			    			if ($post['Post']['id'] == $content['Content']['content_id'] ) {
-								echo $this->element(
-									'post',
-									array (
-										'post_content' => $post['Post']['content'],
-										'content' => $content
-									)
-								);
-							}
+			    			if ($post['Post']['id'] == $content['Content']['content_id'])
+								echo $this->element('post', array ('post_content' => $post['Post']['content'],
+																   'content' => $content));
 			    		}
-			    		unset($post);
 			    	}
 			    }
 			    else {
-			    	echo "Vous devez etre ami avec <strong>" . $user['User']['firstname'] . " " . $user['User']['lastname'] . "</strong> pour suivre son activite ou publier sur son mur.";
+			    	echo "Vous devez être ami avec <strong>" . $user['User']['firstname'] . " " . $user['User']['lastname'] . "</strong> pour suivre son activité ou publier sur son mur.";
 			    }
 	    	?>
 		</div>

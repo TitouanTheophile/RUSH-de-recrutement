@@ -1,6 +1,11 @@
 button.comment_button
 {
-	background-color: #9999dd;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(142,142,245,1.0)), to(rgba(100,100,186,1.0)));
+    background-image: -webkit-linear-gradient(top, rgba(142,142,245,1.0), rgba(100,100,186,1.0));
+    background-image: -moz-linear-gradient(top, rgba(142,142,245,1.0), rgba(100,100,186,1.0));
+    background-image: -ms-linear-gradient(top, rgba(142,142,245,1.0), rgba(100,100,186,1.0));
+    background-image: -o-linear-gradient(top, rgba(142,142,245,1.0), rgba(100,100,186,1.0));
+    background-image: linear-gradient(top, rgba(142,142,245,1.0), rgba(100,100,186,1.0));
     height: 20px;
     width: 50px;
 }

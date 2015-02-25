@@ -81,7 +81,7 @@
 	display: inline-block;
 	position: relative;
 	background: transparent;
-	width: 420px;
+	width: 400px;
 	height: auto;
 	margin: 10px 0px;
 	vertical-align: top;
@@ -90,19 +90,32 @@
 #signup_form {
 	display: inline-block;
 	position: relative;
-	background: rgba(255,255,255,0.2);
-	border-radius: 3px;
+	background: rgba(135,142,245,0.7);
+	border-radius: 10px;
 	width: 500px;
 	height: auto;
 	margin: 10px 0px 10px 10px;
 	vertical-align: top;
 }
 
-#signin_form {
+#signup_form h3,
+#login_form h3 {
+	display: block;
+	margin: auto;
+	width: 160px;
+}
+
+#signup_form label,
+#login_form label {
+	color: white;
+	text-shadow: 1px 1px 1px black;
+}
+
+#login_form {
 	display: block;
 	position: relative;
-	background: rgba(255,255,255,0.2);
-	border-radius: 3px;
+	background: rgba(135,142,245,0.7);
+	border-radius: 10px;
 	width: 360px;
 	height: auto;
 	padding: 20px;
