@@ -16,7 +16,7 @@
 		$message_content  = $head;
 		$message_content .= $this->Html->tag('span', $this->Time->format($message['Message']['created'], '%e/%m/%G %H:%M'),
 																		 array('class' => 'message_date'));
-		$message_content .= $this->Html->tag('span', $this->Text->truncate($message['Message']['content'], 80, array('ellipsis' => '...')),
+		$message_content .= $this->Html->tag('span', $this->Text->truncate(htmlentities($message['Message']['content']), 80, array('ellipsis' => '...')),
 											 array('class' => 'message_text'));
 		$message_content .= $this->html->tag('span', $this->Html->link('Voir tous les messages', $message['Message']['url']),
 											 array('class' => 'message_link'));
