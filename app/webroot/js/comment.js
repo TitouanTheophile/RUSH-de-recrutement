@@ -19,15 +19,16 @@ $(document).ready(function(){
                 url     : url,
                 success : function(data)
                 {
-
                    $('.post_comment').html(data);
                 }
             });
         }
     });
-
-
   });
+
+    $(".test").on("click", function () {
+      console.log("ss");
+    });
 });
       $(function() {
         var txt = $('.common'),

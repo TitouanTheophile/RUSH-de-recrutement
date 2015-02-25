@@ -1,8 +1,7 @@
 <?= $this->Html->css('users', array('inline' => false)); ?>
 <?= $this->Html->css('content', array('inline' => false)); ?>
 <?= $this->Html->css('friend', array('inline' => false)); ?>
-<?= $this->Html->css('comment', array('inline' => false)); ?>
-<?= $this->Html->script('comment', array('inline' => false));?>
+<?= $this->Html->css('comment'); ?>
 <div id="user_header">
 	<?= $this->element('user_photo', array('user' => $user['User']));?>
 	<?php if ($this->Session->read('Auth.User.id') != $user['User']['id']): ?>
