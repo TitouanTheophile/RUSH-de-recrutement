@@ -2,8 +2,10 @@ $(document).ready(function() {
   
   $('#ProfileId').keyup( function() {
     if ($(this).val().length > 1) {
-      $.when(getResults('/users/get_users?q=', $(this).val()),
-             getResults('/groups/get_groups?q=', $(this).val())
+    var url1 = $('input[name="get_users"]').val() + '?q=';
+    var url2 = $('input[name="get_groups"]').val() + '?q=';
+      $.when(getResults(url1, $(this).val()),
+             getResults(url2, $(this).val())
             ).done(function(users, groups) {
                 var data = users[0] + groups[0];
                 $('#results_search').html(data);

@@ -4,18 +4,19 @@
 <?= $this->Form->create('Info', array('novalidate')); ?>
 <?= $this->Form->input('text', array(
 									'label' => "Nom du groupe :<font color=\"red\">*</font>", 
-									"placeholder" => "")
+									"placeholder" => $group['Group']['name'])
 						);
  ?>
 
  <?= $this->Form->input('text-area', array(
-									'label' => "Description du groupe :")
+									'label' => "Description du groupe :",
+									"placeholder" => $group['Group']['description'])
 						);
  ?>
 <?= $this->Form->button("Annuler", array(
 	'class' => 'submit cancel_button',
 	'formaction' => Router::url(
-		array('controller' => 'users','action' => 'news/' . $this->Session->read('Auth.User.id'))
+		array('controller' => 'groups','action' => 'view/' . $id)
 	)
 )); ?>
 <?= $this->Form->button("Créer", array('class' => 'submit create_button')); ?>

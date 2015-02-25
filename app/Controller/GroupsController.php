@@ -11,11 +11,34 @@ class GroupsController extends AppController {
 				true);
 				$this->Group->save(null, true, array('name', 'description'));
 				$id = $this->Group->getLastInsertID();
-				$this->join($id);
 				$this->Session->setFlash(__("Vous avez créé un groupe"));
 				$this->redirect(array('controller' => 'groups', 'action' => 'view', $id));
 			}
 		}
+	}
+
+	public function edit ($id) {
+		$group = $this->Group->findById($id);
+		if ($this->request->is('post')) {
+			if($this->request->data['Info']['text'] != NULL) {
+				debug($this->request->data['Info']);
+				$name = (strlen($this->request->data['Info']['text']) > 0 ? $this->request->data['Info']['text'] : $group['Group']['name']);
+				$desc = (strlen($this->request->data['Info']['text-area']) > 0 ? $this->request->data['Info']['text-area'] : $group['Group']['description']);
+				//die;
+				$this->Group->updateAll(
+					array('name' => $name, 'description' => $desc),
+					array('id' => $id)
+					);
+				$this->Session->setFlash(__("Vous avez edité le groupe"));
+				$this->redirect(array('controller' => 'groups', 'action' => 'view', $id));
+			}
+			else {
+				$this->Session->setFlash(__("Vous n'avez pas edité le groupe"));
+				$this->redirect(array('controller' => 'groups', 'action' => 'view', $id));
+			}
+		}
+		$this->set('id', $id);
+		$this->set('group', $group);
 	}
 
 	public function leave($id) {
@@ -28,8 +51,21 @@ class GroupsController extends AppController {
 				)
 			));
 		$this->Group->GroupsUser->delete($deleteTarget['GroupsUser']['id'], true);
-		$this->Session->setFlash(__("Vous avez quitté ce groupe"));
-		$this->redirect(array('controller' => 'groups', 'action' => 'view', $id));
+		$members_left = $this->Group->GroupsUser->find('count', array(
+			'conditions' =>	array(
+				'group_id' => $id,
+				)
+			));
+		if ($members_left != 0) {
+			$this->Session->setFlash(__("Vous avez quitté ce groupe"));
+			$this->redirect(array('controller' => 'groups', 'action' => 'view', $id));
+		}
+		else {
+			$group = $this->Group->findById($id);
+			$this->Group->delete($id, true);
+			$this->Session->setFlash(__("Vous avez supprimé le groupe " . $group['Group']['name']));
+			$this->redirect(array('controller' => 'users', 'action' => 'view', $this->Session->read('Auth.User.id')));
+		}
 	}
 
 	public function join($id) {
