@@ -1,5 +1,5 @@
 div#messages {
-	overflow-y:scroll;
+	overflow-y:auto;
 	height:400px;
 }
 
@@ -7,9 +7,9 @@ div#results_search_messages {
 	position: absolute;
 	background: linear-gradient(rgba(142,142,245,0.9),rgba(100,100,186,0.9));
 	max-height: 200px;
-	overflow-y: scroll;
+	overflow-y: auto;
 	overflow-x: hidden;
-	border: 2px solid grey;
+	border: 0px;
 	z-index: 42;
 	width: 97%;
 }
