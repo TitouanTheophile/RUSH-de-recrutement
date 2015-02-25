@@ -1,5 +1,5 @@
 <?= $this->Html->script('comment');?>
-<button class="test"> DS</button><div class="comments">	
+<div class="comments">	
 <?php foreach ($comment as $text): ?>
 
 	<div class='comment'>
