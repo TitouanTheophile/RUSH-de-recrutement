@@ -1,27 +1,10 @@
 <?php 
 class AlbumsController extends AppController {
-	
-	private function try_arg($assert, $message, $url) {
-		if ($assert) {
-			$this->Session->setFlash(__($message));
-			$this->redirect($url);
-		}
-		else
-			return true;
-	}
-
-	private function allow($id, $message) {
-		$friends_verification = $this->requestAction('friends/isFriend',
-													 array('pass' => array($this->Session->read('Auth.User.id'), $id)));
-		$this->try_arg(($friends_verification != 1 && $id != $this->Session->read('Auth.User.id')), $message,
-					   array('controller' => 'users', 'action' => 'view', $this->Session->read('Auth.User.id')));
-		return true;
-	}
 
 	public function index($id) {
 		$this->try_arg((!isset($id) || $id <= 0), 'Albums introuvables',
 					   array('controller' => 'users', 'action' => 'view', $this->Session->read('Auth.User.id')));
-		$this->allow($id, 'Vous n\'êtes pas autorisé à voir ces albums.');
+		$this->allowFriend($id, 'Vous n\'êtes pas autorisé à voir ces albums.');
 		$albums = $this->Album->find('all', array(
 			"conditions" => array("Album.user_id" => $id),
 			"fields" => array("Album.id", "Album.title", "Album.description")));
@@ -50,7 +33,7 @@ class AlbumsController extends AppController {
 		$this->try_arg((empty($album)), 'Album introuvable',
 					   array('controller' => 'users', 'action' => 'view', $this->Session->read('Auth.User.id')));
 		$owner = $this->Album->User->findById($album['Album']['user_id']);
-		$this->allow($owner['User']['id'], 'Vous n\'êtes pas autorisé à modifier cet album.');
+		$this->allowFriend($owner['User']['id'], 'Vous n\'êtes pas autorisé à modifier cet album.');
 		if ($this->request->is('put') && !empty($this->request->data)) {
 			$this->Album->create(array(
 			'id' => $id,
@@ -73,7 +56,7 @@ class AlbumsController extends AppController {
 		$this->try_arg((empty($album)), 'Album introuvable',
 					   array('controller' => 'users', 'action' => 'view', $this->Session->read('Auth.User.id')));
 		$owner = $this->Album->User->findById($album['Album']['user_id']);
-		$this->allow($owner['User']['id'], 'Vous n\'êtes pas autorisé à supprimer cet album.');
+		$this->allowFriend($owner['User']['id'], 'Vous n\'êtes pas autorisé à supprimer cet album.');
 		$this->Album->Picture->deleteAll(array('Picture.album_id' => $id), false);
 		$this->Album->delete($id);
 		$this->Session->setFlash(__('Votre album a bien été supprimé.'));
@@ -87,7 +70,7 @@ class AlbumsController extends AppController {
 		$this->try_arg((empty($album)), 'Album introuvable',
 					   array('controller' => 'users', 'action' => 'view', $this->Session->read('Auth.User.id')));
 		$owner = $this->Album->User->findById($album['Album']['user_id']);
-		$this->allow($owner['User']['id'], 'Vous n\'êtes pas autorisé à voir cet album.');
+		$this->allowFriend($owner['User']['id'], 'Vous n\'êtes pas autorisé à voir cet album.');
 		$pics = $this->Album->Picture->find('all', array(
 			 "fields" => array("DISTINCT Picture.id", "Picture.description"),
 			 "conditions" => array("Album.id" => $album_id)));

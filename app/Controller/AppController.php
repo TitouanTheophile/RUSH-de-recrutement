@@ -49,4 +49,21 @@ class AppController extends Controller {
 		parent::beforeFilter();
 		$this->Auth->allow('display');
 	}
+
+	public function try_arg($assert, $message, $url) {
+		if ($assert) {
+			$this->Session->setFlash(__($message));
+			$this->redirect($url);
+		}
+		else
+			return true;
+	}
+
+	public function allowFriend($id, $message) {
+		$friends_verification = $this->requestAction('friends/isFriend',
+													 array('pass' => array($this->Session->read('Auth.User.id'), $id)));
+		$this->try_arg(($friends_verification != 1 && $id != $this->Session->read('Auth.User.id')), $message,
+					   array('controller' => 'users', 'action' => 'view', $this->Session->read('Auth.User.id')));
+		return true;
+	}
 }

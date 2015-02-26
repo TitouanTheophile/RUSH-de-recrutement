@@ -44,11 +44,11 @@ class UsersController extends AppController {
 
 	/*** VIEW ***/
     public function view($id = null) {
-	    if (!$id)
-	        throw new NotFoundException(__('Le profil spécifié est invalide'));
+    	$this->try_arg((!isset($id) || $id <= 0), 'Le profil spécifié est invalide.',
+					   array('controller' => 'users', 'action' => 'view', $this->Session->read('Auth.User.id')));
 	    $user = $this->User->findById($id);
-	    if (!$user)
-            throw new NotFoundException(__('Le profil spécifié est invalide'));
+	    $this->try_arg(empty($user), 'Le profil spécifié est invalide.',
+					   array('controller' => 'users', 'action' => 'view', $this->Session->read('Auth.User.id')));
         $array_id = array();
 		foreach ($user['Group'] as $group) {
 			$array_id[] = $group['id'];
@@ -77,14 +77,11 @@ class UsersController extends AppController {
 
     /*** NEWS ***/
     public function news($id = null) {
-        if (!$id) {
-            throw new NotFoundException(__('Le profil spécifié est invalide'));
-        }
-        $user = $this->User->findById($id);
-        if (!$user) {
-            throw new NotFoundException(__('Le profil spécifié est invalide'));
-        }
-
+        $this->try_arg((!isset($id) || $id <= 0), 'Le profil spécifié est invalide.',
+					   array('controller' => 'users', 'action' => 'view', $this->Session->read('Auth.User.id')));
+	    $user = $this->User->findById($id);
+	    $this->try_arg(empty($user), 'Le profil spécifié est invalide.',
+					   array('controller' => 'users', 'action' => 'view', $this->Session->read('Auth.User.id')));
         $arr = array($this->Auth->user('id'));
         $my_friends = $this->Friend->find('all',
 			array( 'fields'  =>	array('id', 'user2_id', 'pending'),
@@ -92,16 +89,13 @@ class UsersController extends AppController {
 	    $my_friends += $this->Friend->find('all',
 			array( 'fields'  =>	array('id', 'user1_id', 'pending'),
 				'conditions' =>	array('user2_id' => $this->Auth->user('id') )));
-
 	    $index = count($my_friends);
 		while ($index) {
 			$my_friend = $my_friends[--$index];
-			if (isset($my_friend['Friend']['user1_id']) && $my_friend['Friend']['pending'] == NULL) {
+			if (isset($my_friend['Friend']['user1_id']) && $my_friend['Friend']['pending'] == NULL)
 				array_push($arr, $my_friend['Friend']['user1_id']);
-			}
-			if (isset($my_friend['Friend']['user2_id']) && $my_friend['Friend']['pending'] == NULL) {
+			if (isset($my_friend['Friend']['user2_id']) && $my_friend['Friend']['pending'] == NULL)
 				array_push($arr, $my_friend['Friend']['user2_id']);
-			}
 		}
 		$array_id = array();
 		foreach ($user['Group'] as $group) {
@@ -128,36 +122,31 @@ class UsersController extends AppController {
     	if ($this->Session->read('Auth.User')) {
     		return $this->redirect(array('controller' => 'users', 'action' => 'view', $this->Auth->user('id')));
     	}
-
         if ($this->request->is('post')) {
             $this->User->create();
-
         	$d = $this->request->data;
 			if ( $this->User->save($d) ) {
-				$this->Session->setFlash(__('Votre compte a bien été créé, vous pouvez desormais vous connecter'));
+				$this->Session->setFlash(__('Votre compte a bien été créé, vous pouvez desormais vous connecter.'));
 				return $this->redirect(array('controller' => 'users', 'action' => 'login'));
 			}
-            $this->Session->setFlash(__('Impossible de créer votre compte'));
+            $this->Session->setFlash(__('Impossible de créer votre compte.'));
         }
     }
 
     /*** LOGIN ***/
     public function login() {
-    	if ($this->Session->read('Auth.User')) {
+    	if ($this->Session->read('Auth.User'))
     		return $this->redirect(array('controller' => 'users', 'action' => 'view', $this->Auth->user('id')));
-    	}
-
 		if ($this->request->is('post')) {
-            if ($this->Auth->login()) {
+            if ($this->Auth->login())
                 return $this->redirect(array('controller' => 'users', 'action' => 'view', $this->Auth->user('id')));
-            }
             $this->Session->setFlash(__('Identifiants incorrects'));
         }
     }
 
     /*** LOGOUT ***/
     public function logout() {
-    	$this->Session->setFlash(__('Vous êtes maintenant deconnecté'));
+    	$this->Session->setFlash(__('Vous êtes maintenant déconnecté.'));
     	return $this->redirect($this->Auth->logout());
     }
 
@@ -166,55 +155,43 @@ class UsersController extends AppController {
 
 	/*** EDIT INFO ***/
     public function editInfo($id = null) {
-	    if (!$id) {
-	        throw new NotFoundException(__('Le profil spécifié est invalide'));
-	    }
-
+    	$this->try_arg((!isset($id) || $id <= 0), 'Le profil spécifié est invalide.',
+					   array('controller' => 'users', 'action' => 'view', $this->Session->read('Auth.User.id')));
 	    $user = $this->User->findById($id);
-	    if (!$user) {
-	        throw new NotFoundException(__('Le profil spécifié est invalide'));
-	    }
+	    $this->try_arg(empty($user), 'Le profil spécifié est invalide.',
+					   array('controller' => 'users', 'action' => 'view', $this->Session->read('Auth.User.id')));
 	    $this->set('user', $user);
-
 	    if ($this->request->is(array('user', 'put'))) {
 	        $this->User->id = $id;
 	        $d = $this->request->data;
 	        if ($this->User->save($d)) {
-	            $this->Session->setFlash(__('Votre profil a bien été mis à jour'));
-	            return $this->redirect(array('action' => 'view', $user['User']['id']));
+	            $this->Session->setFlash(__('Votre profil a bien été mis à jour.'));
+	            $this->redirect(array('action' => 'view', $user['User']['id']));
 	        }
-	        $this->Session->setFlash(__('Impossible de mettre à jour votre profil'));
+	        $this->Session->setFlash(__('Impossible de mettre à jour votre profil.'));
 	    }
-
-	    if (!$this->request->data) {
+	    if (!$this->request->data)
 	        $this->request->data = $user;
-	    }
 	}
 
 	/*** EDIT DATA ***/
 	public function editData($id = null) {
-	    if (!$id) {
-	        throw new NotFoundException(__('Le profil spécifié est invalide'));
-	    }
-
+	    $this->try_arg((!isset($id) || $id <= 0), 'Le profil spécifié est invalide.',
+					   array('controller' => 'users', 'action' => 'view', $this->Session->read('Auth.User.id')));
 	    $user = $this->User->findById($id);
-	    if (!$user) {
-	        throw new NotFoundException(__('Le profil spécifié est invalide'));
-	    }
+	    $this->try_arg(empty($user), 'Le profil spécifié est invalide.',
+					   array('controller' => 'users', 'action' => 'view', $this->Session->read('Auth.User.id')));
 	    $this->set('user', $user);
-
 	    if ($this->request->is(array('user', 'put'))) {
 	        $this->User->id = $id;
 	        if ($this->User->save($this->request->data)) {
-	            $this->Session->setFlash(__('Votre profil a bien été mis à jour'));
-	            return $this->redirect(array('action' => 'view', $user['User']['id']));
+	            $this->Session->setFlash(__('Votre profil a bien été mis à jour.'));
+	            $this->redirect(array('action' => 'view', $user['User']['id']));
 	        }
-	        $this->Session->setFlash(__('Impossible de mettre à jour votre profil'));
+	        $this->Session->setFlash(__('Impossible de mettre à jour votre profil.'));
 	    }
-
-	    if (!$this->request->data) {
+	    if (!$this->request->data)
 	        $this->request->data = $user;
-	    }
 	}
 
 	/*** EDIT PHOTO ***/
@@ -231,19 +208,18 @@ class UsersController extends AppController {
 	    			$this->request->data['User']['avatar_file']['tmp_name'],
 	    			IMAGES . 'avatars' . DS . $id . '.' . $extension
 	    		);
-	    		$this->Session->setFlash(__('Votre photo a bien été mise a jour'));
-	    		return $this->redirect(array('action' => 'view', $user['User']['id']));
+	    		$this->Session->setFlash(__('Votre photo a bien été mise à jour.'));
+	    		$this->redirect(array('action' => 'view', $user['User']['id']));
 	    	}
-	    	else {
-	    		$this->Session->setFlash(__('Vous ne pouvez pas envoyer ce type de fichier'));
-	    	}
-	    }else {
+	    	else
+	    		$this->Session->setFlash(__('Vous ne pouvez pas envoyer ce type de fichier.'));
+	    }
+	    else {
 	    	$this->User->id = $id;
 	    	$this->request->data = $this->User->read();
 	    }
-	    if (!$this->request->data) {
+	    if (!$this->request->data)
 	        $this->request->data = $user;
-	    }
 	}
 
 	/* Post Section
@@ -251,20 +227,15 @@ class UsersController extends AppController {
 
 	/*** SEND POST ***/
 	public function sendPost($id = null) {
-		if (!$id) {
-	        throw new NotFoundException(__('Le profil spécifié est invalide'));
-	    }
-
+		$this->try_arg((!isset($id) || $id <= 0), 'Le profil spécifié est invalide.',
+					   array('controller' => 'users', 'action' => 'view', $this->Session->read('Auth.User.id')));
 	    $user = $this->User->findById($id);
-	    if (!$user) {
-	        throw new NotFoundException(__('Le profil spécifié est invalide'));
-	    }
+	    $this->try_arg(empty($user), 'Le profil spécifié est invalide.',
+					   array('controller' => 'users', 'action' => 'view', $this->Session->read('Auth.User.id')));
 	    $this->set('user', $user);
-
         if ($this->request->is('post')) {
             $this->Post->create();
             $this->Content->create();
-
         	$d = $this->request->data;
         	$d['Post']['content'] = nl2br(htmlspecialchars($d['Post']['content']));
 			if ( $this->Post->save($d) ) {
@@ -279,7 +250,6 @@ class UsersController extends AppController {
 				);
 				$this->Content->save($d2);
 				$this->Session->setFlash(__('Votre post a bien été publié'));
-
 				if ($id != $this->Session->read('Auth.User.id')) {
 					// $this->Notification->create(array(
 					// 	'from_id' => $this->Auth->user('id'),
@@ -298,7 +268,7 @@ class UsersController extends AppController {
 					// 	$email->send();
 					// }
 				}
-				return $this->redirect(array('action' => 'view', $user['User']['id']));
+				$this->redirect(array('action' => 'view', $user['User']['id']));
 			}
             $this->Session->setFlash(__('Impossible de publier votre post'));
         }
@@ -321,10 +291,9 @@ class UsersController extends AppController {
 	    	$this->Post->delete($postRef[0]['Post']['id'], true);
 	        $this->Session->setFlash(__('Le post a été supprimé'));
 	    }
-	    else {
+	    else
 	        $this->Session->setFlash(__("Le post n'a pas pu être supprimé"));
-	    }
-	    return $this->redirect(array('controller' => 'users', 'action' => 'view', $this->Auth->user('id')));
+	    $this->redirect(array('controller' => 'users', 'action' => 'view', $this->Auth->user('id')));
     }
 
     /* Friend Section
@@ -332,14 +301,11 @@ class UsersController extends AppController {
 
 	/*** FRIENDS ***/
 	public function friends($id = null) {
-		if (!$id) {
-			throw new NotFoundException(__('Le profil spécifié est invalide'));
-		}
-
+		$this->try_arg((!isset($id) || $id <= 0), 'Le profil spécifié est invalide.',
+					   array('controller' => 'users', 'action' => 'view', $this->Session->read('Auth.User.id')));
 	    $user = $this->User->findById($id);
-	    if (!$user) {
-	        throw new NotFoundException(__('Le profil spécifié est invalide'));
-	    }
+	    $this->try_arg(empty($user), 'Le profil spécifié est invalide.',
+					   array('controller' => 'users', 'action' => 'view', $this->Session->read('Auth.User.id')));
 	    $this->set('user', $user);
 	    $my_friends = $this->Friend->find('all',
 			array( 'fields'  =>	array('id', 'user2_id', 'pending'),
@@ -348,7 +314,6 @@ class UsersController extends AppController {
 			array( 'fields'  =>	array('id', 'user1_id', 'pending'),
 				'conditions' =>	array('user2_id' => $user['User']['id'])));
 	    $this->set('my_friends', $my_friends);
-
 	    $this->Notification->updateAll(
 			array(
 				'viewed' => 1
@@ -368,10 +333,9 @@ class UsersController extends AppController {
 	        throw new MethodNotAllowedException();
 	    }
 	    if ($this->User->delete($id, true)) {
-	        $this->Session->setFlash(
-	            __("Le compte avec l'id numéro %s a été supprimé.", h($id))
+	        $this->Session->setFlash(__("Le compte avec l'id numéro %s a été supprimé.", h($id))
 	        );
-	        return $this->redirect(array('action' => 'index'));
+	        $this->redirect(array('action' => 'index'));
 	    }
 	}
 
@@ -382,8 +346,8 @@ class UsersController extends AppController {
 	    }
 	    $user = $this->User->findById($id);
 	    if ($this->User->save($user, true, array('password'))) {
-	        $this->Session->setFlash(__('Votre compte a bien été supprimé'));
-	        return $this->redirect($this->Auth->logout());
+	        $this->Session->setFlash(__('Votre compte a bien été supprimé.'));
+	        $this->redirect($this->Auth->logout());
 	    }
 	}
 
