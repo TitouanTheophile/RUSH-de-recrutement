@@ -60,7 +60,7 @@
 				<?= $this->Html->link($this->Html->image('friends.png', array('alt' => "Liste d'array_multisort(arr)"))."<span>Liste d'amis</span>",
                 					  array('controller' => 'users', 'action' => 'friends', $user['User']['id']),
                 					  array('escape' => false, 'id' => 'wall_infos_friend')); ?>
-                <?= $this->Html->link($this->Html->image('albums2.png', array('alt' => "Albums photos"))."<span>Albums photos</span>",
+                <?= $this->Html->link($this->Html->image('albums.png', array('alt' => "Albums photos"))."<span>Albums photos</span>",
                 					  array('controller' => 'albums', 'action' => 'index', $user['User']['id']),
                 					  array('escape' => false, 'id' => 'wall_infos_albums')); ?>
 			<?php endif ?>
@@ -70,7 +70,7 @@
 		<h3>Mon actualité</h3>
 		<div class="container_padding">
 			<?php
-				if ($user['User']['id'] == $this->Session->read('Auth.User.id') || $friends_verification == 1 ) {
+				if ($user['User']['id'] == $this->Session->read('Auth.User.id') || $friends_verification == 1) {
 					echo $this->Html->link('Publier un post',
                 		array ('action' => 'sendPost', $user['User']['id']));
 		    		$index = count($contents);

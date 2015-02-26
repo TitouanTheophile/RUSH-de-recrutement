@@ -2,23 +2,6 @@
 
 class PicturesController extends AppController {
 
-	private function try_arg($assert, $message, $url) {
-		if ($assert) {
-			$this->Session->setFlash(__($message));
-			$this->redirect($url);
-		}
-		else
-			return true;
-	}
-
-	private function allow($id, $message) {
-		$friends_verification = $this->requestAction('friends/isFriend',
-													 array('pass' => array($this->Session->read('Auth.User.id'), $id)));
-		$this->try_arg(($friends_verification != 1 && $id != $this->Session->read('Auth.User.id')), $message,
-					   array('controller' => 'users', 'action' => 'view', $this->Session->read('Auth.User.id')));
-		return true;
-	}
-
 	public function view($img_id) {
 		$this->try_arg((!isset($img_id) || $img_id <= 0), 'Image introuvable',
 					   array('controller' => 'users', 'action' => 'view', $this->Session->read('Auth.User.id')));
@@ -26,7 +9,7 @@ class PicturesController extends AppController {
 		$album = $this->Picture->Album->findById($pic['Picture']['album_id']);
 		$content_id = $pic['Content']['id'];
 		$owner = $pic['Content']['from_id'];
-		$this->allow($owner, 'Vous n\'êtes pas autorisé à voir cette image.');
+		$this->allowFriend($owner, 'Vous n\'êtes pas autorisé à voir cette image.');
 		$userPoint = $this->Picture->Content->ContentP->find('first', array(
 			'conditions' => array(
 				'ContentP.content_id' => $content_id,
