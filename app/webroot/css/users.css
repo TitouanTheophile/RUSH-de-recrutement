@@ -118,7 +118,7 @@
 	box-shadow: 2px 2px 12px rgba(0,0,0,0.4);
 	border-radius: 3px;
 	margin: 20px 0px;
-	width: 320px;
+	width: 25%;
 	top: 0px;
 	height: auto;
 	margin: 10px 0px;
@@ -174,19 +174,20 @@
 	color: black;
 	display: inline-block;
 	vertical-align: top;
-	line-height: 80px;
-	padding-left: 20px;
+	position: relative;
+	top: 20px;
+	padding-left: 10px;
 }
 
 #wall_infos_friend img,
 #wall_infos_albums img {
-	margin-top: 5px;
+	margin: 10px;
 }
 
 #user_wall,
 #news_wall {
 	display: inline-block;
-	width: 65%;
+	width: 69%;
 	height: auto;
 	right: 0px;
 	margin: 10px 0px 10px 10px;
