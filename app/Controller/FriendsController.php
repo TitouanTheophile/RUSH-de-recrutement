@@ -38,6 +38,7 @@ class FriendsController extends AppController {
 	}
 
 	function addFriend($id) {
+		debug($id);
 		App::uses('CakeEmail', 'Network/Email');
 		if ($this->request->is('get')) {
 			throw new MethodNotAllowedException();

@@ -25,10 +25,6 @@ $(document).ready(function(){
         }
     });
   });
-
-    $(".test").on("click", function () {
-      console.log("ss");
-    });
 });
       $(function() {
         var txt = $('.common'),
@@ -39,11 +35,11 @@ $(document).ready(function(){
         hiddenDiv.addClass('hiddendiv common');
         $('.comment_area').append(hiddenDiv);
         txt.on('keyup', function () {
+          $(this).val($(this).val().replace(/<script>/g, "%thisisatmpstr") );
             content = $(this).val();
-
+            $(this).val($(this).val().replace(/%thisisatmpstr/g, "<script>") );
             content = content.replace(/\n/g, '<br>');
             hiddenDiv.html(content + '<br class="lbr">');
-
             $(this).css('height', hiddenDiv.height());
         });
     });

@@ -13,7 +13,7 @@
 					echo $this->HTML->link('Supprimer', array('controller' => 'friends', 'action' => 'deleteFriend', $user['User']['id']),
 															array('confirm' => 'Etes-vous sûr ?'));
 				else if ($friends_verification == 0)
-					echo "En attente d'amitié <3";
+					echo "En attentse d'amitié <3";
 				else if ($friends_verification == -1)
 					echo $this->HTML->link('Ajouter', array('controller' => 'friends', 'action' => 'addFriend', $user['User']['id']));
 		?>

@@ -11,7 +11,7 @@
 							  array('controller' => 'Users', 'action' => 'view', $text['Comment']['from_id']),
 							  array("class" => "profile_links")); ?>
 		<xmp><?= $text['Comment']['content'] ?></xmp>
-		<br />
+		<br /> 
 		<span class='comment_date'> Envoyé il y a <?= $text['Comment']['created'] ?></span>
 	</div></div>
 <?php endforeach ?>

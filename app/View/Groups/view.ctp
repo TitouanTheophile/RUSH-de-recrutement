@@ -12,10 +12,10 @@ foreach ($group['User'] as $user) { // Check if user is in the group
 <div id="user_header">
 	<div id="user_element">
 		<div id="user_element_name">
-			<?= $this->Html->link($group['Group']['name'], array('controller' => 'groups', 'action' => 'view', $group['Group']['id'])); ?>
+			<?= $this->Html->link(htmlentities($group['Group']['name']), array('controller' => 'groups', 'action' => 'view', $group['Group']['id'])); ?>
 		</div>
 		<div id="user_element_description">
-			<?= $group['Group']['description'] ?>
+			<?= htmlentities($group['Group']['description']); ?>
 		</div>
 	</div>
 	<div id="friend_box">
