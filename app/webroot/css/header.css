@@ -14,7 +14,9 @@ div#header_title a {
 	display: inline-block;
 }
 
-div#header_menu {
+div#header_menu,
+div#header_option,
+div#notifications {
 	display: block;
 	position: relative;
 	height: 50px;
@@ -71,14 +73,27 @@ div#header_menu a:hover {
 	background: rgba(0,0,0,0.2);
 }
 
-div#header_option {
-	float: right;
-	background-image: url(../img/option.png);
-	width: 60px;
-	height: 60px;
+span#option_drop,
+span#header_notif {
+	display: inline-block;
+	background: rgba(0,0,0,0.1);
+	width: auto;
+	height: 30px;
+	padding: 5px 14px;
+	margin: 5px;
+	line-height: 30px;
+	transition: 0.2s;
+	font-size: 1.5em;
+	cursor: pointer;
 }
 
-div#header_option:hover div#header_option_drop {
+div#header_option:hover span#option_drop,
+span#header_notif.active {
+	background: rgba(142,142,245,0.9);
+}
+
+div#header_option:hover div#header_option_drop,
+div#header_option_drop:hover {
 	opacity: 1;
 	transform: scale(1);
 }
@@ -91,10 +106,10 @@ div#header_option_drop {
 	list-style: none;
 	margin: 0;
 	padding: 0px;
-	top: 60px;
-	margin-left: -140px;
-	border-radius: 5px 0px 5px 5px;
-	box-shadow: 2px 2px 6px rgba(0,0,0,0.75);
+	top: 50px;
+	right: 0px;
+	border-radius: 5px 0px 0px 5px;
+	box-shadow: 2px 2px 4px rgba(0,0,0,0.75);
 	transition: 0.2s;
 	opacity: 0;
 	transform: scale(0);
@@ -115,6 +130,7 @@ div#header_option_drop a:hover {
 	background: rgba(0,0,0,0.2);
 	box-shadow: 0px 0px 10px rgba(0,0,0,0.2) inset;
 	cursor: pointer;
+	border-radius: 5px 0px 0px 5px;
 }
 
 div#header_option_drop a:active {
@@ -144,7 +160,7 @@ div#notifications_list {
 	border: 3px grey solid;
 	width: 500px;
 	word-wrap: break-word;
-	top: 60px;
+	top: 50px;
 	position: absolute;
 	background: linear-gradient(rgba(142,142,245,0.9),rgba(100,100,186,0.9));
 	max-height: 200px;

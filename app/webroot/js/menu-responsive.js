@@ -1,7 +1,7 @@
 $(document).ready(function() {
 	update_menu();
 	function update_menu() {
-		if ($(document).width() < 1240) {
+		if ($(document).width() < 1260) {
 			if ($('#header_drop').length === 0) {
 				$('<div>', {id: 'header_drop'}).appendTo($('#header'));
 				$('div#header_menu').children().appendTo($('#header_drop'));

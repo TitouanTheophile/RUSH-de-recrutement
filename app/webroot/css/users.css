@@ -226,8 +226,12 @@
 
 #news_profil {
 	display: inline-block;
-	width: 320px;
+	width: 25%;
 	vertical-align: top;
+}
+
+#news_profil #wall_infos {
+	width: 100%;
 }
 
 a.add_group {

@@ -25,7 +25,11 @@
 		<div id="header">
 			<div id="header_title">
 				<?= $this->Html->link('<h1>SocialKOD</h1>', '/', array('escape' => false)); ?>
-				<?php if ($user) echo $this->Html->image('logo-notifications.png', array('id' => 'notifications')) . '<div id="notifications_count"></div><div id="notifications_list"></div>' ?>
+				<?php if ($user): ?>
+					<div id='notifications'><span id='header_notif'>✉</span></div>
+					<div id="notifications_count"></div>
+					<div id="notifications_list"></div>
+				<?php endif ?>
 		    </div>
 			<?php if ($user) : ?>
 				<div id="container_search">
