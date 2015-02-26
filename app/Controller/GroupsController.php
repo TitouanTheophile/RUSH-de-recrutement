@@ -6,6 +6,7 @@ class GroupsController extends AppController {
         if ($this->request->is('post')) {
             $this->Group->create();
         	$data = $this->request->data;
+        	$data['Group']['owner_id'] = $this->Session->read('Auth.User.id');
 			if ($this->Group->save($data)) {
 				$id = $this->Group->getLastInsertID();
 				$this->join($id);
@@ -67,11 +68,13 @@ class GroupsController extends AppController {
 		App::uses('CakeEmail', 'Network/Email');
 		$this->loadModel('Notification');
 
+		$group = $this->Group->findById($id);
 		$this->Group->GroupsUser->create(array(
 				'group_id' => $id,
 				'user_id' => $this->Auth->user('id'),
+				'role' => ($this->Auth->user('id') == $group['Owner']['id'] ? 1 : 0)
 				), true);
-		$this->Group->GroupsUser->save(null, true, array('group_id', 'user_id'));
+		$this->Group->GroupsUser->save(null, true, array('group_id', 'user_id', 'role'));
 
 		// $this->Notification->create(array(
 		// 		'from_id' => $this->Auth->user('id'),

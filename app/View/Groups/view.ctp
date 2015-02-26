@@ -50,7 +50,7 @@ foreach ($group['User'] as $user) { // Check if user is in the group
 </div>
 
 <div id="user_wall" class="container_padding">
-	<h4>Actulaité</h4>
+	<h4>Actualité</h4>
 	<hr />
 	<div class="container_padding">
 	<?php

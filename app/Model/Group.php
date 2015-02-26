@@ -15,9 +15,16 @@ class Group extends AppModel {
             )
     );
 
+    public $belongsTo = array( //Make the link beetween tables
+        'Owner' => array(
+            'className' => 'Users',
+            'foreignKey' => 'owner_id'
+            )
+        );
+
     public $validate = array(
         'name' => array(
-            'rule' => '/^.+$/i', // Need a rule for required
+            'rule' => '/^.+$/i', // Need a rule for required 
             'required' => true,
             'allowEmpty' => false,
             'on'         => 'create',
