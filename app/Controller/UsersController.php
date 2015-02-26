@@ -28,10 +28,13 @@ class UsersController extends AppController {
     }
    
 
-    public function get_users(){ // Get the Users for the view index
+    public function get_users(){
 		$users = $this->User->find('all', array( //Get the list of Users that match with the search
 			'conditions' => array(
-				'firstname LIKE' => '%' . $this->params->query['q'] . '%'
+				'OR' => array(
+					'firstname LIKE' => '%' . $this->params->query['q'] . '%',
+					'lastname LIKE' => '%' . $this->params->query['q'] . '%'
+					)
 				)
 			));
 		$this->set('users', $users);

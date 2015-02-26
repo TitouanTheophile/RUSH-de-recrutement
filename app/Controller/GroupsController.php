@@ -3,18 +3,15 @@
 class GroupsController extends AppController {
 
 	public function create_group () {
-		if ($this->request->is('post')) {
-			if($this->request->data['Info']['text'] != NULL) {
-				$this->Group->create(array(
-					'name' => $this->request->data['Info']['text'],
-					'description' => $this->request->data['Info']['text-area']),
-				true);
-				$this->Group->save(null, true, array('name', 'description'));
+        if ($this->request->is('post')) {
+            $this->Group->create();
+        	$data = $this->request->data;
+			if ($this->Group->save($data)) {
 				$id = $this->Group->getLastInsertID();
-				$this->Session->setFlash(__("Vous avez créé un groupe"));
-				$this->redirect(array('controller' => 'groups', 'action' => 'view', $id));
+				$this->join($id);
 			}
-		}
+            $this->Session->setFlash(__('Impossible de créer le groupe'));
+        }
 	}
 
 	public function edit ($id) {
