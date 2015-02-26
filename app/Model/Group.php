@@ -14,5 +14,15 @@ class Group extends AppModel {
                 'associationForeignKey' => 'user_id',
             )
     );
+
+    public $validate = array(
+        'name' => array(
+            'rule' => '/^.+$/i', // Need a rule for required
+            'required' => true,
+            'allowEmpty' => false,
+            'on'         => 'create',
+            'message'  => 'Ce champ est requis!'
+        )
+    );
 }
 ?>

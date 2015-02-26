@@ -49,10 +49,11 @@
 				<?= $this->element('sql_dump'); ?>
 			</div>
 		</div>
-		<input type="hidden"  name="get_notifications" value=<?= '"' . $this->HTML->url(array('controller' => 'notifications', 'action' => 'get_notifications')) . '"';?> >
-		<input type="hidden"  name="get_notifications_count" value=<?= '"' . $this->HTML->url(array('controller' => 'notifications', 'action' => 'get_notifications_count')) . '"';?> >
-		<input type="hidden"  name="get_users" value=<?= '"' . $this->HTML->url(array('controller' => 'users', 'action' => 'get_users')) . '"';?> >
-		<input type="hidden"  name="get_groups" value=<?= '"' . $this->HTML->url(array('controller' => 'groups', 'action' => 'get_groups')) . '"';?> >
+		<input type="hidden" name="get_notifications" value=<?= '"' . $this->HTML->url(array('controller' => 'notifications', 'action' => 'get_notifications')) . '"';?> >
+		<input type="hidden" name="get_notifications_count" value=<?= '"' . $this->HTML->url(array('controller' => 'notifications', 'action' => 'get_notifications_count')) . '"';?> >
+		<input type="hidden" name="get_users" value=<?= '"' . $this->HTML->url(array('controller' => 'users', 'action' => 'get_users')) . '"';?> >
+		<input type="hidden" name="get_groups" value=<?= '"' . $this->HTML->url(array('controller' => 'groups', 'action' => 'get_groups')) . '"';?> >
+		<input type="hidden" name="home" value=<?= '"' . Router::url('/', true) . '"';?> >
 	</body>
 
 </html>

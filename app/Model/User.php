@@ -19,33 +19,33 @@ class User extends AppModel {
 
 	public $validate = array(
         'firstname' => array(
-            'alphaNumeric' => array(
-                'rule'     => 'alphaNumeric',
+            'alpha' => array(
+                'rule'     => '/^[a-zA-Z]+$/i',
                 'required' => true,
-                'message'  => 'Chiffres et lettres uniquement !'
+                'message'  => 'Lettres uniquement !'
             ),
             'between' => array(
-                'rule'    => array('lengthBetween', 4, 60),
-                'message' => 'Votre prénom doit comprendre entre 4 et 60 caractères'
+                'rule'    => array('lengthBetween', 2, 60),
+                'message' => 'Votre prénom doit comprendre entre 2 et 60 caractères'
             )
         ),
         'lastname' => array(
-            'alphaNumeric' => array(
-                'rule'     => 'alphaNumeric',
+            'alpha' => array(
+                'rule'     => '/^[a-zA-Z]+$/i',
                 'required' => true,
-                'message'  => 'Chiffres et lettres uniquement !'
+                'message'  => 'Lettres uniquement !'
             ),
             'between' => array(
-                'rule'    => array('lengthBetween', 4, 60),
+                'rule'    => array('lengthBetween', 2, 60),
                 'message' => 'Votre nom doit comprendre entre 4 et 60 caractères'
             )
         ),
         'password' => array(
             'rule'    => array('minLength', '8'),
-            'message' => '8 caractères minimum'
+            'message' => '6 caractères minimum'
         ),
         'password_confirmation' => array(
-            'rule'    => 'notEmpty',
+            'rule' => array('equalToField', 'password'),
             'message' => 'Veuillez vérifier le mot de passe'
         ),
         'email' => array(
@@ -60,13 +60,9 @@ class User extends AppModel {
         )
     );
 
-    /*public function matchPasswords($data) {
-        if ( $data['password'] == $this->data['User']['password_confirmation'] ) {
-            return true;
-        }
-        $this->invalidate('password_confirmation', 'Vos mots de passe ne correspondent pas');
-        return false;
-    }*/
+    public function equalToField($array, $field) {
+        return strcmp($this->data[$this->alias][key($array)], $this->data[$this->alias][$field]) == 0;
+    }
 
     public function beforeSave($options = array()) {
         

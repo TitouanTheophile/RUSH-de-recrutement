@@ -9,6 +9,9 @@ $(document).ready( function() {
       url : url,
       success : function(data) {
         $('#notifications_list').html(data);
+      },
+      error : function() {
+        window.location.replace($('input[name="home"]').val());
       }
     });
   }

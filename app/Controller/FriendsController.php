@@ -40,9 +40,6 @@ class FriendsController extends AppController {
 	function addFriend($id) {
 		debug($id);
 		App::uses('CakeEmail', 'Network/Email');
-		if ($this->request->is('get')) {
-			throw new MethodNotAllowedException();
-		}
 		$little = 0;
 		$big = 0;
 		if ($this->Auth->user('id') < $id) {
