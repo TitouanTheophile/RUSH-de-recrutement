@@ -20,13 +20,13 @@ class GroupsController extends AppController {
 	public function edit ($id) {
 		$group = $this->Group->findById($id);
 		if ($this->request->is('post')) {
-			if($this->request->data['Info']['text'] != NULL) {
+			if($this->request->data['Info']['text'] != NULL || $this->request->data['Info']['text-area'] != NULL) {
 				debug($this->request->data['Info']);
 				$name = (strlen($this->request->data['Info']['text']) > 0 ? $this->request->data['Info']['text'] : $group['Group']['name']);
 				$desc = (strlen($this->request->data['Info']['text-area']) > 0 ? $this->request->data['Info']['text-area'] : $group['Group']['description']);
 				//die;
 				$this->Group->updateAll(
-					array('name' => $name, 'description' => $desc),
+					array('name' => "'$name'", 'description' => "'$desc'"),
 					array('id' => $id)
 					);
 				$this->Session->setFlash(__("Vous avez edité le groupe"));
@@ -42,8 +42,6 @@ class GroupsController extends AppController {
 	}
 
 	public function leave($id) {
-		if ($this->request->is('get'))
-			throw new MethodNotAllowedException();
 		$deleteTarget = $this->Group->GroupsUser->find('first', array(
 			'conditions' =>	array(
 				'group_id' => $id,
@@ -71,8 +69,6 @@ class GroupsController extends AppController {
 	public function join($id) {
 		App::uses('CakeEmail', 'Network/Email');
 		$this->loadModel('Notification');
-		if ($this->request->is('get'))
-			throw new MethodNotAllowedException();
 
 		$this->Group->GroupsUser->create(array(
 				'group_id' => $id,
