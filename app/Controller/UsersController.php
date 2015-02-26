@@ -44,13 +44,11 @@ class UsersController extends AppController {
 
 	/*** VIEW ***/
     public function view($id = null) {
-	    if (!$id) {
+	    if (!$id)
 	        throw new NotFoundException(__('Le profil spécifié est invalide'));
-	    }
 	    $user = $this->User->findById($id);
-	    if (!$user) {
+	    if (!$user)
             throw new NotFoundException(__('Le profil spécifié est invalide'));
-        }
         $array_id = array();
 		foreach ($user['Group'] as $group) {
 			$array_id[] = $group['id'];
@@ -98,10 +96,10 @@ class UsersController extends AppController {
 	    $index = count($my_friends);
 		while ($index) {
 			$my_friend = $my_friends[--$index];
-			if ( isset($my_friend['Friend']['user1_id']) && $my_friend['Friend']['pending'] == NULL ) {
+			if (isset($my_friend['Friend']['user1_id']) && $my_friend['Friend']['pending'] == NULL) {
 				array_push($arr, $my_friend['Friend']['user1_id']);
 			}
-			if ( isset($my_friend['Friend']['user2_id']) && $my_friend['Friend']['pending'] == NULL ) {
+			if (isset($my_friend['Friend']['user2_id']) && $my_friend['Friend']['pending'] == NULL) {
 				array_push($arr, $my_friend['Friend']['user2_id']);
 			}
 		}
@@ -180,7 +178,7 @@ class UsersController extends AppController {
 
 	    if ($this->request->is(array('user', 'put'))) {
 	        $this->User->id = $id;
-	        $d = Sanitize::clean($this->request->data, array('encode' => true, 'remove_html' => true));
+	        $d = $this->request->data;
 	        if ($this->User->save($d)) {
 	            $this->Session->setFlash(__('Votre profil a bien été mis à jour'));
 	            return $this->redirect(array('action' => 'view', $user['User']['id']));

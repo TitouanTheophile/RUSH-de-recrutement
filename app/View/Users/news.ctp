@@ -40,7 +40,6 @@
 		    		$index = count($contents);
 		    		while($index) {
 		    			$content = $contents[--$index];
-
 			    			foreach ($posts as $post) {
 			    				if ( $post['Post']['id'] == $content['Content']['content_id'] ) {
 									echo $this->element(
@@ -52,7 +51,6 @@
 									);
 								}
 			    			}
-			    			unset($post);
 			    	}
 			    }
 			    else {
