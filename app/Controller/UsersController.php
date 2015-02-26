@@ -128,9 +128,10 @@ class UsersController extends AppController {
         if ($this->request->is('post')) {
             $this->User->create();
         	$d = $this->request->data;
-			if ( $this->User->save($d) ) {
-				$this->Session->setFlash(__('Votre compte a bien été créé, vous pouvez desormais vous connecter.'));
-				return $this->redirect(array('controller' => 'users', 'action' => 'login'));
+			if ($this->User->save($d)) {
+				$this->Session->setFlash(__('Votre compte a bien été créé, bienvenue sur socialkod !'));
+				$this->Auth->login();
+				$this->redirect(array('controller' => 'users', 'action' => 'view', $this->Session->read('Auth.User.id')));
 			}
             $this->Session->setFlash(__('Impossible de créer votre compte.'));
         }
