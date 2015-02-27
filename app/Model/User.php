@@ -20,24 +20,24 @@ class User extends AppModel {
 	public $validate = array(
         'firstname' => array(
             'alpha' => array(
-                'rule'     => '/^[a-zA-Z]+$/i',
+                'rule'     => '/^[a-z\-A-Z]+$/i',
                 'required' => true,
                 'message'  => 'Lettres uniquement !'
             ),
             'between' => array(
-                'rule'    => array('lengthBetween', 2, 60),
-                'message' => 'Votre prénom doit comprendre entre 2 et 60 caractères'
+                'rule'    => array('lengthBetween', 2, 50),
+                'message' => 'Votre prénom doit comprendre entre 2 et 50 caractères'
             )
         ),
         'lastname' => array(
             'alpha' => array(
-                'rule'     => '/^[a-zA-Z]+$/i',
+                'rule'     => '/^[a-z \-A-Z]+$/i',
                 'required' => true,
                 'message'  => 'Lettres uniquement !'
             ),
             'between' => array(
-                'rule'    => array('lengthBetween', 2, 60),
-                'message' => 'Votre nom doit comprendre entre 4 et 60 caractères'
+                'rule'    => array('lengthBetween', 2, 50),
+                'message' => 'Votre nom doit comprendre entre 2 et 50 caractères'
             )
         ),
         'password' => array(
