@@ -41,6 +41,7 @@ $(document).ready(function(){
             content = content.replace(/\n/g, '<br>');
             hiddenDiv.html(content + '<br class="lbr">');
             $(this).css('height', hiddenDiv.height());
+            console.log(hiddenDiv.height());
         });
     });
 

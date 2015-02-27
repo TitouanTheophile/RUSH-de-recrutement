@@ -164,6 +164,8 @@ class UsersController extends AppController {
 	    $user = $this->User->findById($id);
 	    $this->try_arg(empty($user), 'Le profil spécifié est invalide.',
 					   array('controller' => 'users', 'action' => 'view', $this->Session->read('Auth.User.id')));
+	    if ($id != $this->Session->read('Auth.User.id'))
+	    	return ($this->render("forbiden_access"));
 	    $this->set('user', $user);
 	    if ($this->request->is(array('user', 'put'))) {
 	        $this->User->id = $id;
@@ -179,7 +181,7 @@ class UsersController extends AppController {
 	}
 
 	/*** EDIT DATA ***/
-	public function editData($id = null) {
+/*	public function editData($id = null) {
 	    $this->try_arg((!isset($id) || $id <= 0), 'Le profil spécifié est invalide.',
 					   array('controller' => 'users', 'action' => 'view', $this->Session->read('Auth.User.id')));
 	    $user = $this->User->findById($id);
@@ -197,9 +199,11 @@ class UsersController extends AppController {
 	    if (!$this->request->data)
 	        $this->request->data = $user;
 	}
-
+*/
 	/*** EDIT PHOTO ***/
 	public function editPhoto($id = null) {
+		if ($id != $this->Session->read('Auth.User.id'))
+	    	return ($this->render("forbiden_access"));
 		$user = $this->User->findById($id);
 		$this->set('user', $user);
 	    if ( !empty($this->request->data) ) {
