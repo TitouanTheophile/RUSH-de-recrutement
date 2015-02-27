@@ -59,8 +59,8 @@ class UsersController extends AppController {
         $contents = $this->Content->find('all',
         	array('conditions' => array(
         		'OR' => array(
-        			array('from_id' => $this->Auth->user('id'), 'targetType_id' => 1),
-        			array('from_id' => $this->Auth->user('id'), 'target_id' => $array_id, 'targetType_id' => 2)
+        			array('from_id' => $id, 'targetType_id' => 1),
+        			array('from_id' => $id, 'target_id' => $array_id, 'targetType_id' => 2)
         			)
         		)
         	));
