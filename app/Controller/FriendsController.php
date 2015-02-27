@@ -125,7 +125,7 @@ class FriendsController extends AppController {
 		$targetName = $this->User->findById($target_id);
 		$targetName = $targetName['User']['firstname'] . ' ' . $targetName['User']['lastname'];
 		if ($this->Friend->delete($deleteTarget['Friend']['id'], true)) {
-			$this->Session->setFlash(__(($pending ? 'Demande d\'amitié annulée.' : 'Vous n\'êtes plus amis avec ' . $targetName. '.'));
+			$this->Session->setFlash(__(($pending ? 'Demande d\'amitié annulée.' : 'Vous n\'êtes plus amis avec ' . $targetName. '.')));
 		}
 		return $this->redirect(array('controller' => 'users', 'action' => 'view', $this->Auth->user('id')));
 	}
