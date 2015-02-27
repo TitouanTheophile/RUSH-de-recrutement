@@ -12,6 +12,7 @@
 				echo $this->Form->create('User');
 				echo $this->Form->input('firstname', array('label' => 'Votre prénom :'));
 				echo $this->Form->input('lastname', array('label' => 'Votre nom :'));
+				echo $this->Form->input('email', array('label' => 'Adresse email :'));
 				echo $this->Form->input('study_place', array('label' => "Votre lieu d'étude :"));
 				echo $this->Form->input('work_place', array('label' => 'Votre lieu de travail :'));
 				echo $this->Form->input('user_place', array('label' => "Votre lieu d'habitation :"));

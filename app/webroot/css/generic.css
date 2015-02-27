@@ -40,6 +40,17 @@ a img {
 	border:none;
 }
 
+h1#forbiden_info{
+	font-size: 51px;
+	color: red;
+	text-decoration: underline;
+}
+
+img#forbiden_img{
+height: 500px;
+width: 500px;
+}
+
 h1, h2, h3, h4 {
 	font-weight: normal;
 	margin-bottom:0.5em;
