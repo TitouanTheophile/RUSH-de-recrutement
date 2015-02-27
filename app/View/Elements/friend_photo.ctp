@@ -1,8 +1,10 @@
 	<div class="friend_element">
 		<div class="friend_element_photo">
 			<?php
-				$friend_id = (isset($my_friend['Friend']['user2_id']) ? $my_friend['Friend']['user2_id'] :
-							  (isset($my_friend['Friend']['user1_id']) ? $my_friend['Friend']['user1_id'] : null));
+				$friend_id = ($my_friend['Friend']['user2_id'] == $this->Session->read('Auth.User.id') ?
+							  $my_friend['Friend']['user1_id'] : $my_friend['Friend']['user2_id']);
+				// $friend_id = (isset($my_friend['Friend']['user2_id']) ? $my_friend['Friend']['user2_id'] :
+				// 			  (isset($my_friend['Friend']['user1_id']) ? $my_friend['Friend']['user1_id'] : null));
 				$friend_data = $this->requestAction('users/getUser',
 													array('pass' => array($friend_id)));
 				echo $this->element('user_pic', array('id' => $friend_data['User']['id'],
@@ -21,13 +23,13 @@
 																	array('controller' => 'friends', 'action' => 'acceptFriend', $my_friend['Friend']['id']),
 													   				array('escape' => false));
 							$friend_request .= $this->Form->postLink('[Refuser]',
-													   				array('controller' => 'friends', 'action' => 'deleteFriend', $my_friend['Friend']['id']),
+													   				array('controller' => 'friends', 'action' => 'deleteFriend', $friend_id),
 													   				array('escape' => false));
 							
 						}
 						else
 							$friend_request = $this->Form->postLink('[Annuler]',
-													   				array('controller' => 'friends', 'action' => 'deleteFriend', $my_friend['Friend']['id']),
+													   				array('controller' => 'friends', 'action' => 'deleteFriend', $friend_id),
 													   				array('escape' => false));
 						echo $this->Html->tag('span', $friend_request, array('class' => 'friendAnswer'));
 					}

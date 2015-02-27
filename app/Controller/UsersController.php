@@ -316,10 +316,10 @@ class UsersController extends AppController {
 					   array('controller' => 'users', 'action' => 'view', $this->Session->read('Auth.User.id')));
 	    $this->set('user', $user);
 	    $my_friends = $this->Friend->find('all',
-			array( 'fields'  =>	array('id', 'user2_id', 'pending'),
+			array('fields'  =>	array('id', 'user2_id', 'pending'),
 				'conditions' =>	array('user1_id' => $user['User']['id'])));
 	    $my_friends += $this->Friend->find('all',
-			array( 'fields'  =>	array('id', 'user1_id', 'pending'),
+			array('fields'  =>	array('id', 'user1_id', 'pending'),
 				'conditions' =>	array('user2_id' => $user['User']['id'])));
 	    $this->set('my_friends', $my_friends);
 	    $this->Notification->updateAll(
