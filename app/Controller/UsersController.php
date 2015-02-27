@@ -308,20 +308,24 @@ class UsersController extends AppController {
 	****************************************************************** */
 
 	/*** FRIENDS ***/
-	public function friends($id = null) {
+	public function friends($id) {
 		$this->try_arg((!isset($id) || $id <= 0), 'Le profil spécifié est invalide.',
 					   array('controller' => 'users', 'action' => 'view', $this->Session->read('Auth.User.id')));
 	    $user = $this->User->findById($id);
 	    $this->try_arg(empty($user), 'Le profil spécifié est invalide.',
 					   array('controller' => 'users', 'action' => 'view', $this->Session->read('Auth.User.id')));
+
 	    $this->set('user', $user);
-	    $my_friends = $this->Friend->find('all',
-			array( 'fields'  =>	array('id', 'user2_id', 'pending'),
-				'conditions' =>	array('user1_id' => $user['User']['id'])));
-	    $my_friends += $this->Friend->find('all',
-			array( 'fields'  =>	array('id', 'user1_id', 'pending'),
-				'conditions' =>	array('user2_id' => $user['User']['id'])));
+	    $my_friends  = $this->Friend->find('all', array(
+	    	'conditions' => array(
+	    		'OR' => array(
+	    			'user1_id' => $user['User']['id'],
+	    			'user2_id' => $user['User']['id']
+	    			)
+	    		)
+	    	));
 	    $this->set('my_friends', $my_friends);
+	    
 	    $this->Notification->updateAll(
 			array(
 				'viewed' => 1
