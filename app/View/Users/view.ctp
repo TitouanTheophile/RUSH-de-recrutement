@@ -50,9 +50,7 @@
 		</div>
 		<div class="container_padding wall_infos_section">
 			<h4>Cordonnées</h4>
-			<?php if ($this->Session->read('Auth.User.id') == $user['User']['id']) : ?>
-				<span><?= $this->Html->link('Éditer', array ('action' => 'editData', $this->Session->read('Auth.User.id'))) ?></span>
-            <?php endif ?>
+			
 		</div>
 		<div class="container_padding">
 			<?php if ($friends_verification == 1) : ?>

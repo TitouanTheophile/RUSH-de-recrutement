@@ -202,6 +202,8 @@ class UsersController extends AppController {
 */
 	/*** EDIT PHOTO ***/
 	public function editPhoto($id = null) {
+		if ($id != $this->Session->read('Auth.User.id'))
+	    	return ($this->render("forbiden_access"));
 		$user = $this->User->findById($id);
 		$this->set('user', $user);
 	    if ( !empty($this->request->data) ) {
