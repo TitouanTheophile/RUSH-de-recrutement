@@ -70,7 +70,7 @@ div .post_comment div .comment .profile_links
 
 div .post_comment div .comment_area .txtstuff {
     resize: none;
-    height: 30px;
+    height: 50px;
     overflow: hidden;
 }
 
@@ -78,15 +78,17 @@ div .post_comment div .comment_area .hiddendiv {
     display: none;
     white-space: pre-wrap;
     word-wrap: break-word;
-    overflow-wrap: break-word; /* future version of deprecated 'word-wrap' */
+    overflow-wrap: break-word;
+    width: 550px;
 }
 
 
 div .post_comment div .comment_area .common {
     resize: none;
-    min-height: 30px;
+    min-height: 50px;
     font-family: Arial, sans-serif;
     font-size: 17px;
+    width: 550px;
     overflow: hidden;
 }
 

@@ -38,7 +38,6 @@ class FriendsController extends AppController {
 	}
 
 	function addFriend($id) {
-		debug($id);
 		App::uses('CakeEmail', 'Network/Email');
 		$little = 0;
 		$big = 0;
@@ -86,12 +85,14 @@ class FriendsController extends AppController {
 		$this->Friend->saveField('pending', NULL);
 		$this->Session->setFlash(__("Vous avez bien validée la demande d'amitié"));
 
-		$from = $this->User->findById($id);
+		$friend = $this->Friend->findById($id);
+		$from = $this->User->findById(($friend['Friend']['pending'] == $friend['Friend']['user1_id'] ? $friend['Friend']['user1_id'] : $friend['Friend']['user2_id']));
+
 		$this->Notification->create(array(
 				'from_id' => $this->Auth->user('id'),
-				'target_id' => $id,
+				'target_id' => $from['User']['id'],
 				'notificationType_id' => 3,
-				'content_id' => $this->Friend->getInsertID(),
+				'content_id' => $id,
 				), true);
 		$this->Notification->save(null, true, array('from_id', 'target_id', 'notificationType_id', 'content_id'));
 		if (Configure::read('email')) {
