@@ -3,8 +3,6 @@
 			<?php
 				$friend_id = ($my_friend['Friend']['user2_id'] == $this->Session->read('Auth.User.id') ?
 							  $my_friend['Friend']['user1_id'] : $my_friend['Friend']['user2_id']);
-				// $friend_id = (isset($my_friend['Friend']['user2_id']) ? $my_friend['Friend']['user2_id'] :
-				// 			  (isset($my_friend['Friend']['user1_id']) ? $my_friend['Friend']['user1_id'] : null));
 				$friend_data = $this->requestAction('users/getUser',
 													array('pass' => array($friend_id)));
 				echo $this->element('user_pic', array('id' => $friend_data['User']['id'],

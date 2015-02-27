@@ -30,23 +30,48 @@
             <?php endif ?>
 		</div>
 		<div class="container_padding">
-			<?php
-				if (!empty($user['User']['gender']) && $friends_verification == 1) {
-					echo "<p>Sexe : <strong>";
-					echo ($user['User']['gender'] == 1 ? "Masculin" : ($user['User']['gender'] == 2 ? "Feminin" : "Hermaphrodite"));
-					echo "</strong></p>";
-				}
-				if (!empty($user['User']['study_place']) && $friends_verification == 1)
-					echo "<p>Étudie à <strong>" . htmlentities($user['User']['study_place']) . "</strong></p>";
-				if (!empty($user['User']['work_place']) && $friends_verification == 1)
-					echo "<p>Travaille à <strong>" . htmlentities($user['User']['work_place']) . "</strong></p>";
-				if (!empty($user['User']['user_place']) && $friends_verification == 1)
-					echo "<p>Habite à <strong>" . htmlentities($user['User']['user_place']) . "</strong></p>";
-				if (!empty($user['User']['birthday']) && $friends_verification == 1)
-					echo "<p>Date de naissance : <strong>" . $this->Time->format($user['User']['birthday'], '%e %B %Y') . "</strong></p>";
-				if (!empty($user['User']['created']))
-					echo "<p>Inscrit depuis le <strong>" . $this->Time->format($user['User']['created'], '%e %B %Y') . "</strong></p>";
-			?>
+			<?php if (!empty($user['User']['gender']) && $friends_verification == 1): ?>
+				<p>Sexe : 
+					<span class='bold'>
+						<?= ($user['User']['gender'] == 1 ? "Masculin" : ($user['User']['gender'] == 2 ? "Feminin" : "Hermaphrodite")) ?>
+					</span>			
+				</p>
+			<?php endif ?>
+			<?php if (!empty($user['User']['study_place']) && $friends_verification == 1): ?>
+				<p>Étudie à 
+					<span class='bold'>
+						<?= htmlentities($user['User']['study_place']) ?>
+					</span>
+				</p>
+			<?php endif ?>
+			<?php if (!empty($user['User']['work_place']) && $friends_verification == 1): ?>
+				<p>Travaille à  
+					<span class='bold'>
+						<?= htmlentities($user['User']['work_place']) ?>
+					</span>
+				</p>
+			<?php endif ?>
+			<?php if (!empty($user['User']['user_place']) && $friends_verification == 1): ?>
+				<p>Habite à  
+					<span class='bold'>
+						<?= htmlentities($user['User']['user_place']) ?>
+					</span>
+				</p>
+			<?php endif ?>
+			<?php if (!empty($user['User']['birthday']) && $friends_verification == 1): ?>
+				<p><?= ($user['User']['gender'] == 2 ? 'Née' : 'Né') ?> le :
+					<span class='bold'>
+						<?= $this->Time->format($user['User']['birthday'], '%e %B %Y') ?>
+					</span>
+				</p>
+			<?php endif ?>
+			<?php if (!empty($user['User']['created'])): ?>
+				<p><?= ($user['User']['gender'] == 2 ? 'Inscrite' : 'Inscrit') ?> depuis le :
+					<span class='bold'>
+						<?= $this->Time->format($user['User']['created'], '%e %B %Y') ?>
+					</span>
+				</p>
+			<?php endif ?>
 		</div>
 		<div class="container_padding wall_infos_section">
 			<h4>Cordonnées</h4>
