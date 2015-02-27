@@ -151,6 +151,10 @@ div#notifications_count {
 	width: 20px;
 	text-align: center;
 	color: white;
+	position: absolute;
+	bottom: 12px;
+	right: 12px;
+	cursor: pointer;
 }
 
 img#notifications {

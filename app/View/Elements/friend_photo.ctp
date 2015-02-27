@@ -19,18 +19,15 @@
 					if (isset($my_friend['Friend']['pending'])) {
 						echo "(en attente)";
 						if ($my_friend['Friend']['pending'] == $this->Session->read('Auth.User.id')) {
-							$friend_request = $this->Form->postLink('[Accepter]',
-																	array('controller' => 'friends', 'action' => 'acceptFriend', $my_friend['Friend']['id']),
-													   				array('escape' => false));
-							$friend_request .= $this->Form->postLink('[Refuser]',
-													   				array('controller' => 'friends', 'action' => 'deleteFriend', $friend_id),
-													   				array('escape' => false));
+							$friend_request  = $this->Html->link('[Accepter]',
+																 array('controller' => 'friends', 'action' => 'acceptFriend', $my_friend['Friend']['id']));
+							$friend_request .= $this->Html->link('[Refuser]',
+													   			 array('controller' => 'friends', 'action' => 'deleteFriend', $friend_id));
 							
 						}
 						else
-							$friend_request = $this->Form->postLink('[Annuler]',
-													   				array('controller' => 'friends', 'action' => 'deleteFriend', $friend_id),
-													   				array('escape' => false));
+							$friend_request = $this->Html->link('[Annuler]',
+													   			array('controller' => 'friends', 'action' => 'deleteFriend', $friend_id));
 						echo $this->Html->tag('span', $friend_request, array('class' => 'friendAnswer'));
 					}
 	           	?>
