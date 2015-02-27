@@ -110,21 +110,22 @@ class FriendsController extends AppController {
 	function deleteFriend($id) {
 		if ($this->Auth->user('id') <= $id) {
 			$deleteTarget = $this->Friend->find('first', array(
-				'fields' => array('id', 'user1_id', 'user2_id'),
+				'fields' => array('id', 'user1_id', 'user2_id', 'pending'),
 				'conditions' =>	array('user1_id' => $this->Auth->user('id'), 'user2_id' => $id))
 			);
 		}
 		else if ($this->Auth->user('id') > $id) {
 			$deleteTarget = $this->Friend->find('first', array(
-				'fields' => array('id', 'user1_id', 'user2_id'),
+				'fields' => array('id', 'user1_id', 'user2_id', 'pending'),
 				'conditions' =>	array('user1_id' => $id, 'user2_id' => $this->Auth->user('id')))
 			);
 		}
+		$pending = $deleteTarget['Friend']['pending'];
 		$target_id = ($deleteTarget['Friend']['user1_id'] == $this->Auth->user('id') ? $deleteTarget['Friend']['user2_id'] : $deleteTarget['Friend']['user1_id']);
 		$targetName = $this->User->findById($target_id);
 		$targetName = $targetName['User']['firstname'] . ' ' . $targetName['User']['lastname'];
 		if ($this->Friend->delete($deleteTarget['Friend']['id'], true)) {
-			$this->Session->setFlash(__('Vous n\'êtes plus amis avec ' . $targetName. '.'));
+			$this->Session->setFlash(__(($pending ? 'Demande d\'amitié annulée.' : 'Vous n\'êtes plus amis avec ' . $targetName. '.'));
 		}
 		return $this->redirect(array('controller' => 'users', 'action' => 'view', $this->Auth->user('id')));
 	}
