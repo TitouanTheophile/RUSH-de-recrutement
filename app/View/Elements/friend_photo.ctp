@@ -1,5 +1,5 @@
-	<div id="friend_element">
-		<div id="friend_element_photo">
+	<div class="friend_element">
+		<div class="friend_element_photo">
 			<?php
 				$friend_id = (isset($my_friend['Friend']['user2_id']) ? $my_friend['Friend']['user2_id'] :
 							  (isset($my_friend['Friend']['user1_id']) ? $my_friend['Friend']['user1_id'] : null));
@@ -10,7 +10,7 @@
 											 	  	  'class' => ''));
 			?>
 		</div>
-		<div id="friend_element_name">
+		<div class="friend_element_name">
 				<?php
 					echo $this->Html->link($friend_data['User']['firstname']." ".$friend_data['User']['lastname'],
 		           						   array('controller' => 'users', 'action' => 'view', $friend_data['User']['id']));
