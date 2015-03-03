@@ -180,26 +180,6 @@ class UsersController extends AppController {
 	        $this->request->data = $user;
 	}
 
-	/*** EDIT DATA ***/
-/*	public function editData($id = null) {
-	    $this->try_arg((!isset($id) || $id <= 0), 'Le profil spécifié est invalide.',
-					   array('controller' => 'users', 'action' => 'view', $this->Session->read('Auth.User.id')));
-	    $user = $this->User->findById($id);
-	    $this->try_arg(empty($user), 'Le profil spécifié est invalide.',
-					   array('controller' => 'users', 'action' => 'view', $this->Session->read('Auth.User.id')));
-	    $this->set('user', $user);
-	    if ($this->request->is(array('user', 'put'))) {
-	        $this->User->id = $id;
-	        if ($this->User->save($this->request->data)) {
-	            $this->Session->setFlash(__('Votre profil a bien été mis à jour.'));
-	            $this->redirect(array('action' => 'view', $user['User']['id']));
-	        }
-	        $this->Session->setFlash(__('Impossible de mettre à jour votre profil.'));
-	    }
-	    if (!$this->request->data)
-	        $this->request->data = $user;
-	}
-*/
 	/*** EDIT PHOTO ***/
 	public function editPhoto($id = null) {
 		if ($id != $this->Session->read('Auth.User.id'))
@@ -259,22 +239,22 @@ class UsersController extends AppController {
 				$this->Content->save($d2);
 				$this->Session->setFlash(__('Votre post a bien été publié'));
 				if ($id != $this->Session->read('Auth.User.id')) {
-					// $this->Notification->create(array(
-					// 	'from_id' => $this->Auth->user('id'),
-					// 	'target_id' => $id,
-					// 	'notificationType_id' => 3,
-					// 	'content_id' => $this->Friend->getInsertID(),
-					// 	), true);
-					// $this->Notification->save(null, true, array('from_id', 'target_id', 'notificationType_id', 'content_id'));
-					// if (Configure::read('email')) {
-					// 	$email = new CakeEmail('default');
-					// 	$email->to($from['User']['email']);
-					// 	$email->subject($this->Auth->user('firstname') . ' ' . $this->Auth->user('lastname') . ' a publié sur votre mur sur socialkod');
-					// 	$email->emailFormat('html');
-					// 	$email->template('post');
-					// 	$email->viewVars(array('firstname' => $this->Auth->user('firstname'), 'lastname' => $this->Auth->user('lastname')));
-					// 	$email->send();
-					// }
+					$this->Notification->create(array(
+						'from_id' => $this->Auth->user('id'),
+						'target_id' => $id,
+						'notificationType_id' => 3,
+						'content_id' => $this->Friend->getInsertID(),
+						), true);
+					$this->Notification->save(null, true, array('from_id', 'target_id', 'notificationType_id', 'content_id'));
+					if (Configure::read('email')) {
+						$email = new CakeEmail('default');
+						$email->to($from['User']['email']);
+						$email->subject($this->Auth->user('firstname') . ' ' . $this->Auth->user('lastname') . ' a publié sur votre mur sur socialkod');
+						$email->emailFormat('html');
+						$email->template('post');
+						$email->viewVars(array('firstname' => $this->Auth->user('firstname'), 'lastname' => $this->Auth->user('lastname')));
+						$email->send();
+					}
 				}
 				$this->redirect(array('action' => 'view', $user['User']['id']));
 			}
@@ -359,6 +339,30 @@ class UsersController extends AppController {
 	        $this->Session->setFlash(__('Votre compte a bien été supprimé.'));
 	        $this->redirect($this->Auth->logout());
 	    }
+	}
+
+	/* LeaderBoard Section
+	****************************************************************** */
+	public function score() {
+		$user_list = $this->User->ContentP->find('list', array(
+			'fields' => 'ContentP.user_id'));
+		$users_points = array();
+		$list_user = array();
+		foreach ($user_list as $user) {
+			$total = 0;
+			$user_points = $this->User->ContentP->find('all', array(
+				'fields' => array('ContentP.user_id', 'ContentP.pointType'),
+				'conditions' => array('ContentP.user_id' => $user)));
+			$user_info = $this->User->findById($user);
+			$list_user[$user_info['User']['id']] = $user_info['User'];
+			foreach ($user_points as $point) {
+				$total += ($point['ContentP']['pointType'] == 1 ? 1 : -1);
+			}
+			$users_points[$user] = $total;
+		}
+		$this->set('list_user', $list_user);
+		arsort($users_points);
+		$this->set('users_points', $users_points);
 	}
 
 }

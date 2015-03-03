@@ -12,11 +12,11 @@
 
 /* user photo */
 
-#user_element {
+.user_element {
 	padding: 20px;
 }
 
-#user_element_photo {
+.user_element_photo {
 	display: block;
 	position: relative;
 	background: #424242;
@@ -30,23 +30,23 @@
 	z-index: 1;
 }
 
-#user_element_photo img.long {
+.user_element_photo img.long {
 	width: 130px;
 }
 
-#user_element_photo img.large {
+.user_element_photo img.large {
 	height: 130px;
 }
 
-#user_element_photo:hover img.long {
+.user_element_photo:hover img.long {
 	width: 150px;
 }
 
-#user_element_photo:hover img.large {
+.user_element_photo:hover img.large {
 	height: 150px;
 }
 
-#user_element_photo img {
+.user_element_photo img {
 	position: relative;
 	top: 50%;
 	left: 50%;
@@ -58,7 +58,7 @@
 
 /* user name */
 
-#user_element_name {
+.user_element_name {
 	display: inline-block;
 	position: relative;
 	width: 100%;
@@ -68,14 +68,14 @@
 	overflow: hidden;
 }
 
-#user_element_name span {
+.user_element_name span {
 	color: white;
 	font-size: 24px;
 	font-weight: bold;
 	text-shadow: 2px 2px 6px rgba(0,0,0,0.8);
 }
 
-#user_element_name a {
+.user_element_name a {
 	color: white;
 	font-size: 1.5em;
 }

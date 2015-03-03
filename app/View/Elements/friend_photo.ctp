@@ -1,7 +1,7 @@
 	<div class="friend_element">
 		<div class="friend_element_photo">
 			<?php
-				$friend_id = ($my_friend['Friend']['user2_id'] == $this->Session->read('Auth.User.id') ?
+				$friend_id = ($my_friend['Friend']['user2_id'] == $requester_id ?
 							  $my_friend['Friend']['user1_id'] : $my_friend['Friend']['user2_id']);
 				$friend_data = $this->requestAction('users/getUser',
 													array('pass' => array($friend_id)));
@@ -16,7 +16,7 @@
 		           						   array('controller' => 'users', 'action' => 'view', $friend_data['User']['id']));
 					if (isset($my_friend['Friend']['pending'])) {
 						echo "(en attente)";
-						if ($my_friend['Friend']['pending'] == $this->Session->read('Auth.User.id')) {
+						if ($my_friend['Friend']['pending'] == $requester_id) {
 							$friend_request  = $this->Html->link('[Accepter]',
 																 array('controller' => 'friends', 'action' => 'acceptFriend', $my_friend['Friend']['id']));
 							$friend_request .= $this->Html->link('[Refuser]',

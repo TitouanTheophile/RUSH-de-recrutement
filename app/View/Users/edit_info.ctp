@@ -16,7 +16,8 @@
 				echo $this->Form->input('study_place', array('label' => "Votre lieu d'étude :"));
 				echo $this->Form->input('work_place', array('label' => 'Votre lieu de travail :'));
 				echo $this->Form->input('user_place', array('label' => "Votre lieu d'habitation :"));
-				echo $this->Form->input('birthday', array('label' => "Votre date d'anniversaire :"));
+				echo $this->Form->input('birthday', array('label' => "Votre date d'anniversaire :",
+														  'minYear' => '1915', 'maxYear' => '2015', 'timeFormat' => null, 'dateFormat' => 'DMY', 'empty' => true));
 				echo $this->Form->input('id', array('type' => 'hidden'));
 				echo $this->Form->end('Mettre à jour mon profil');
 			?>

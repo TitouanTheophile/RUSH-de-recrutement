@@ -58,14 +58,14 @@
 					</span>
 				</p>
 			<?php endif ?>
-			<?php if (!empty($user['User']['birthday']) && $friends_verification == 1): ?>
+			<?php if (!empty($user['User']['birthday']) && $user['User']['birthday']!= 0 && $friends_verification == 1): ?>
 				<p><?= ($user['User']['gender'] == 2 ? 'Née' : 'Né') ?> le :
 					<span class='bold'>
 						<?= $this->Time->format($user['User']['birthday'], '%e %B %Y') ?>
 					</span>
 				</p>
 			<?php endif ?>
-			<?php if (!empty($user['User']['created'])): ?>
+			<?php if (!empty($user['User']['created']) && $user['User']['created']!= 0 ): ?>
 				<p><?= ($user['User']['gender'] == 2 ? 'Inscrite' : 'Inscrit') ?> depuis le :
 					<span class='bold'>
 						<?= $this->Time->format($user['User']['created'], '%e %B %Y') ?>

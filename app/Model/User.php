@@ -5,8 +5,12 @@ class User extends AppModel {
         'Content' => array(
             'foreignKey' => 'from_id',
             'dependent'=> true
-        )
+        ),
+        'ContentP' => array(
+            'foreignKey' => 'user_id',
+            'dependent' => true)
     );
+    
     public $hasAndBelongsToMany = array(
         'Group' =>
             array(
@@ -51,12 +55,17 @@ class User extends AppModel {
         'email' => array(
         	'email' => array(
                 'rule'    => 'email',
-                'message' => 'Veuillez rentrer une adresse email valide'
+                'message' => 'Veuillez entrer une adresse email valide'
             ),
             'isUnique' => array(
                 'rule'    => 'isUnique',
                 'message' => 'Cet email est deja pris, veuillez en utiliser un autre'
             )
+        ),
+        'birthday' => array(
+            'rule' => 'datetime',
+            'message' => 'Veuillez entrer une date valide',
+            'allowEmpty' => true
         )
     );
 
