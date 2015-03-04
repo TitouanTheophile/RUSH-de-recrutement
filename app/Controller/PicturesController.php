@@ -88,7 +88,7 @@ class PicturesController extends AppController {
 			move_uploaded_file($this->request->data['Picture']['img']['tmp_name'], WWW_ROOT . "/img/$pic_id.jpg");
 			$this->Picture->Content->create();
 			$content_data = array(
-					'contentType_id' => 1,
+					'contentType_id' => 2,
 					'targetType_id' => 1,
 					'content_id' => $this->Picture->id,
 					'from_id' => $this->Session->read('Auth.User.id'),

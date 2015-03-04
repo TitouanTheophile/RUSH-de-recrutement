@@ -56,14 +56,7 @@ class UsersController extends AppController {
 		foreach ($user['Group'] as $group) {
 			$array_id[] = $group['id'];
 		}
-        $contents = $this->Content->find('all',
-        	array('conditions' => array(
-        		'OR' => array(
-        			array('from_id' => $this->Auth->user('id'), 'targetType_id' => 1),
-        			array('from_id' => $this->Auth->user('id'), 'target_id' => $array_id, 'targetType_id' => 2)
-        			)
-        		)
-        	));
+        
         $this->Notification->updateAll(
 			array(
 				'viewed' => 1
@@ -73,7 +66,6 @@ class UsersController extends AppController {
 				'target_id' => $this->Auth->user('id'),
 				'notificationType_id' => 3
 				));
-        $this->set('contents', $contents);
         $this->set('posts', $this->Post->find('all'));
         $this->set('user', $user);
     }
@@ -180,26 +172,6 @@ class UsersController extends AppController {
 	        $this->request->data = $user;
 	}
 
-	/*** EDIT DATA ***/
-/*	public function editData($id = null) {
-	    $this->try_arg((!isset($id) || $id <= 0), 'Le profil spécifié est invalide.',
-					   array('controller' => 'users', 'action' => 'view', $this->Session->read('Auth.User.id')));
-	    $user = $this->User->findById($id);
-	    $this->try_arg(empty($user), 'Le profil spécifié est invalide.',
-					   array('controller' => 'users', 'action' => 'view', $this->Session->read('Auth.User.id')));
-	    $this->set('user', $user);
-	    if ($this->request->is(array('user', 'put'))) {
-	        $this->User->id = $id;
-	        if ($this->User->save($this->request->data)) {
-	            $this->Session->setFlash(__('Votre profil a bien été mis à jour.'));
-	            $this->redirect(array('action' => 'view', $user['User']['id']));
-	        }
-	        $this->Session->setFlash(__('Impossible de mettre à jour votre profil.'));
-	    }
-	    if (!$this->request->data)
-	        $this->request->data = $user;
-	}
-*/
 	/*** EDIT PHOTO ***/
 	public function editPhoto($id = null) {
 		if ($id != $this->Session->read('Auth.User.id'))

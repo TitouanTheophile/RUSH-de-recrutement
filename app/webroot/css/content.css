@@ -1,7 +1,8 @@
-/* Content
+	/* Content
 --------------------------------------------------------- */
 
-.content_wall {
+.content_wall
+{
 	display: block;
 	position: relative;
 	background: linear-gradient(rgba(242,242,255,1.0),rgba(232,232,255,1.0));
@@ -12,18 +13,43 @@
 	transition: 0.1s;
 }
 
-.content_wall:hover {
+.content_wall:hover
+{
 	background: linear-gradient(rgba(242,242,255,1.0),rgba(232,232,255,1.0));
 	box-shadow: 2px 2px 12px 6px rgba(142,142,245,0.8);
 }
 
-.content_wall_header {
+div.content_wall_header
+{
 	display: block;
-	height: 40px;
 	margin-right: 35px;
 }
 
-.content_wall_header_pic {
+div.content_wall_header span.post_date
+{
+	display: block;
+	font-size: 12px;
+	margin-bottom: 10px;
+}
+
+div.content_wall div.post_content span
+{
+	display: block;
+	font-size: 17px;
+	margin-top: 25px;
+	margin-left: 25px;
+	margin-bottom: 10px;
+}
+
+div.content_wall div.post_content img
+{
+	max-height: 300px;
+	max-width: 300px;
+	margin-left: 25px;
+}
+
+.content_wall_header_pic
+{
 	display: block;
 	float: left;
 	width: 40px;
@@ -32,42 +58,39 @@
 	overflow: hidden;
 }
 
-.content_wall_header_pic img.long {
+.content_wall_header_pic img.long
+{
 	width: 40px;
 }
 
-.content_wall_header_pic img.large{
+.content_wall_header_pic img.large
+{
 	height: 40px;
 }
 
-.content_wall_header_pic img {
+.content_wall_header_pic img
+{
 	position: relative;
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
 }
 
-.content_wall_header span {
-	display: inline-block;
-	padding: 0px 10px;
-	line-height: 40px;
-	max-width: 480px;
-	max-height: 40px;
-	overflow: hidden;
-}
-
-.content_wall_date {
+.content_wall_date
+{
 	display: inline-block;
 	position: relative;
 	padding: 0px 10px;
 	color: rgba(100,100,100,1.0);
 }
 
-.content_wall p {
+.content_wall p
+{
 	padding: 10px;
 }
 
-.post_delete {
+.post_delete
+{
 	display: inline-block;
 	position: absolute;
 	background: rgba(0,0,0,0.1);
@@ -77,11 +100,15 @@
 	right: 16px;
 }
 
-.post_delete img {
+.post_delete img
+{
 	width: 100%;
 	height: 100%;
 	opacity: 0.5;
-}.post_delete:hover img {
+}
+
+.post_delete:hover img
+{
 	opacity: 1.0;
 }
 

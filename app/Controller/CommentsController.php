@@ -43,14 +43,14 @@ class CommentsController extends AppController
   		}
   		if ($reload == "true")
 	  	{
+	  		debug($allcom);
 			$content['Content']['id'] = $content_id;
 			$this->set('comment', $allCom);
-			$this->set('content', $content);
+			$this->set('id', $content_id);
 			$this->layout = false;
-			$this->render('/Elements/comment');
+			$allCom = $this->render('/Elements/comment');
 		}
-		else
-			return $allCom;
+		return $allCom;
 	}
 
 

@@ -1,50 +1,46 @@
+<?php foreach ($posts as $post): ?>
+
 <div class="content_wall">
 	<div class="content_wall_header">
-		<?php
-			$user = $this->requestAction('users/getUser', array('pass' => array($content['Content']['from_id'])));
-			$target = $this->requestAction(($content['Content']['targetType_id'] == 1 ? 'users/getUser' : 'groups/getGroup'),
-											array('pass' => array($content['Content']['target_id'])));
-			$user_picture = (!file_exists(IMAGES.'avatars/'.$user['User']['id'].'.jpg') ?
-							   'inconnu.jpg' : 'avatars/'.$user['User']['id'].'.jpg');
-			$scale = getimagesize(IMAGES . '/' . $user_picture);
-			$scale = ($scale[0] >= $scale[1] ? 'large' : 'long');
-			$user_picture = $this->Html->link($this->Html->image($user_picture, array('alt' => 'Photo de profil', 'class' => $scale)),
-				        						array('action' => 'view', $user['User']['id']),
-				        						array('escape' => false, 'class' => 'content_wall_header_pic'));
-			$header  = $this->Html->link($user['User']['firstname']." ".$user['User']['lastname'],
-           							   	 array('controller' => 'users', 'action' => 'view', $user['User']['id']));
-			$header .= ' a publié le ';
-			$header .= $this->Time->format($content['Content']['created'], '%#d/%m/%y') . ' à ';
-			$header .= $this->Time->format($content['Content']['created'], '%H:%M');
-			if ($content['Content']['targetType_id'] == 1 && $user['User']['id'] != $target['User']['id']) {
-				$header .= ' envoyé à ';
-				$header .= $this->Html->link($target['User']['firstname']." ".$target['User']['lastname'],
-           							   	 	 array('controller' => 'users', 'action' => 'view', $target['User']['id']));
-           	}
-           	else if ($content['Content']['targetType_id'] == 2) {
-           		$header .= ' a publié sur ';
-				$header .= $this->Html->link($target['Group']['name'],
-           							   	 	 array('controller' => 'groups', 'action' => 'view', $target['Group']['id']));
-           	}
-			echo $user_picture . $this->Html->tag('span', $header);
-		?>
+	<?php
+	$post_sender_pic  = $this->element('user_pic', array('id' => $post['from_usr']['id'],
+									   'url' => array('controller' => 'users', 'action' => 'view', $post['from_usr']['id']),
+									   'class' => 'comment_header_pic'));		
+	$post_profil_info =	$this->Html->link($post['from_usr']['firstname']." ".$post['from_usr']['lastname'],
+          						   		  array('controller' => 'users', 'action' => 'view', $post['from_usr']['id']));
+	if ($post['from_usr']['id'] != $post['target']['id'])
+	$post_profil_info .= $this->Html->image('publicationArrow', array('alt' => 'publicationArrow', 'class' => 'publicationArrow')) .
+				 		$this->Html->link($post['target']['firstname']." ".$post['target']['lastname'],
+		          		array('controller' => 'users', 'action' => 'view', $post['target']['id']));
+	$post_date = "Le ".
+				 $this->Time->format($post['Content']['created'], '%#d/%m/%y') .
+				 ' à '.
+				 $this->Time->format($post['Content']['created'], '%H:%M');
+	echo $post_sender_pic.
+		 $post_profil_info.
+		 "<br />".
+		 $this->html->tag('span', $post_date, array('class' => 'post_date'));
+	if ($this->Session->read('Auth.User.id') == $user['User']['id'])
+		echo $this->Form->postLink($this->Html->image('cross.png', array('alt' => 'Supprimer le post', 'class' => 'post_delete')),
+      						  	   array('controller' => 'users', 'action' => 'deletePost', $post['Content']['id']),
+      						  	   array('escape' => false, 'confirm' => 'Êtes-vous sûr ?'));
+?>
 	</div>
-		<?php 
-			if ($this->Session->read('Auth.User.id') == $user['User']['id'])
-				echo $this->Form->postLink($this->Html->image('cross.png', array('alt' => 'Supprimer le post', 'class' => 'post_delete')),
-              						  	   array('controller' => 'users', 'action' => 'deletePost', $content['Content']['id']),
-              						  	   array('escape' => false, 'confirm' => 'Êtes-vous sûr ?'));
-          ?>
-	<p>
-		<?= $post_content; ?>
-	</p>
-	<div class="post_comment">
+	<?php
+		$pic = "";
+		if ($post['picture']['id'] != null)
+			$pic = $this->Html->image($post['picture']['id'], array('alt' => 'posted_picture','class' => 'posted_picture'));
+		echo $this->html->tag('div', "<span>" . $post['post']['content'] . "</span>" . $pic, array('class' => 'post_content'));
+	?>
+	<div class="post_comment" value="toto">
 		<?php
 			$comment = $this->requestAction(
-				'comments/getComment/' . $content['Content']['id'] . "/false"
+				'comments/getComment/' . $post['Content']['id'] . "/false"
 			);
+		//$comment = htmlspecialchars_decode($comment, ENT_QUOTES);
 		?>
-		<?php echo $this->element('comment', array('content' => $content, 'comment' => $comment));
+		<?php echo $this->element('comment', array('id' => $post['Content']['id'], 'comment' => $comment));
 	    ?>
 	</div>
 </div>
+<?php endforeach ?>

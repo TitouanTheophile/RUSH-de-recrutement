@@ -1,5 +1,6 @@
 <?= $this->Html->script('comment');?>
-<div class="comments">	
+<div class="comments">
+
 <?php foreach ($comment as $text): ?>
 
 	<div class='comment'>
@@ -23,7 +24,7 @@
 										     "value" => "",
 										     "required"));?>
 
-<?= $this->Form->button("Publier", array('class' => 'comment_button', 'type' => 'button','value' => $content['Content']['id'])); ?>
+<?= $this->Form->button("Publier", array('class' => 'comment_button', 'type' => 'button', 'value' => $id)); ?>
 <?= $this->Form->end();?>
 </div>
 </div>

@@ -23,7 +23,6 @@ $(document).ready( function() {
   else
     $('#notifications_count').show();
   setInterval(get_notifications_count, 3000);
-
   function get_notifications_count() {
     var url = $('input[name="get_notifications_count"]').val();
     $.ajax( {

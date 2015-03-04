@@ -68,18 +68,13 @@
 		<h3>Mon actualité</h3>
 		<div class="container_padding">
 			<?php
-				if ($user['User']['id'] == $this->Session->read('Auth.User.id') || $friends_verification == 1) {
+				if ($user['User']['id'] == $this->Session->read('Auth.User.id') || $friends_verification == 1)
+				{
+					
 					echo $this->Html->link('Publier un post',
                 		array ('action' => 'sendPost', $user['User']['id']));
-		    		$index = count($contents);
-		    		while($index) {
-		    			$content = $contents[--$index];
-			    		foreach ($posts as $post) {
-			    			if ($post['Post']['id'] == $content['Content']['content_id'])
-								echo $this->element('post', array ('post_content' => $post['Post']['content'],
-																   'content' => $content));
-			    		}
-			    	}
+		    		$contents = $this->requestAction('contents/getContents/'.$user['User']['id']);
+					echo $this->element('post', array('posts' => $contents));
 			    }
 			    else {
 			    	echo "Vous devez être ami avec <strong>" . $user['User']['firstname'] . " " . $user['User']['lastname'] . "</strong> pour suivre son activité ou publier sur son mur.";
