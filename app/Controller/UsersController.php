@@ -56,7 +56,18 @@ class UsersController extends AppController {
 		foreach ($user['Group'] as $group) {
 			$array_id[] = $group['id'];
 		}
+// <<<<<<< HEAD
         
+// =======
+//         $contents = $this->Content->find('all',
+//         	array('conditions' => array(
+//         		'OR' => array(
+//         			array('from_id' => $id, 'targetType_id' => 1),
+//         			array('from_id' => $id, 'target_id' => $array_id, 'targetType_id' => 2)
+//         			)
+//         		)
+//         	));
+// >>>>>>> b1e2996a516a6631ae7aae2bcfbb633d84779c43
         $this->Notification->updateAll(
 			array(
 				'viewed' => 1
@@ -231,22 +242,22 @@ class UsersController extends AppController {
 				$this->Content->save($d2);
 				$this->Session->setFlash(__('Votre post a bien été publié'));
 				if ($id != $this->Session->read('Auth.User.id')) {
-					// $this->Notification->create(array(
-					// 	'from_id' => $this->Auth->user('id'),
-					// 	'target_id' => $id,
-					// 	'notificationType_id' => 3,
-					// 	'content_id' => $this->Friend->getInsertID(),
-					// 	), true);
-					// $this->Notification->save(null, true, array('from_id', 'target_id', 'notificationType_id', 'content_id'));
-					// if (Configure::read('email')) {
-					// 	$email = new CakeEmail('default');
-					// 	$email->to($from['User']['email']);
-					// 	$email->subject($this->Auth->user('firstname') . ' ' . $this->Auth->user('lastname') . ' a publié sur votre mur sur socialkod');
-					// 	$email->emailFormat('html');
-					// 	$email->template('post');
-					// 	$email->viewVars(array('firstname' => $this->Auth->user('firstname'), 'lastname' => $this->Auth->user('lastname')));
-					// 	$email->send();
-					// }
+					$this->Notification->create(array(
+						'from_id' => $this->Auth->user('id'),
+						'target_id' => $id,
+						'notificationType_id' => 3,
+						'content_id' => $this->Friend->getInsertID(),
+						), true);
+					$this->Notification->save(null, true, array('from_id', 'target_id', 'notificationType_id', 'content_id'));
+					if (Configure::read('email')) {
+						$email = new CakeEmail('default');
+						$email->to($from['User']['email']);
+						$email->subject($this->Auth->user('firstname') . ' ' . $this->Auth->user('lastname') . ' a publié sur votre mur sur socialkod');
+						$email->emailFormat('html');
+						$email->template('post');
+						$email->viewVars(array('firstname' => $this->Auth->user('firstname'), 'lastname' => $this->Auth->user('lastname')));
+						$email->send();
+					}
 				}
 				$this->redirect(array('action' => 'view', $user['User']['id']));
 			}
@@ -280,19 +291,21 @@ class UsersController extends AppController {
 	****************************************************************** */
 
 	/*** FRIENDS ***/
-	public function friends($id = null) {
+	public function friends($id) {
 		$this->try_arg((!isset($id) || $id <= 0), 'Le profil spécifié est invalide.',
 					   array('controller' => 'users', 'action' => 'view', $this->Session->read('Auth.User.id')));
 	    $user = $this->User->findById($id);
 	    $this->try_arg(empty($user), 'Le profil spécifié est invalide.',
 					   array('controller' => 'users', 'action' => 'view', $this->Session->read('Auth.User.id')));
 	    $this->set('user', $user);
-	    $my_friends = $this->Friend->find('all',
-			array( 'fields'  =>	array('id', 'user2_id', 'pending'),
-				'conditions' =>	array('user1_id' => $user['User']['id'])));
-	    $my_friends += $this->Friend->find('all',
-			array( 'fields'  =>	array('id', 'user1_id', 'pending'),
-				'conditions' =>	array('user2_id' => $user['User']['id'])));
+	    $my_friends  = $this->Friend->find('all', array(
+	    	'conditions' => array(
+	    		'OR' => array(
+	    			'user1_id' => $user['User']['id'],
+	    			'user2_id' => $user['User']['id']
+	    			)
+	    		)
+	    	));
 	    $this->set('my_friends', $my_friends);
 	    $this->Notification->updateAll(
 			array(
@@ -329,6 +342,30 @@ class UsersController extends AppController {
 	        $this->Session->setFlash(__('Votre compte a bien été supprimé.'));
 	        $this->redirect($this->Auth->logout());
 	    }
+	}
+
+	/* LeaderBoard Section
+	****************************************************************** */
+	public function score() {
+		$user_list = $this->User->ContentP->find('list', array(
+			'fields' => 'ContentP.user_id'));
+		$users_points = array();
+		$list_user = array();
+		foreach ($user_list as $user) {
+			$total = 0;
+			$user_points = $this->User->ContentP->find('all', array(
+				'fields' => array('ContentP.user_id', 'ContentP.pointType'),
+				'conditions' => array('ContentP.user_id' => $user)));
+			$user_info = $this->User->findById($user);
+			$list_user[$user_info['User']['id']] = $user_info['User'];
+			foreach ($user_points as $point) {
+				$total += ($point['ContentP']['pointType'] == 1 ? 1 : -1);
+			}
+			$users_points[$user] = $total;
+		}
+		$this->set('list_user', $list_user);
+		arsort($users_points);
+		$this->set('users_points', $users_points);
 	}
 
 }

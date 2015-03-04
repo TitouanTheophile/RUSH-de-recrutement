@@ -39,15 +39,16 @@ class AppController extends Controller {
 	            'Form' => array(
 	                'fields' => array('username' => 'email')
 	            )
-	        ),
-	        'loginRedirect' => array('controller' => 'pages', 'action' => 'home'),
-            'logoutRedirect' => array('controller' => 'pages', 'action' => 'home')
+	        )
 	    )
     );
 
 	public function beforeFilter() {
 		parent::beforeFilter();
 		$this->Auth->allow('display');
+		$this->Auth->loginAction = array('controller' => 'users', 'action' => 'login');
+	    $this->Auth->loginRedirect = array('controller' => 'pages', 'action' => 'home');
+        $this->Auth->logoutRedirect = array('controller' => 'pages', 'action' => 'home');
 	}
 
 	public function try_arg($assert, $message, $url) {

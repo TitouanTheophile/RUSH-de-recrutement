@@ -1,5 +1,5 @@
-<div id="friend_element">
-	<div id="friend_element_photo">
+<div class="friend_element">
+	<div class="friend_element_photo">
 		<?php
 			$member_picture = (!file_exists(IMAGES.'avatars/'.$member['User']['id'].'.jpg') ? 'inconnu.jpg' : 'avatars/'. $member['User']['id'] . '.jpg');
 			$scale = getimagesize(IMAGES . '/'. $member_picture);
@@ -10,7 +10,7 @@
 			echo $member_picture;
 			?>
 	</div>
-	<div id="friend_element_name">
+	<div class="friend_element_name">
 		<?= $this->Html->link($member['User']['firstname']." ".$member['User']['lastname'],
 		           						   array('controller' => 'users', 'action' => 'view', $member['User']['id'])); ?>
 	</div>

@@ -69,13 +69,13 @@ class FriendsController extends AppController {
 		if (Configure::read('email')) {
 				$email = new CakeEmail('default');
 				$email->to($from['User']['email']);
-				$email->subject($this->Auth->user('firstname') . ' ' . $this->Auth->user('lastname') . ' vous a demandé en ami sur socialkod');
+				$email->subject($this->Auth->user('firstname') . ' ' . $this->Auth->user('lastname') . ' vous a demandé en ami sur socialkod.');
 				$email->emailFormat('html');
 				$email->template('add_friend');
 				$email->viewVars(array('firstname' => $this->Auth->user('firstname'), 'lastname' => $this->Auth->user('lastname')));
 				$email->send();
 			}
-		$this->Session->setFlash(__("Votre demande d'ami a ete envoye"));
+		$this->Session->setFlash(__("Votre demande d'ami a été envoyée."));
 		return $this->redirect(array('controller' => 'users', 'action' => 'view', $this->Auth->user('id')));
 	}
 
@@ -83,7 +83,7 @@ class FriendsController extends AppController {
 		App::uses('CakeEmail', 'Network/Email');
 		$this->Friend->id = $id;
 		$this->Friend->saveField('pending', NULL);
-		$this->Session->setFlash(__("Vous avez bien valide la demande d'amitie"));
+		$this->Session->setFlash(__("Vous avez bien validée la demande d'amitié."));
 
 		$friend = $this->Friend->findById($id);
 		$from = $this->User->findById(($friend['Friend']['pending'] == $friend['Friend']['user1_id'] ? $friend['Friend']['user1_id'] : $friend['Friend']['user2_id']));
@@ -110,18 +110,24 @@ class FriendsController extends AppController {
 	function deleteFriend($id) {
 		if ($this->Auth->user('id') <= $id) {
 			$deleteTarget = $this->Friend->find('first', array(
-				'fields' => 'id',
+				'fields' => array('id', 'user1_id', 'user2_id', 'pending'),
 				'conditions' =>	array('user1_id' => $this->Auth->user('id'), 'user2_id' => $id))
 			);
 		}
 		else if ($this->Auth->user('id') > $id) {
 			$deleteTarget = $this->Friend->find('first', array(
-				'fields' => 'id',
+				'fields' => array('id', 'user1_id', 'user2_id', 'pending'),
 				'conditions' =>	array('user1_id' => $id, 'user2_id' => $this->Auth->user('id')))
 			);
 		}
+		$pending = $deleteTarget['Friend']['pending'];
+		$target_id = ($deleteTarget['Friend']['user1_id'] == $this->Auth->user('id') ? $deleteTarget['Friend']['user2_id'] : $deleteTarget['Friend']['user1_id']);
+		$targetName = $this->User->findById($target_id);
+		$targetName = $targetName['User']['firstname'] . ' ' . $targetName['User']['lastname'];
+		$message = ($pending ? ($pending == $this->Auth->user('id') ? 'Demande d\'amitié refusée.' : 'Demande d\'amitié annulée.') :
+					'Vous n\'êtes plus ami avec ' . $targetName. '.');
 		if ($this->Friend->delete($deleteTarget['Friend']['id'], true)) {
-			$this->Session->setFlash(__("Votre ami n'en est plus un desormais :("));
+			$this->Session->setFlash(__($message));
 		}
 		return $this->redirect(array('controller' => 'users', 'action' => 'view', $this->Auth->user('id')));
 	}

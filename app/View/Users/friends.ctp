@@ -8,6 +8,6 @@
 			 "Liste de vos amis" : "Liste des amis de ".$user['User']['firstname']." ".$user['User']['lastname']) ?></h4>
 	<?php
 		foreach ($my_friends as $my_friend)
-			echo $this->element('friend_photo', array("my_friend" => $my_friend));
+			echo $this->element('friend_photo', array("my_friend" => $my_friend, "requester_id" => $user['User']['id']));
 	?>
 </div>

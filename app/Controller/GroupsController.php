@@ -75,23 +75,6 @@ class GroupsController extends AppController {
 				'role' => ($this->Auth->user('id') == $group['Owner']['id'] ? 1 : 0)
 				), true);
 		$this->Group->GroupsUser->save(null, true, array('group_id', 'user_id', 'role'));
-
-		// $this->Notification->create(array(
-		// 		'from_id' => $this->Auth->user('id'),
-		// 		'target_id' => $id,
-		// 		'notificationType_id' => 2,
-		// 		'content_id' => $this->Friend->getInsertID(),
-		// 		), true);
-		// $this->Notification->save(null, true, array('from_id', 'target_id', 'notificationType_id', 'content_id'));
-		// if (Configure::read('email')) {
-		// 		$email = new CakeEmail('default');
-		// 		$email->to($from['User']['email']);
-		// 		$email->subject($this->Auth->user('firstname') . ' ' . $this->Auth->user('lastname') . ' vous a demandé en ami sur socialkod');
-		// 		$email->emailFormat('html');
-		// 		$email->template('add_friend');
-		// 		$email->viewVars(array('firstname' => $this->Auth->user('firstname'), 'lastname' => $this->Auth->user('lastname')));
-		// 		$email->send();
-		// 	}
 		$this->Session->setFlash(__("Vous avez rejoint ce groupe"));
 		$this->redirect(array('controller' => 'groups', 'action' => 'view', $id));
 	}
