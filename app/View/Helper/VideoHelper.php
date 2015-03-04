@@ -10,19 +10,31 @@
  * 
  */
 class VideoHelper extends HtmlHelper {
+    var $helpers = array('Html');
     private $apis = array(
         'youtube_image' => 'http://i.ytimg.com/vi', // Location of youtube images 
         'youtube' => 'http://www.youtube.com', // Location of youtube player 
-        'vimeo' => 'http://player.vimeo.com/video'
+        'vimeo' => 'http://player.vimeo.com/video',
+        'dailymotion' => 'http://www.dailymotion.com/embed/video'
     );
-    public function embed($url, $settings = array()) {
-        if ($this->getVideoSource($url) == 'youtube') {
-            return $this->youTubeEmbed($url, $settings);
-        } elseif ($this->getVideoSource($url) == 'vimeo') {
-            return $this->vimeoEmbed($url, $settings);
-        } elseif (!$this->getVideoSource($url)) {
-            return $this->tag('notfound', __('Sorry, video does not exists'), array('type' => 'label', 'class' => 'error'));
+    public function embed($str, $settings = array()) {
+        $i = 0;
+        $parsed_url = array();
+        while ($i <= strlen($str) && !isset($parsed_url['host'])) {
+            $url = substr($str, $i);
+            $parsed_url = parse_url($url);
+            ++$i;
         }
+        if ($i - 1 == strlen($str))
+            return ;
+        if ($this->getVideoSource($url) == 'youtube')
+            return $this->youTubeEmbed($url, $settings);
+        elseif ($this->getVideoSource($url) == 'vimeo')
+            return $this->vimeoEmbed($url, $settings);
+        elseif ($this->getVideoSource($url) == 'dailymotion')
+            return $this->dailymotionEmbed($url, $settings);
+        // elseif (!$this->getVideoSource($url))
+        //     return $this->tag('notfound', $this->Html->link($url), array('type' => 'label', 'class' => 'error'));
     }
     public function youTubeEmbed($url, $settings = array()) {
         $default_settings = array(
@@ -70,6 +82,33 @@ class VideoHelper extends HtmlHelper {
                     'allowFullScreen' => $settings['allowfullscreen']
                 )) . $this->tag('/iframe');
     }
+    public function dailymotionEmbed($url, $settings = array()) {
+        $default_settings = array
+            (
+            'width' => 400,
+            'height' => 225,
+            'show_title' => 1,
+            'show_byline' => 1,
+            'show_portrait' => 0,
+            'color' => '00adef',
+            'allowfullscreen' => 1,
+            'autoplay' => 1,
+            'loop' => 1,
+            'frameborder' => 0
+        );
+        $settings = array_merge($default_settings, $settings);
+        $video_id = $this->getVideoId($url);
+        $settings['src'] = $this->apis['dailymotion'] . DS . $video_id;
+        return $this->tag('iframe', null, array(
+                    'src' => $settings['src'],
+                    'width' => $settings['width'],
+                    'height' => $settings['height'],
+                    'frameborder' => $settings['frameborder'],
+                    'webkitAllowFullScreen' => $settings['allowfullscreen'],
+                    'mozallowfullscreen' => $settings['allowfullscreen'],
+                    'allowFullScreen' => $settings['allowfullscreen']
+                )) . $this->tag('/iframe');
+    }
     private function getVideoId($url) {
         if ($this->getVideoSource($url) == 'youtube') {
             $params = $this->getUrlParams($url);
@@ -77,6 +116,10 @@ class VideoHelper extends HtmlHelper {
         } else if ($this->getVideoSource($url) == 'vimeo') {
             $path = parse_url($url, PHP_URL_PATH);
             return substr($path, 1);
+        }
+        else if ($this->getVideoSource($url) == 'dailymotion') {
+            $path = parse_url($url, PHP_URL_PATH);
+            return substr($path, 7, 7);
         }
     }
     private function getUrlParams($url) {
@@ -87,6 +130,7 @@ class VideoHelper extends HtmlHelper {
             $item = explode('=', $param);
             $params[$item[0]] = $item[1];
         }
+        $params['v'] = substr($params['v'], 0, 11);
         return $params;
     }
     private function getVideoSource($url) {
@@ -99,6 +143,8 @@ class VideoHelper extends HtmlHelper {
                 $host = $this->returnDomain($url);
         }
         $host = explode('.', $host);
+        if (is_int(array_search('dailymotion', $host)))
+            return 'dailymotion';
         if (is_int(array_search('vimeo', $host)))
             return 'vimeo';
         elseif (is_int(array_search('youtube', $host)))

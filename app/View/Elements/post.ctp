@@ -36,7 +36,11 @@
               						  	   array('escape' => false, 'confirm' => 'Êtes-vous sûr ?'));
           ?>
 	<p>
-		<?= $post_content; ?>
+	<?= $post_content; ?>
+		<?= $this->Video->embed($post_content, array(
+                'width' => 450,
+                'height' => 300)
+            ); ?>
 	</p>
 	<div class="post_comment">
 		<?php
