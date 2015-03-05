@@ -4,7 +4,7 @@ App::uses('Sanitize', 'Utility');
 
 class UsersController extends AppController {
     public $helpers = array('Html', 'Form');
-    var $uses = array('User', 'Content', 'Post', 'Comment', 'Friend', 'Group', 'Notification');
+    public $uses = array('User', 'Content', 'Post', 'Comment', 'Friend', 'Group', 'Notification');
 
     /*** BEFORE FILTER ***/
     public function beforeFilter() {
@@ -26,7 +26,6 @@ class UsersController extends AppController {
     public function getUser($id) {
     	return $this->User->findById($id);
     }
-   
 
     public function get_users(){
 		$users = $this->User->find('all', array( //Get the list of Users that match with the search
@@ -52,22 +51,6 @@ class UsersController extends AppController {
 	    $user = $this->User->findById($id);
 	    $this->try_arg(empty($user), 'Le profil spécifié est invalide.',
 					   array('controller' => 'users', 'action' => 'view', $this->Session->read('Auth.User.id')));
-        $array_id = array();
-		foreach ($user['Group'] as $group) {
-			$array_id[] = $group['id'];
-		}
-// <<<<<<< HEAD
-        
-// =======
-//         $contents = $this->Content->find('all',
-//         	array('conditions' => array(
-//         		'OR' => array(
-//         			array('from_id' => $id, 'targetType_id' => 1),
-//         			array('from_id' => $id, 'target_id' => $array_id, 'targetType_id' => 2)
-//         			)
-//         		)
-//         	));
-// >>>>>>> b1e2996a516a6631ae7aae2bcfbb633d84779c43
         $this->Notification->updateAll(
 			array(
 				'viewed' => 1
@@ -77,7 +60,7 @@ class UsersController extends AppController {
 				'target_id' => $this->Auth->user('id'),
 				'notificationType_id' => 3
 				));
-        $this->set('posts', $this->Post->find('all'));
+        // $this->set('posts', $this->Post->find('all'));
         $this->set('user', $user);
     }
 

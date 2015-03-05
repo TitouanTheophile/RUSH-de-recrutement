@@ -1,9 +1,16 @@
 <?php
 
 class User extends AppModel {
-    var $hasMany = array(
-        'Content' => array(
+
+    public $hasMany = array(
+        'Content_from' => array(
+            'className' => 'Content',
             'foreignKey' => 'from_id',
+            'dependent'=> true
+        ),
+        'Content_target' => array(
+            'className' => 'Content',
+            'foreignKey' => 'target_id',
             'dependent'=> true
         ),
         'ContentP' => array(

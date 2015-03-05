@@ -84,9 +84,17 @@ li.mini_li {
 	margin: 0px;
 }
 
-li.mini_li img {
-	width: 100px;
+li.mini_li img.long {
 	height: 100px;
+}
+
+li.mini_li img.large {
+	width: 100px;
+}
+
+li.mini_li img {
+/*	width: 100px;
+	height: 100px;*/
 	margin: 1px;
 }
 

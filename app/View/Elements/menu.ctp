@@ -6,4 +6,5 @@
 	<?= $this->Html->link("Profil", array('controller' => 'users', 'action' => 'view', $user['id'])); ?>
 	<?= $this->Html->link("Albums photos", array('controller' => 'albums', 'action' => 'index', $user['id'])); ?>
 	<?= $this->Html->link("Messages", array('controller' => 'messages', 'action' => 'index')); ?>
+	<?= $this->Html->link("Classement", array('controller' => 'users', 'action' => 'score')); ?>
 </div>

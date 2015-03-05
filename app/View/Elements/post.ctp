@@ -3,17 +3,17 @@
 <div class="content_wall">
 	<div class="content_wall_header">
 	<?php
-	$post_sender_pic  = $this->element('user_pic', array('id' => $post['from_usr']['id'],
-									   'url' => array('controller' => 'users', 'action' => 'view', $post['from_usr']['id']),
+	$post_sender_pic  = $this->element('user_pic', array('id' => $post['User_from']['id'],
+									   'url' => array('controller' => 'users', 'action' => 'view', $post['User_from']['id']),
 									   'class' => 'comment_header_pic'));
 
-	$post_profil_info =	$this->Html->link($post['from_usr']['firstname']." ".$post['from_usr']['lastname'],
-          						   		  array('controller' => 'users', 'action' => 'view', $post['from_usr']['id']));
+	$post_profil_info =	$this->Html->link($post['User_from']['firstname']." ".$post['User_from']['lastname'],
+          						   		  array('controller' => 'users', 'action' => 'view', $post['User_from']['id']));
 
-	if ($post['from_usr']['id'] != $post['target']['id'])
+	if ($post['User_from']['id'] != $post['User_target']['id'])
 	$post_profil_info .= $this->Html->image('publicationArrow', array('alt' => 'publicationArrow', 'class' => 'publicationArrow')) .
-				 		$this->Html->link($post['target']['firstname']." ".$post['target']['lastname'],
-		          		array('controller' => 'users', 'action' => 'view', $post['target']['id']));
+				 		$this->Html->link($post['User_target']['firstname']." ".$post['User_target']['lastname'],
+		          		array('controller' => 'users', 'action' => 'view', $post['User_target']['id']));
 
 	$post_date = "Le ".
 				 $this->Time->format($post['Content']['created'], '%#d/%m/%y') .
@@ -38,15 +38,15 @@
 	// 	echo $this->Form->postLink($this->Html->image('cross.png', array('alt' => 'Supprimer le post', 'class' => 'post_delete')),
 	// 										  	   array('controller' => 'users', 'action' => 'deletePost', $content['Content']['id']),
 	// 										  	   array('escape' => false, 'confirm' => 'Êtes-vous sûr ?'));
-	echo ($this->Video->embed($post['post']['content'], array(
+	echo ($this->Video->embed($post['Post']['content'], array(
 							 'width' => 450,
 							 'height' => 300)
 							 ));
 
 	$pic = "";
-	if ($post['picture']['id'] != null)
-		$pic = $this->Html->image($post['picture']['id'], array('alt' => 'posted_picture','class' => 'posted_picture'));
-	echo $this->html->tag('div', "<span>" . $post['post']['content'] . "</span>" . $pic, array('class' => 'post_content'));
+	if ($post['Picture']['id'] != null)
+		$pic = $this->Html->image($post['Picture']['id'], array('alt' => 'posted_picture','class' => 'posted_picture'));
+	echo $this->html->tag('div', "<span>" . $post['Post']['content'] . "</span>" . $pic, array('class' => 'post_content'));
 ?>
 
 	<div class="post_comment" value="toto">

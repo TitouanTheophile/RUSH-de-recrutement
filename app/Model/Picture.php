@@ -6,7 +6,7 @@ class Picture extends AppModel {
 
 	public $hasOne = array(
 		"Content" => array(
-			"foreignKey" => "content_id"));
+			"foreignKey" => "id"));
 
 	public $belongsTo = array(
 		"Album" => array(

@@ -1,5 +1,6 @@
 $(document).ready( function() {
-
+  get_notifications_count();
+  setInterval(get_notifications_count, 3000);
   get_notifications();
   setInterval(get_notifications, 3000);
 
@@ -16,13 +17,6 @@ $(document).ready( function() {
     });
   }
 
-
-  get_notifications_count();
-  if (!($('#notifications_count').html().length))
-    $('#notifications_count').hide();
-  else
-    $('#notifications_count').show();
-  setInterval(get_notifications_count, 3000);
   function get_notifications_count() {
     var url = $('input[name="get_notifications_count"]').val();
     $.ajax( {
@@ -30,9 +24,9 @@ $(document).ready( function() {
       success : function(data) {
         $('#notifications_count').html(data);
         if (!($('#notifications_count').html().length))
-          $('#notifications_count').hide();
+          $('#notifications_count').css('display', 'none');
         else
-          $('#notifications_count').show();
+          $('#notifications_count').css('display', 'inline-block');
       }
     });
   }

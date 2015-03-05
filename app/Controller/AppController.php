@@ -35,12 +35,13 @@ class AppController extends Controller {
 		'DebugKit.Toolbar',
 		'Session',
 		'Auth' => array(
-	        'authenticate' => array(
+            'authenticate' => array(
 	            'Form' => array(
 	                'fields' => array('username' => 'email')
 	            )
 	        )
-	    )
+	    ),
+	    'Acl'
     );
 
 	public function beforeFilter() {

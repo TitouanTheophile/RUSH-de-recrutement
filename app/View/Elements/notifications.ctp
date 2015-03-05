@@ -32,6 +32,7 @@
 		}
 		echo $this->Html->link($picture . $sentence,
 							   array('controller' => $controller, 'action' => $action, $param),
-							   array('escape' => false));
+							   array('escape' => false,
+							   		 'class' => ($notification['Notification']['viewed'] ? '' : 'new')));
 	}
 ?>

@@ -20,6 +20,14 @@
 
 
 /**
+ * Uses php file for Acl:
+ *
+ */
+Configure::write('Acl.classname', 'IniAcl');
+//Configure::write('Acl.database', 'default');
+
+
+/**
  * Socialkod Email Level:
  *
  * Avoid Emails:

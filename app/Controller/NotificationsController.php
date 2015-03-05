@@ -8,6 +8,7 @@ class NotificationsController extends AppController {
 				'Notification.target_id' => $this->Auth->user('id'),
 				),
 			'order' => 'Notification.created DESC',
+			'limit' => 5
 			));
 
 		$this->set('notifications', $notifications);

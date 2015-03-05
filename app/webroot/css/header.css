@@ -87,6 +87,10 @@ span#header_notif {
 	cursor: pointer;
 }
 
+span#header_notif:hover {
+	background: rgba(0,0,0,0.2);
+}
+
 div#header_option:hover span#option_drop,
 span#header_notif.active {
 	background: rgba(142,142,245,0.9);
@@ -145,7 +149,7 @@ div#header_option_drop a:active {
 
 div#notifications_count {
 	background-color: red;
-	display: inline-block;
+	display: none;
 	border-radius: 35px;
 	height: 20px;
 	width: 20px;
@@ -185,6 +189,14 @@ div#notifications_list a {
 	padding: 10px;
 }
 
+div#notifications_list a.new img {
+		box-shadow: 0px 0px 20px rgba(255,255,255,1.0);
+}
+
+div#notifications_list a.new span {
+		text-shadow: 0px 0px 10px rgba(255,255,255,1.0), 0px 0px 10px rgba(255,255,255,1.0), 0px 0px 10px rgba(255,255,255,1.0);
+}
+
 div#notifications_list a img {
 	width: 40px;
 	height: 40px;
@@ -214,6 +226,42 @@ div#notifications_list a span {
 div#container_search {
 	margin-left: 20px;
 	display: inline-block;
+	position: relative;
+	height: 50px;
+	padding: 5px;
+}
+
+div#container_search a:hover {
+	background: rgba(0,0,0,0.2);
+}
+
+div#container_search a.active {
+	background: rgba(142,142,245,0.9);
+}
+
+div#container_search > a {
+	display: inline-block;
+	text-decoration: none;
+	background: rgba(0,0,0,0.1);
+	width: auto;
+	height: 30px;
+	padding: 5px 14px;
+	margin: 5px;
+	line-height: 30px;
+	transition: 0.2s;
+	font-size: 2em;
+	cursor: pointer;
+}
+
+div#search_drop {
+	display: none;
+	background: linear-gradient(rgba(142,142,245,0.9),rgba(100,100,186,0.9));
+	height: auto;
+	position: absolute;
+	height: auto;
+	padding: 5px;
+	left: 297px;
+	top: 50px;
 }
 
 input#ProfileId {
