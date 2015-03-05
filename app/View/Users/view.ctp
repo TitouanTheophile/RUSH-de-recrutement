@@ -79,7 +79,7 @@
 		</div>
 		<div class="container_padding">
 			<?php if ($friends_verification == 1) : ?>
-				<p>Mon email : <strong><?= htmlentities($user['User']['email']); ?></strong></p>
+				<p>Mon email : <span class="bold"><?= htmlentities($user['User']['email']); ?></span></p>
 				<?= $this->Html->link($this->Html->image('friends.png', array('alt' => "Liste d'array_multisort(arr)"))."<span>Liste d'amis</span>",
                 					  array('controller' => 'users', 'action' => 'friends', $user['User']['id']),
                 					  array('escape' => false, 'id' => 'wall_infos_friend')); ?>
@@ -92,18 +92,16 @@
 	<div id="user_wall" class="container_padding">
 		<h3>Mon actualité</h3>
 		<div class="container_padding">
-			<?php
-				if ($user['User']['id'] == $this->Session->read('Auth.User.id') || $friends_verification == 1)
-				{
-					
-					echo $this->Html->link('Publier un post',
-                		array ('action' => 'sendPost', $user['User']['id']));
-		    		$contents = $this->requestAction('contents/getContents/'.$user['User']['id']);
-					echo $this->element('post', array('posts' => $contents));
-			    }
-			    else {
-			    	echo "Vous devez être ami avec <strong>" . $user['User']['firstname'] . " " . $user['User']['lastname'] . "</strong> pour suivre son activité ou publier sur son mur.";
-			    }
-	    	?>
+			<?php if ($user['User']['id'] == $this->Session->read('Auth.User.id') || $friends_verification == 1): ?>
+				<?= $this->Html->link('Publier un post', array ('action' => 'sendPost', $user['User']['id'])); ?>
+		    <?php 
+		    	$contents = $this->requestAction('contents/getContents/'.$user['User']['id']);
+		    	foreach ($contents as $content) {
+		    		echo $this->element('post', array('content' => $content));
+		    	} 
+		    ?>
+			<?php else: ?>
+			    <p>"Vous devez être ami avec <span class="bold"><?= $user['User']['firstname'] ?> <?=$user['User']['lastname'] ?></span> pour suivre son activité ou publier sur son mur."</p>
+			<?php endif ?>
 		</div>
 	</div>

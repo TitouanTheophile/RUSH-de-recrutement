@@ -101,7 +101,6 @@ class ContentsController extends AppController
        		'order' => array('Content.created' => 'DESC')
        		)
 		);
-		// debug($contents);
 		foreach ($contents as $key => $value)
 		{
 			if ($value['Post']['content'] == null)
