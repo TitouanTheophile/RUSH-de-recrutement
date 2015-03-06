@@ -1,4 +1,4 @@
-<?= $this->Html->script('dynamic_search_messages', array('inline' => false)); ?>
+<?= $this->Html->script('searchUsersMessages', array('inline' => false)); ?>
 <?= $this->Html->css('message', array('inline' => false)); ?>
 <h3>Messages</h3>
 <label for="ProfileId_messages">Destinataire</label>

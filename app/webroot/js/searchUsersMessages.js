@@ -2,7 +2,7 @@ $(document).ready( function() {
 
   $('#ProfileId_messages').keyup( function() {
     if( $(this).val().length > 1 ) {
-      url = window.location.pathname + '/get_users_messages';
+      url = window.location.pathname + '/searchUsersMessages';
       $.ajax( {
         type : 'GET',
         url : url ,
