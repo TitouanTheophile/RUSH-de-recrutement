@@ -4,33 +4,45 @@
 <?= $this->Html->css('comment', array('inline' => false)); ?>
 <?php
 $ismember = 0;
-foreach ($group['User'] as $user) { // Check if user is in the group
-	if ($this->Session->read('Auth.User.id') == $user['id'] && $user['GroupsUser']['group_id'] == $group['Group']['id'])
+foreach ($members as $member) {
+	if ($this->Session->read('Auth.User.id') == $member['GroupsUser']['user_id'])
 		$ismember = 1;
 }
 ?>
 <div id="user_header">
-	<div id="user_element">
-		<div id="user_element_name">
-			<?= $this->Html->link($group['Group']['name'], array('controller' => 'groups', 'action' => 'view', $group['Group']['id'])); ?>
+	<div class="user_element">
+		<div class="user_element_name">
+			<?= $this->Html->link(
+				$Group['name'],
+				array('controller' => 'groups', 'action' => 'view', $Group['id'])
+			); ?>
 		</div>
-		<div id="user_element_description">
-			<?= htmlentities($group['Group']['description']); ?>
+		<div class="user_element_description">
+			<?= htmlentities($Group['description']); ?>
 		</div>
 	</div>
 	<div id="friend_box">
 		<?php
 			if ($ismember == 1)
-				echo $this->HTML->link('Quitter le groupe', array('action' => 'leave', $group['Group']['id']),
-														array('confirm' => 'Etes-vous sûr ?'));
+				echo $this->HTML->link(
+					'Quitter le groupe',
+					array('action' => 'leave', $Group['id']),
+					array('confirm' => 'Etes-vous sûr ?')
+				);
 			else if ($ismember == 0)
-				echo $this->HTML->link('Rejoindre le groupe', array('action' => 'join', $group['Group']['id']));
+				echo $this->HTML->link(
+					'Rejoindre le groupe',
+					array('action' => 'join', $Group['id'])
+				);
 		?>
 	</div>
 	<div id="editinfo_box">
 		<?php
 			if ($ismember == 1)
-				echo $this->HTML->link('Editer les informations', array('action' => 'edit', $group['Group']['id']));
+				echo $this->HTML->link(
+					'Editer les informations',
+					array('action' => 'edit',$Group['id'])
+				);
 		?>
 	</div>
 </div>
@@ -40,12 +52,14 @@ foreach ($group['User'] as $user) { // Check if user is in the group
 		<h4>Infos publiques</h4>
 	</div>
 	<div class="container_padding">
-		<?= "<p>Créé depuis le <strong>" . $this->Time->format($group['Group']['created'], '%e %B %Y') . "</strong></p>"; ?>
+		<?= "Créé depuis le <strong>" . $this->Time->format($Group['created'], '%e %B %Y') . "</strong>"; ?>
 	</div>
 	<div class="container_padding">
-		<?= $this->Html->link($this->Html->image('friends.png', array('alt' => "Liste d'amis"))."<span>Liste des membres</span>",
-               	array('controller' => 'groups', 'action' => 'members', $group['Group']['id']),
-               	array('escape' => false, 'id' => 'wall_infos_friend')); ?>
+		<?= $this->Html->link(
+				$this->Html->image('friends.png', array('alt' => "Liste d'amis"))."<span>Liste des membres</span>",
+               	array('controller' => 'groups', 'action' => 'members', $Group['id']),
+               	array('escape' => false, 'id' => 'wall_infos_friend')
+            ); ?>
 	</div>
 </div>
 
@@ -56,32 +70,50 @@ foreach ($group['User'] as $user) { // Check if user is in the group
 	<?php
 		if (!$ismember)
 			echo "Vous devez être dans le groupe <strong>" . $group['Group']['name'] . "</strong> pour suivre son activite ou publier sur son mur.";
-		else {
-			echo $this->Html->link('Publier un post',
-				array ('action' => 'sendPost', $group['Group']['id']));
-			foreach ($contents as $content) {
-				if ($content['Content']['targetType_id'] == 2) {
-					if ($content['Content']['contentType_id'] == 1) {
-						foreach ($posts as $post) {
-							if ($content['Content']['content_id'] == $post['Post']['id']) {
-								echo $this->element(
-									'post',
-									array (
-										'post_content' => $post['Post']['content'],
-										'content' => $content
-										));
-							}
-						}
-					}
-					else {
-						foreach ($pictures as $picture) {
-							if ($content['content_id'] == $picture['Picture']['id'])
-								echo $this->Html->image($picture['Picture']['id'] . '.jpg');
-						}
-					}
-				}
+		else
+			{
+				echo $this->Html->link(
+					'Publier un post',
+					array ('action' => 'sendPost', $Group['id'])
+				);
 			}
-		}
+			$i = 0;
+			foreach ($contents as $content) {
+				if ($content['Content']['contentType_id'] == 1)
+					{
+						echo $this->element(
+							'post',
+							array ('post_content' => $posts[$i]['Post']['content'], 'content' => $content)
+						);
+					}
+				else
+					{
+						echo $this->Html->image($picture[$i]['Picture']['id'] . '.jpg');
+					}
+				++$i;
+			}
+		// 	foreach ($contents as $content) {
+		// 			if ($content['Content']['contentType_id'] == 1) {
+		// 				foreach ($posts as $post) {
+		// 					if ($content['Content']['content_id'] == $post['Post']['id']) {
+		// 						echo $this->element(
+		// 							'post',
+		// 							array (
+		// 								'post_content' => $post['Post']['content'],
+		// 								'content' => $content
+		// 								));
+		// 					}
+		// 				}
+		// 			}
+		// 			else {
+		// 				foreach ($pictures as $picture) {
+		// 					if ($content['content_id'] == $picture['Picture']['id'])
+		// 						echo $this->Html->image($picture['Picture']['id'] . '.jpg');
+		// 				}
+		// 			}
+		// 		}
+		// 	}
+		// }
 	?>
 	</div>
-</div>
+</div> 

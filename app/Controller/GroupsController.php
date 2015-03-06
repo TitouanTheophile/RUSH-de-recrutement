@@ -90,42 +90,73 @@ class GroupsController extends AppController {
 		$this->render('/Elements/get_groups');
 	}
 
-	public function view($id) {
+	public function view($id)
+	{
+		$this->loadModel('Content');
 		$this->loadModel('Post');
 		$this->loadModel('Picture');
-		$contents = $this->Group->Content->find('all', array(
+
+		$group = $this->Group->find('first', array(
+			'conditions' => array(
+				'Group.id' => $id
+				),
+			'fields' => array(
+				'Group.id',
+				'Group.name',
+				'Group.description',
+				'Group.created'
+				)
+			)
+		);
+		$this->set($group);
+
+		$members = $this->Group->GroupsUser->find('all', array(
+			'conditions' => array(
+				'GroupsUser.group_id' => $id
+				),
+			'fields' => array(
+				'GroupsUser.user_id'
+				)
+			)
+		);
+		$this->set('members', $members);
+
+		$contents = $this->Content->find('all', array(
 			'conditions' => array(
 				'Content.targetType_id' => 2,
-				'Content.target_id' => $id
+				'Content.target_id' => 2
 				),
-			'order' => array(
-				'Content.created' => 'desc'
+			'fields' => array(
+				'Content.from_id',
+				'Content.contentType_id',
+				'Content.content_id'
 				)
-			));
-		$group = $this->Group->findById($id);
+			)
+		);
+		$this->set('contents', $contents);
+
 		$array_posts = array();
 		$array_pictures = array();
 		foreach ($contents as $content) {
-			if ($content['Content']['targetType_id'] == 2 && $content['Content']['contentType_id'] == 1)
+			if ($content['Content']['contentType_id'] == 1)
 				$array_posts[] = $content['Content']['content_id'];
-			else if ($content['Content']['targetType_id'] == 2 && $content['Content']['contentType_id'] == 2) {
+			else if ($content['Content']['contentType_id'] == 2) {
 				$array_pictures[] = $content['Content']['content_id'];
 			}
 		}
+
 		$posts = $this->Post->find('all', array(
 			'conditions' => array(
-				'id' => $array_posts
+				'Post.id' => $array_posts
 				)
 			));
+		$this->set('posts', $posts);
+
 		$pictures = $this->Picture->find('all', array(
 			'conditions' => array(
 				'Picture.id' => $array_pictures,
-				'Content.contentType_id' => 2
 				)
 			));
-		$this->set('group', $group);
-		$this->set('contents', $contents);
-		$this->set('posts', $posts);
 		$this->set('pictures', $pictures);
 	}
 
