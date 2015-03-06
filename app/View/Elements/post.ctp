@@ -1,4 +1,3 @@
-<?= debug($content); ?>
 <div class="content_wall">
 	<div class="content_wall_header">
 		<?php
@@ -24,7 +23,8 @@
 				'Le ' . $this->Time->format($content['Content']['created'], '%#d/%m/%y') . ' à ' . $this->Time->format($content['Content']['created'], '%H:%M'),
 				array('class' => 'post_date')
 			);
-			if ($this->Session->read('Auth.User.id') == $content['User_from']['id'] || (isset($user['User']['id']) && $this->Session->read('Auth.User.id') == $user['User']['id']))
+			if ($this->Session->read('Auth.User.id') == $content['User_from']['id'] ||
+					(isset($user['User']['id']) && $this->Session->read('Auth.User.id') == $user['User']['id']))
 				{
 					echo $this->Html->link(
 						$this->Html->image('cross.png', array('alt' => 'Supprimer le post', 'class' => 'post_delete')),

@@ -131,9 +131,9 @@ class GroupsController extends AppController {
 				'Content.target_id' => 2
 				),
 			'fields' => array(
-				'Content.id', //comment
-				'Content.contentType_id', //post / image
-				'Content.created', // date
+				'Content.id',
+				'Content.contentType_id',
+				'Content.created',
 				'User_from.id',
 				'User_from.lastname',
 				'User_from.firstname',

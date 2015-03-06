@@ -105,8 +105,6 @@ class MessagesController extends AppController {
 	public function getMessages($id)
 	{
 		$this->loadModel('Notification');
-		$this->layout = 'ajax';
-		$this->render('/Elements/getMessages');
 
 		$this->Notification->updateAll(
 			array('viewed' => 1),
@@ -140,6 +138,9 @@ class MessagesController extends AppController {
 			'order' => 'Message.created ASC',
 			));
 		$this->set('messages', $messages);
+
+		$this->layout = 'ajax';
+		$this->render('/Elements/getMessages');
 	}
 }
 ?>
