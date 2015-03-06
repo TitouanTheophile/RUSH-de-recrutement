@@ -5,7 +5,15 @@ class PicturesController extends AppController {
 	public function view($img_id) {
 		$this->try_arg((!isset($img_id) || $img_id <= 0), 'Image introuvable',
 					   array('controller' => 'users', 'action' => 'view', $this->Session->read('Auth.User.id')));
-		$pic = $this->Picture->findById($img_id);
+		$pic = $this->Picture->find('all', array(
+			'conditions' => array(
+				'Picture.id' => $img_id
+				),
+			'contain' => 'Content'
+			)
+		);
+		debug($pic);
+		die();
 		$album = $this->Picture->Album->findById($pic['Picture']['album_id']);
 		$content_id = $pic['Content']['id'];
 		$owner = $pic['Content']['from_id'];

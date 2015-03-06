@@ -33,6 +33,7 @@ div#header_drop {
 	padding: 5px;
 	right: 0px;
 	top: 50px;
+	z-index: 1;
 }
 
 div#header_menu a.menu_drop {

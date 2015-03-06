@@ -72,7 +72,6 @@ div.message_div:hover {
 }
 
 div.message_div > a {
-	display: block;
 	margin-bottom: 5px;
 }
 

@@ -1,16 +1,31 @@
 <?php
 class MessagesController extends AppController {
 
-	public function index() { //Get latest messages for the index view
-		$messages = $this->Message->find('all', array( //Get the latest message
+	public function index() {
+		$messages = $this->Message->find('all', array(
+			'contain' => array(
+				'From',
+				'To'
+				),
 			'conditions' => array(
 				'OR' => array(
 					'Message.target_id' => $this->Auth->user('id'),
 					'Message.from_id' => $this->Auth->user('id')
 					)
 				),
-			'order' => 'Message.created DESC'
-			));
+			'fields' => array(
+				'Message.created',
+				'Message.content',
+				'From.lastname',
+				'From.firstname',
+				'To.lastname',
+				'To.firstname',
+				),
+			'group' => array('Message.target_id'),
+			'order' => 'Message.created DESC',
+			)
+		);
+		debug($messages);
 		$this->set('messages', $messages);
 	}
 

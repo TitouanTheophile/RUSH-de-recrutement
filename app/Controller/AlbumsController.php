@@ -6,8 +6,18 @@ class AlbumsController extends AppController {
 					   array('controller' => 'users', 'action' => 'view', $this->Session->read('Auth.User.id')));
 		$this->allowFriend($id, 'Vous n\'êtes pas autorisé à voir ces albums.');
 		$albums = $this->Album->find('all', array(
-			"conditions" => array("Album.user_id" => $id),
-			"fields" => array("Album.id", "Album.title", "Album.description")));
+			"conditions" => array(
+				"Album.user_id" => $id
+				),
+			"fields" => array("Album.id", "Album.title", "Album.description"),
+			'contain' => array(
+				'Picture' => array(
+					'fields' => 'id',
+					'limit' => 4
+					)
+				)
+			)
+		);
 		$this->set('albums', $albums);
 		$this->set('user', $this->Album->User->findById($id));
 	}
@@ -73,6 +83,11 @@ class AlbumsController extends AppController {
 		$this->allowFriend($owner['User']['id'], 'Vous n\'êtes pas autorisé à voir cet album.');
 		$pics = $this->Album->Picture->find('all', array(
 			 "fields" => array("DISTINCT Picture.id", "Picture.description"),
+			 'contain' => array(
+			 	'Album' => array(
+			 		'fields' => array('id')
+			 		)
+			 	),
 			 "conditions" => array("Album.id" => $album_id)));
 		$this->set('pics', $pics);
 		$this->set('album', $album);
