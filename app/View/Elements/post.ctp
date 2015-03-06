@@ -39,7 +39,11 @@
 				echo $this->Video->embed($content['Post']['content'], array('width' => 450, 'height' => 300));
 			else
 				echo $this->Html->image($content['Picture']['id'], array('alt' => 'posted_picture','class' => 'posted_picture'));
-			echo $content['Post']['content'];
+			echo $this->Html->tag(
+				'span',
+				$content['Post']['content'],
+				array('class' => 'content_text')
+			);
 		?>
 	</div>
 	<div class="post_comment" value="toto">
