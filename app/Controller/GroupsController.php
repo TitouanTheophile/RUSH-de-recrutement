@@ -127,7 +127,6 @@ class GroupsController extends AppController {
 				'Content.target_id' => 2
 				),
 			'fields' => array(
-				'Content.from_id',
 				'Content.contentType_id',
 				'Content.content_id'
 				)

@@ -31,7 +31,7 @@
 			'Voir tous les messages',
 			array('controller' => 'messages', 'action' => 'send', ($message['From']['id'] == $this->Session->read("Auth.User.id") ? $message['To']['id'] : $message['From']['id']))
 		);
-		echo $this->Html->div('message_div', $from . ' → ' .$to . $date . $message_content . $link);
+		echo $this->Html->div('message_div', $from . ' → ' . $to . $date . $message_content . $link);
 	}
 ?>
 </div>

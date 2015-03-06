@@ -67,7 +67,7 @@ class ContentsController extends AppController
 		// debug($contents);
 		$contents = $this->Content->find('all', array(
 			'fields' => array(
-				'id', 'created'
+				'id', 'created', 'contentType_id'
 				),
 			'contain' => array(
 				'User_from' => array(
