@@ -5,40 +5,29 @@ class PicturesController extends AppController {
 	public function view($img_id) {
 		$this->try_arg((!isset($img_id) || $img_id <= 0), 'Image introuvable',
 					   array('controller' => 'users', 'action' => 'view', $this->Session->read('Auth.User.id')));
-		$pic = $this->Picture->find('all', array(
+		$pic = $this->Picture->find('first', array(
 			'conditions' => array(
 				'Picture.id' => $img_id
 				),
-			'contain' => 'Content'
+			'contain' => array(
+				'Content' => array(
+					"Points" => array(
+						'conditions' => array(
+							'Points.content_id' => 'Content.id',
+							'Points.user_id' => $this->Session->read('Auth.User.id')
+							),
+						'fields' => array('Points.user_id', 'Points.pointType')
+						),
+					'LikeP',
+					'ConnardP'
+					),
+				'Album'
+				)
 			)
 		);
-		debug($pic);
-		die();
-		$album = $this->Picture->Album->findById($pic['Picture']['album_id']);
-		$content_id = $pic['Content']['id'];
-		$owner = $pic['Content']['from_id'];
-		$this->allowFriend($owner, 'Vous n\'êtes pas autorisé à voir cette image.');
-		$userPoint = $this->Picture->Content->ContentP->find('first', array(
-			'conditions' => array(
-				'ContentP.content_id' => $content_id,
-				'ContentP.user_id' => $this->Session->read('Auth.User.id')),
-			'fields' => array('ContentP.user_id', 'ContentP.pointType')));
-		$likeP = $this->Picture->Content->ContentP->find('list', array(
-			'conditions' => array(
-				'ContentP.content_id' => $content_id,
-				'ContentP.pointType' => 1),
-			'fields' => array('ContentP.user_id', 'ContentP.pointType')));
-		$connardP = $this->Picture->Content->ContentP->find('list', array(
-			'conditions' => array(
-				'ContentP.content_id' => $content_id,
-				'ContentP.pointType' => 2),
-			'fields' => array('ContentP.user_id', 'ContentP.pointType')));
+		$this->allowFriend($pic['Content']['from_id'], 'Vous n\'êtes pas autorisé à voir cette image.');
 		$this->set('pic', $pic);
 		$this->set('user', $this->Session->read('Auth.User.id'));
-		$this->set('album', $album);
-		$this->set('likeP', count($likeP));
-		$this->set('connardP', count($connardP));
-		$this->set('userPoint', $userPoint);
 	}
 
 	public function next($img_id) {
@@ -72,8 +61,7 @@ class PicturesController extends AppController {
 		$end = $this->Picture->find('first', array(
 			'order' => 'Picture.id desc'));
 		$end = $end['Picture']['id'];
-		while (empty($current) || $current['Content']['from_id'] != $this->Session->read('Auth.User.id')
-							   || $current['Picture']['album_id'] != $album) {
+		while (empty($current) || $current['Picture']['album_id'] != $album) {
 			$previous_id = ($previous_id <= 0 ? $end : $previous_id - 1);
 			$current = $this->Picture->findById($previous_id);
 			if ($previous_id == $img_id)

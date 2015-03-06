@@ -30,23 +30,17 @@
 <div id="news_wall">
 	<div class="container_padding">
 		<h4>Fil d'actualite</h4>
-		<hr />
 		<div class="container_padding">
-
-			<?php
-	    		if ($user['User']['id'] == $this->Session->read('Auth.User.id') || $friends_verification == 1)
-				{
-					
-					echo $this->Html->link('Publier un post',
-                		array ('action' => 'sendPost', $user['User']['id']));
-		    		$contents = $this->requestAction('contents/getContents/'.$user['User']['id']);
-					echo $this->element('post', array('posts' => $contents));
-			    }
-			    else {
-			    	echo "Vous devez être ami avec <strong>" . $user['User']['firstname'] . " " . $user['User']['lastname'] . "</strong> pour suivre son activité ou publier sur son mur.";
-			    }
-	    	?>
-
+			<?php if ($user['User']['id'] == $this->Session->read('Auth.User.id') || $friends_verification == 1): ?>
+				<?= $this->Html->link('Publier un post', array ('action' => 'sendPost', $user['User']['id'])); ?>
+		    <?php 
+		    	$contents = $this->requestAction('contents/getContents/'.$user['User']['id']);
+		    	foreach ($contents as $content)
+		    		echo $this->element('post', array('content' => $content));
+		    ?>
+			<?php else: ?>
+			    <p>"Vous devez être ami avec <span class="bold"><?= $user['User']['firstname'] ?> <?=$user['User']['lastname'] ?></span> pour suivre son activité ou publier sur son mur."</p>
+			<?php endif ?>
 		</div>
 	</div>
 </div>

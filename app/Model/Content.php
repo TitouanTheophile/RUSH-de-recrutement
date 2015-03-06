@@ -22,7 +22,23 @@ class Content extends AppModel {
 			),
 		);
 
-	public $hasMany = array('ContentP');
+	public $hasMany = array(
+		'Points' => array(
+			'className' => 'ContentP'
+			),
+		'LikeP' => array(
+			'className' => 'ContentP',
+			'conditions' => array(
+				'LikeP.pointType' => 1
+				)
+			),
+		'ConnardP' => array(
+			'className' => 'ContentP',
+			'conditions' => array(
+				'ConnardP.pointType' => 2
+				)
+			)
+		);
 
 }
 ?>

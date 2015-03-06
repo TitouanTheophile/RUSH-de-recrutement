@@ -54,15 +54,15 @@ class MessagesController extends AppController {
 				$this->Notification->save(null, true, array('from_id', 'target_id', 'notificationType_id', 'content_id'));
 
 				if (Configure::read('email'))
-					{
-						App::uses('CakeEmail', 'Network/Email');
-						$email = new CakeEmail('default');
-						$email->to($from['User']['email']);
-						$email->subject($this->Auth->user('firstname') . ' ' . $this->Auth->user('lastname') . ' vous a envoyé un message sur socialkod');
-						$email->emailFormat('html');
-						$email->template('message');
-						$email->viewVars(array('firstname' => $this->Auth->user('firstname'), 'lastname' => $this->Auth->user('lastname')));
-						$email->send();
+				{
+					App::uses('CakeEmail', 'Network/Email');
+					$email = new CakeEmail('default');
+					$email->to($from['User']['email']);
+					$email->subject($this->Auth->user('firstname') . ' ' . $this->Auth->user('lastname') . ' vous a envoyé un message sur socialkod');
+					$email->emailFormat('html');
+					$email->template('message');
+					$email->viewVars(array('firstname' => $this->Auth->user('firstname'), 'lastname' => $this->Auth->user('lastname')));
+					$email->send();
 				}
 			}
 
