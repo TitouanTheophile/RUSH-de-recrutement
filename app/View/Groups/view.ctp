@@ -77,43 +77,8 @@ foreach ($members as $member) {
 					array ('action' => 'sendPost', $Group['id'])
 				);
 			}
-			$i = 0;
-			foreach ($contents as $content) {
-				if ($content['Content']['contentType_id'] == 1)
-					{
-						echo $this->element(
-							'post',
-							array ('post_content' => $posts[$i]['Post']['content'], 'content' => $content)
-						);
-					}
-				else
-					{
-						echo $this->Html->image($picture[$i]['Picture']['id'] . '.jpg');
-					}
-				++$i;
-			}
-		// 	foreach ($contents as $content) {
-		// 			if ($content['Content']['contentType_id'] == 1) {
-		// 				foreach ($posts as $post) {
-		// 					if ($content['Content']['content_id'] == $post['Post']['id']) {
-		// 						echo $this->element(
-		// 							'post',
-		// 							array (
-		// 								'post_content' => $post['Post']['content'],
-		// 								'content' => $content
-		// 								));
-		// 					}
-		// 				}
-		// 			}
-		// 			else {
-		// 				foreach ($pictures as $picture) {
-		// 					if ($content['content_id'] == $picture['Picture']['id'])
-		// 						echo $this->Html->image($picture['Picture']['id'] . '.jpg');
-		// 				}
-		// 			}
-		// 		}
-		// 	}
-		// }
+			foreach ($contents as $content)
+		    	echo $this->element('post', array('content' => $content));
 	?>
 	</div>
 </div> 

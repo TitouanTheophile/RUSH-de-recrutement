@@ -1,3 +1,4 @@
+<?= debug($content); ?>
 <div class="content_wall">
 	<div class="content_wall_header">
 		<?php
@@ -11,7 +12,7 @@
 				$content['User_from']['firstname'] . ' ' . $content['User_from']['lastname'],
 				array('controller' => 'users', 'action' => 'view', $content['User_from']['id'])
 			);
-			if ($content['User_from']['id'] != $content['User_target']['id'])
+			if (isset($content['User_target']) && $content['User_from']['id'] != $content['User_target']['id'])
 				{
 					echo ' → ' . $this->Html->link(
 						$content['User_target']['firstname'] . ' ' . $content['User_target']['lastname'],
@@ -23,7 +24,7 @@
 				'Le ' . $this->Time->format($content['Content']['created'], '%#d/%m/%y') . ' à ' . $this->Time->format($content['Content']['created'], '%H:%M'),
 				array('class' => 'post_date')
 			);
-			if ($this->Session->read('Auth.User.id') == $user['User']['id'])
+			if ($this->Session->read('Auth.User.id') == $content['User_from']['id'] || $this->Session->read('Auth.User.id') == $user['User']['id'])
 				{
 					echo $this->Html->link(
 						$this->Html->image('cross.png', array('alt' => 'Supprimer le post', 'class' => 'post_delete')),

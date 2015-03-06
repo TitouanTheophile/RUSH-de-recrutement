@@ -122,41 +122,26 @@ class GroupsController extends AppController {
 		$this->set('members', $members);
 
 		$contents = $this->Content->find('all', array(
+			'contain' => array(
+				'User_from',
+				'Post'
+				),
 			'conditions' => array(
 				'Content.targetType_id' => 2,
 				'Content.target_id' => 2
 				),
 			'fields' => array(
-				'Content.contentType_id',
-				'Content.content_id'
+				'Content.id', //comment
+				'Content.contentType_id', //post / image
+				'Content.created', // date
+				'User_from.id',
+				'User_from.lastname',
+				'User_from.firstname',
+				'Post.content'
 				)
 			)
 		);
 		$this->set('contents', $contents);
-
-		$array_posts = array();
-		$array_pictures = array();
-		foreach ($contents as $content) {
-			if ($content['Content']['contentType_id'] == 1)
-				$array_posts[] = $content['Content']['content_id'];
-			else if ($content['Content']['contentType_id'] == 2) {
-				$array_pictures[] = $content['Content']['content_id'];
-			}
-		}
-
-		$posts = $this->Post->find('all', array(
-			'conditions' => array(
-				'Post.id' => $array_posts
-				)
-			));
-		$this->set('posts', $posts);
-
-		$pictures = $this->Picture->find('all', array(
-			'conditions' => array(
-				'Picture.id' => $array_pictures,
-				)
-			));
-		$this->set('pictures', $pictures);
 	}
 
 	public function getgroup($id) {
