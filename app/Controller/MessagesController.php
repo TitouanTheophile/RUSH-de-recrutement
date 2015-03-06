@@ -26,7 +26,6 @@ class MessagesController extends AppController {
 			'order' => 'Message.created DESC',
 			)
 		);
-		debug($messages);
 		$this->set('messages', $messages);
 	}
 
