@@ -7,7 +7,8 @@ class UsersController extends AppController {
     public $uses = array('User', 'Content', 'Post', 'Comment', 'Friend', 'Group', 'Notification');
 
     /*** BEFORE FILTER ***/
-    public function beforeFilter() {
+    public function beforeFilter()
+    {
     	parent::beforeFilter();
     	$this->Auth->allow('signup', 'login');
     }
@@ -16,18 +17,21 @@ class UsersController extends AppController {
 	****************************************************************** */
 
 	/*** INDEX ***/
-    public function index() {
+    public function index()
+    {
         $this->set('users', $this->User->find('all'));
     }
 
     /* Get function Section
 	****************************************************************** */
 
-    public function getUser($id) {
+    public function getUser($id)
+    {
     	return $this->User->findById($id);
     }
 
-    public function get_users(){
+    public function get_users()
+    {
 		$users = $this->User->find('all', array( //Get the list of Users that match with the search
 			'conditions' => array(
 				'OR' => array(
@@ -45,7 +49,8 @@ class UsersController extends AppController {
 	****************************************************************** */
 
 	/*** VIEW ***/
-    public function view($id = null) {
+    public function view($id = null)
+    {
     	$this->try_arg((!isset($id) || $id <= 0), 'Le profil spécifié est invalide.',
 					   array('controller' => 'users', 'action' => 'view', $this->Session->read('Auth.User.id')));
 	    $user = $this->User->findById($id);
@@ -59,47 +64,27 @@ class UsersController extends AppController {
 				'from_id' => $id,
 				'target_id' => $this->Auth->user('id'),
 				'notificationType_id' => 3
-				));
-        // $this->set('posts', $this->Post->find('all'));
+				)
+			);
         $this->set('user', $user);
     }
 
     /*** NEWS ***/
-    public function news($id = null) {
+    public function news($id = null)
+    {
         $this->try_arg((!isset($id) || $id <= 0), 'Le profil spécifié est invalide.',
 					   array('controller' => 'users', 'action' => 'view', $this->Session->read('Auth.User.id')));
-	    $user = $this->User->findById($id);
+	    $user = $this->User->find('first', array(
+	    	'conditions' => array(
+	    		'User.id' => $id
+	    		),
+	    	'contain' => array(
+	    		'Group'
+	    		)
+	    	)
+	    );
 	    $this->try_arg(empty($user), 'Le profil spécifié est invalide.',
 					   array('controller' => 'users', 'action' => 'view', $this->Session->read('Auth.User.id')));
-        $arr = array($this->Auth->user('id'));
-        $my_friends = $this->Friend->find('all',
-			array( 'fields'  =>	array('id', 'user2_id', 'pending'),
-				'conditions' =>	array('user1_id' => $this->Auth->user('id') )));
-	    $my_friends += $this->Friend->find('all',
-			array( 'fields'  =>	array('id', 'user1_id', 'pending'),
-				'conditions' =>	array('user2_id' => $this->Auth->user('id') )));
-	    $index = count($my_friends);
-		while ($index) {
-			$my_friend = $my_friends[--$index];
-			if (isset($my_friend['Friend']['user1_id']) && $my_friend['Friend']['pending'] == NULL)
-				array_push($arr, $my_friend['Friend']['user1_id']);
-			if (isset($my_friend['Friend']['user2_id']) && $my_friend['Friend']['pending'] == NULL)
-				array_push($arr, $my_friend['Friend']['user2_id']);
-		}
-		$array_id = array();
-		foreach ($user['Group'] as $group) {
-			$array_id[] = $group['id'];
-		}
-        $contents = $this->Content->find('all',
-        	array('conditions' => array(
-        		'OR' => array(
-        			array('from_id' => $arr, 'targetType_id' => 1),
-        			array('target_id' => $array_id, 'targetType_id' => 2)
-        			)
-        		)
-        	));
-        $this->set('contents', $contents);
-        $this->set('posts', $this->Post->find('all'));
         $this->set('user', $user);
     }
 
@@ -107,14 +92,16 @@ class UsersController extends AppController {
 	****************************************************************** */
 
 	/*** REGISTER ***/
-    public function signup() {
-    	if ($this->Session->read('Auth.User')) {
-    		return $this->redirect(array('controller' => 'users', 'action' => 'view', $this->Auth->user('id')));
-    	}
-        if ($this->request->is('post')) {
+    public function signup()
+    {
+    	if ($this->Session->read('Auth.User'))
+    		$this->redirect(array('controller' => 'users', 'action' => 'view', $this->Auth->user('id')));
+        if ($this->request->is('post'))
+        {
             $this->User->create();
         	$d = $this->request->data;
-			if ($this->User->save($d)) {
+			if ($this->User->save($d))
+			{
 				$this->Session->setFlash(__('Votre compte a bien été créé, bienvenue sur socialkod !'));
 				$this->Auth->login();
 				$this->redirect(array('controller' => 'users', 'action' => 'view', $this->Session->read('Auth.User.id')));
@@ -124,27 +111,31 @@ class UsersController extends AppController {
     }
 
     /*** LOGIN ***/
-    public function login() {
+    public function login()
+    {
     	if ($this->Session->read('Auth.User'))
-    		return $this->redirect(array('controller' => 'users', 'action' => 'view', $this->Auth->user('id')));
-		if ($this->request->is('post')) {
+    		$this->redirect(array('controller' => 'users', 'action' => 'view', $this->Auth->user('id')));
+		if ($this->request->is('post'))
+		{
             if ($this->Auth->login())
-                return $this->redirect(array('controller' => 'users', 'action' => 'view', $this->Auth->user('id')));
+                $this->redirect(array('controller' => 'users', 'action' => 'view', $this->Auth->user('id')));
             $this->Session->setFlash(__('Identifiants incorrects'));
         }
     }
 
     /*** LOGOUT ***/
-    public function logout() {
+    public function logout()
+    {
     	$this->Session->setFlash(__('Vous êtes maintenant déconnecté.'));
-    	return $this->redirect($this->Auth->logout());
+    	$this->redirect($this->Auth->logout());
     }
 
     /* Profile Edition Section
 	****************************************************************** */
 
 	/*** EDIT INFO ***/
-    public function editInfo($id = null) {
+    public function editInfo($id = null)
+    {
     	$this->try_arg((!isset($id) || $id <= 0), 'Le profil spécifié est invalide.',
 					   array('controller' => 'users', 'action' => 'view', $this->Session->read('Auth.User.id')));
 	    $user = $this->User->findById($id);
@@ -153,10 +144,12 @@ class UsersController extends AppController {
 	    if ($id != $this->Session->read('Auth.User.id'))
 	    	return ($this->render("forbiden_access"));
 	    $this->set('user', $user);
-	    if ($this->request->is(array('user', 'put'))) {
+	    if ($this->request->is(array('user', 'put')))
+	    {
 	        $this->User->id = $id;
 	        $d = $this->request->data;
-	        if ($this->User->save($d)) {
+	        if ($this->User->save($d))
+	        {
 	            $this->Session->setFlash(__('Votre profil a bien été mis à jour.'));
 	            $this->redirect(array('action' => 'view', $user['User']['id']));
 	        }
@@ -167,17 +160,20 @@ class UsersController extends AppController {
 	}
 
 	/*** EDIT PHOTO ***/
-	public function editPhoto($id = null) {
+	public function editPhoto($id = null)
+	{
 		if ($id != $this->Session->read('Auth.User.id'))
 	    	return ($this->render("forbiden_access"));
 		$user = $this->User->findById($id);
 		$this->set('user', $user);
-	    if ( !empty($this->request->data) ) {
+	    if (!empty($this->request->data))
+	    {
 	    	$this->User->id = $id;
 	    	$this->User->save($this->request->data);
 	    	$extension = strtolower(pathinfo($this->request->data['User']['avatar_file']['name'], PATHINFO_EXTENSION));
 	    	if (!empty($this->request->data['User']['avatar_file']['tmp_name']) &&
-	    		in_array($extension, array('jpg'))) {
+	    		in_array($extension, array('jpg')))
+	    	{
 	    		move_uploaded_file(
 	    			$this->request->data['User']['avatar_file']['tmp_name'],
 	    			IMAGES . 'avatars' . DS . $id . '.' . $extension
@@ -188,7 +184,8 @@ class UsersController extends AppController {
 	    	else
 	    		$this->Session->setFlash(__('Vous ne pouvez pas envoyer ce type de fichier.'));
 	    }
-	    else {
+	    else
+	    {
 	    	$this->User->id = $id;
 	    	$this->request->data = $this->User->read();
 	    }
@@ -200,19 +197,22 @@ class UsersController extends AppController {
 	****************************************************************** */
 
 	/*** SEND POST ***/
-	public function sendPost($id = null) {
+	public function sendPost($id = null)
+	{
 		$this->try_arg((!isset($id) || $id <= 0), 'Le profil spécifié est invalide.',
 					   array('controller' => 'users', 'action' => 'view', $this->Session->read('Auth.User.id')));
 	    $user = $this->User->findById($id);
 	    $this->try_arg(empty($user), 'Le profil spécifié est invalide.',
 					   array('controller' => 'users', 'action' => 'view', $this->Session->read('Auth.User.id')));
 	    $this->set('user', $user);
-        if ($this->request->is('post')) {
+        if ($this->request->is('post'))
+        {
             $this->Post->create();
             $this->Content->create();
         	$d = $this->request->data;
         	$d['Post']['content'] = nl2br(htmlspecialchars($d['Post']['content']));
-			if ( $this->Post->save($d) ) {
+			if ($this->Post->save($d))
+			{
 				$d2 = array(
 					'Content' => array(
 						'contentType_id' => 1,
@@ -224,7 +224,8 @@ class UsersController extends AppController {
 				);
 				$this->Content->save($d2);
 				$this->Session->setFlash(__('Votre post a bien été publié'));
-				if ($id != $this->Session->read('Auth.User.id')) {
+				if ($id != $this->Session->read('Auth.User.id'))
+				{
 					$this->Notification->create(array(
 						'from_id' => $this->Auth->user('id'),
 						'target_id' => $id,
@@ -232,7 +233,8 @@ class UsersController extends AppController {
 						'content_id' => $this->Friend->getInsertID(),
 						), true);
 					$this->Notification->save(null, true, array('from_id', 'target_id', 'notificationType_id', 'content_id'));
-					if (Configure::read('email')) {
+					if (Configure::read('email'))
+					{
 						$email = new CakeEmail('default');
 						$email->to($from['User']['email']);
 						$email->subject($this->Auth->user('firstname') . ' ' . $this->Auth->user('lastname') . ' a publié sur votre mur sur socialkod');
@@ -249,14 +251,13 @@ class UsersController extends AppController {
     }
 
     /*** DELETE POST ***/
-    public function deletePost($id) {
-	    if ($this->request->is('get')) {
-	        throw new MethodNotAllowedException();
-	    }
+    public function deletePost($id)
+    {
 	    $content = $this->Content->findById($id);
 	    $this->Comment->deleteAll(array(
 	    	'content_id' => $id));
-	    if ($this->Content->delete($id, true)) {
+	    if ($this->Content->delete($id, true))
+	    {
 	    	$postRef = $this->Post->find('all',
 	    		array( 'fields'  =>	array('id'),
 	    			'conditions' =>	array('id' => $content['Content']['content_id'])
@@ -274,7 +275,8 @@ class UsersController extends AppController {
 	****************************************************************** */
 
 	/*** FRIENDS ***/
-	public function friends($id) {
+	public function friends($id)
+	{
 		$this->try_arg((!isset($id) || $id <= 0), 'Le profil spécifié est invalide.',
 					   array('controller' => 'users', 'action' => 'view', $this->Session->read('Auth.User.id')));
 	    $user = $this->User->findById($id);
@@ -304,24 +306,21 @@ class UsersController extends AppController {
 	****************************************************************** */
 
 	/*** ADMIN DELETE ***/
-	public function adminDelete($id) {
-	    if ($this->request->is('get')) {
-	        throw new MethodNotAllowedException();
-	    }
-	    if ($this->User->delete($id, true)) {
-	        $this->Session->setFlash(__("Le compte avec l'id numéro %s a été supprimé.", h($id))
-	        );
+	public function adminDelete($id)
+	{
+	    if ($this->User->delete($id, true))
+	    {
+	        $this->Session->setFlash(__("Le compte avec l'id numéro %s a été supprimé.", h($id)));
 	        $this->redirect(array('action' => 'index'));
 	    }
 	}
 
 	/*** DELETE ***/
-	public function delete($id) {
-	    if ($this->request->is('get')) {
-	        throw new MethodNotAllowedException();
-	    }
+	public function delete($id)
+	{
 	    $user = $this->User->findById($id);
-	    if ($this->User->save($user, true, array('password'))) {
+	    if ($this->User->save($user, true, array('password')))
+	    {
 	        $this->Session->setFlash(__('Votre compte a bien été supprimé.'));
 	        $this->redirect($this->Auth->logout());
 	    }
@@ -329,21 +328,22 @@ class UsersController extends AppController {
 
 	/* LeaderBoard Section
 	****************************************************************** */
-	public function score() {
+	public function score()
+	{
 		$user_list = $this->User->ContentP->find('list', array(
 			'fields' => 'ContentP.user_id'));
 		$users_points = array();
 		$list_user = array();
-		foreach ($user_list as $user) {
+		foreach ($user_list as $user)
+		{
 			$total = 0;
 			$user_points = $this->User->ContentP->find('all', array(
 				'fields' => array('ContentP.user_id', 'ContentP.pointType'),
 				'conditions' => array('ContentP.user_id' => $user)));
 			$user_info = $this->User->findById($user);
 			$list_user[$user_info['User']['id']] = $user_info['User'];
-			foreach ($user_points as $point) {
+			foreach ($user_points as $point)
 				$total += ($point['ContentP']['pointType'] == 1 ? 1 : -1);
-			}
 			$users_points[$user] = $total;
 		}
 		$this->set('list_user', $list_user);

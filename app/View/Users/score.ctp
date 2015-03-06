@@ -1,4 +1,5 @@
 <?= $this->Html->css('score', array('inline' => false)); ?>
+<?= $this->Html->script('sorttable', array('inline' => false)); ?>
 <div class="score_container">
 	<h4>Classements des points</h4>
 	<div class="score_podium_container">
@@ -15,7 +16,7 @@
 			<span>3</span>
 		</div>
 	</div>
-	<table>
+	<table class='sortable'>
 		<thead>
 			<tr><td>#</td><td>Score</td><td>Profil</td></tr>
 		</thead>
