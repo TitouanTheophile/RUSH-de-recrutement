@@ -19,8 +19,7 @@ div.score_container table thead td {
 	border: 1px solid black;
 }
 
-div.score_container table tr td:first-child,
-div.score_container table tr td:nth-child(2) {
+div.score_container table tr td {
 	vertical-align: middle;
 	text-align: center;
 	font-size: 1.5em;

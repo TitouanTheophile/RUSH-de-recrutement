@@ -1,0 +1,62 @@
+div.points {
+	background-color: rgba(0,0,0,0.5);
+	height: 30px;
+	float: right;
+	padding: 5px;
+	border-radius: 5px;
+}
+div.points div.like_div {
+	float: left;
+	margin-right: 5px;
+}
+
+div.points div.like_div a.like_logo {
+	display: inline-block;
+	transform: scale(0.8);
+	vertical-align: top;
+	width: 30px;
+	height: 30px;
+	font-size: 0em;
+	background: url('/img/like_logo.png') no-repeat;
+}
+
+div.points div.like_div p.likeP {
+	position: relative;
+	top: 3px;
+	color: white;
+	margin: 0px;
+	display: inline-block;
+	font-size: 1.5em;
+}
+
+div.points div.connard_div {
+	float: right;
+	margin-left: 5px;
+}
+
+div.points div.connard_div a.connard_logo {
+	display: inline-block;
+	transform: scale(0.8);
+	vertical-align: top;
+	width: 30px;
+	height: 30px;
+	font-size: 0em;
+	background: url('/img/connard_logo.png') no-repeat;
+}
+
+div.points div.connard_div p.connardP {
+	position: relative;
+	top: 3px;
+	color: white;
+	margin: 0px;
+	display: inline-block;
+	font-size: 1.5em;
+}
+
+div.points div.like_div a.like_logo.active {
+	background: url('/img/like_logo_active.png') no-repeat;
+}
+
+div.points div.connard_div a.connard_logo.active {
+	background: url('/img/connard_logo_active.png') no-repeat;
+}

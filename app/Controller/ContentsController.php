@@ -20,51 +20,6 @@ class ContentsController extends AppController
         $array_id = array();
 		foreach ($user['Group'] as $group)
 			$array_id[] = $group['id'];
-		// $contents = $this->Content->find('all',
-		// 	array('fields'=> array('Content.id, Content.created,
-		// 		post.content,
-		// 		picture.description, picture.id,
-		// 		target.id, target.firstname, target.lastname,
-		// 		from_usr.id, from_usr.firstname, from_usr.lastname'),
-		// 		'joins' => array(
-		//             array(
-		//             'table' => 'users AS from_usr',
-		//             'type' => 'LEFT',
-		//             'conditions' => array(
-		//                 'from_usr.id = Content.from_id'
-		//             )),
-		//             array(
-		//             'table' => 'users AS target',
-		//             'type' => 'LEFT',
-		//             'conditions' => array(
-		//                 'target.id = Content.target_id',
-		//                 'Content.targetType_id = 1'
-		//             )),
-		//             array(
-		//             'table' => 'posts AS post',
-		//             'type' => 'LEFT',
-		//             'conditions' => array(
-		//                 'post.id = Content.content_id',
-		//                 'contentType_id = 1'
-		//             )),
-		// 			array(
-		//             'table' => 'pictures as picture',
-		//             'type' => 'LEFT',
-		//             'conditions' => array(
-		//                 'picture.id = Content.content_id',
-		//                 'contentType_id = 2'
-		//             ))
-		//             ),
-		// 		'conditions' => array('OR' => array(
-  //       			array('from_id' => $id, 'targetType_id' => 1),
-  //       			array('target_id' => $id, 'targetType_id' => 1),
-  //       			array('from_id' => $id, 'target_id' => $array_id, 'targetType_id' => 2)
-  //       			)
-  //       		),
-  //      		'order' => array('Content.created' => 'DESC')
-		// 	)
-		// );
-		// debug($contents);
 		$contents = $this->Content->find('all', array(
 			'fields' => array(
 				'id', 'created', 'contentType_id'
@@ -117,6 +72,83 @@ class ContentsController extends AppController
 			return $this->render('/Elements/posts');
 		}
 		return $contents;
+	}
+
+	function getPoints($id)
+	{
+		$content = $this->Content->find('first', array(
+			'conditions' => array(
+				'id' => $id
+				),
+			'contain' => array(
+				'Points',
+				'LikeP',
+				'ConnardP'
+				)
+			)
+		);
+	return $content;
+	}
+
+	public function addPoint($id, $pointType)
+	{
+		$content = $this->Content->find('first', array(
+			'contain' => array(
+				'Points' => array(
+					'fields' => array('id','content_id', 'user_id', 'pointType'),
+					'conditions' => array(
+						'user_id' => $this->Session->read('Auth.User.id')
+						)
+					)
+				),
+			'conditions' => array(
+				'id' => $id,
+				)
+			)
+		);
+		$content_id = $content['Content']['id'];
+		if (!empty($content['Points']))
+			$point = $content['Points'][0]['pointType'];
+		if (isset($point) && $point != $pointType)
+			$this->Content->Points->delete($content['Points'][0]['id']);
+		else if (isset($point) && $point == $pointType)
+			{
+				$this->Content->Points->delete($content['Points'][0]['id']);
+				$this->redirect($this->referer());
+			}
+		$this->Content->Points->create(array(
+			'user_id' => $this->Session->read('Auth.User.id'),
+			'content_id' => $content_id,
+			'pointType' => $pointType));
+		$this->Content->Points->save(null, false, array('user_id', 'content_id', 'pointType'));
+		$this->redirect($this->referer());
+	}
+
+	public function removePoint($id, $pointType)
+	{
+		$content = $this->Content->find('first', array(
+			'contain' => array(
+				'Points' => array(
+					'fields' => array('id','content_id', 'user_id', 'pointType'),
+					'conditions' => array(
+						'user_id' => $this->Session->read('Auth.User.id')
+						)
+					)
+				),
+			'conditions' => array(
+				'id' => $id,
+				)
+			)
+		);
+		$content_id = $content['Content']['id'];
+		if (!empty($content['Points']))
+			$point = $content['Points'][0]['pointType'];
+		if ($point && $point == $pointType) {
+			$this->Content->Points->delete($content['Points'][0]['id']);
+			$this->redirect($this->referer());
+		}
+		else
+			$this->redirect($this->referer());
 	}
 
 }

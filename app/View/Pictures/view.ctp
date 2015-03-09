@@ -1,4 +1,5 @@
 <?= $this->Html->css('album', array('inline' => false)) ?>
+<?= $this->Html->css('points', array('inline' => false)) ?>
 <h3 class="section_title"><?= $pic['Album']['title'] ?></h3>
 <div class="section_nav">
 	<?php 
@@ -22,16 +23,7 @@
 		$next = $this->Html->div('next_button', $this->Html->para(null, '>'));
 		$big_pic .= $this->Html->link($next, array('controller' => 'pictures', 'action' => 'next', $pic['Picture']['id']),
 											 array('escape' => false));
-		$action = (!empty($pic['Content']['Points'][0]) && $pic['Content']['Points'][0]['pointType'] == 1 ? 'removePoint' : 'addPoint');
-		$like  = $this->Html->para('likeP', count($pic['Content']['LikeP']));
-		$like .= $this->Html->link('Like', array('controller' => 'pictures', 'action' => $action, $pic['Picture']['id'], 1),
-										   array('class' => ($action == 'removePoint' ? array('like_logo', 'active') : 'like_logo')));
-		$action = (!empty($pic['Content']['Points'][0]) && $pic['Content']['Points'][0]['pointType'] == 2 ? 'removePoint' : 'addPoint');
-		$big_pic .= $this->Html->div('like_div', $like);
-		$connard  = $this->Html->para('connardP', count($pic['Content']['ConnardP']));
-		$connard .= $this->Html->link('Connard', array('controller' => 'pictures', 'action' => $action,	$pic['Picture']['id'], 2),
-											  	 array('class' => ($action == 'removePoint' ? array('connard_logo', 'active') : 'connard_logo')));
-		$big_pic .= $this->Html->div('connard_div', $connard);
+		$big_pic .= $this->element('points', array('id' => $pic['Content']['id']));
 		echo $big_pic;
 	?>
 </div>

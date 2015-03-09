@@ -4,9 +4,9 @@ class ContentP extends AppModel {
 	public $useTable = 'contents_users';
 	
 	public $belongsTo = array(
-		'Contents' => array(
+		'Content' => array(
 			'foreignKey' => 'content_id'),
-		'Users' => array(
+		'User' => array(
 			'foreignKey' => 'user_id'));
 }
 
