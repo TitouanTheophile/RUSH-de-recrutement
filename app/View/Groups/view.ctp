@@ -76,9 +76,9 @@ foreach ($members as $member) {
 					'Publier un post',
 					array ('action' => 'sendPost', $Group['id'])
 				);
+				foreach ($contents as $content)
+		    		echo $this->element('post', array('content' => $content));
 			}
-			foreach ($contents as $content)
-		    	echo $this->element('post', array('content' => $content));
 	?>
 	</div>
 </div> 
