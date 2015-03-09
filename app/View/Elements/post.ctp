@@ -37,14 +37,23 @@
 	<div class="post_content">
 		<?php 
 			if ($content['Content']['contentType_id'] == 1)
-				echo $this->Video->embed($content['Post']['content'], array('width' => 450, 'height' => 300));
+				{
+					echo $this->Video->embed($content['Post']['content'], array('width' => 450, 'height' => 300));
+					echo $this->Html->tag(
+						'span',
+						$content['Post']['content'],
+						array('class' => 'content_text')
+					);
+				}
 			else
-				echo $this->Html->image($content['Picture']['id'], array('alt' => 'posted_picture','class' => 'posted_picture'));
-			echo $this->Html->tag(
-				'span',
-				$content['Post']['content'],
-				array('class' => 'content_text')
-			);
+				{
+					echo $this->Html->image($content['Picture']['id'], array('alt' => 'posted_picture','class' => 'posted_picture'));
+					echo $this->Html->tag(
+						'span',
+						(!empty($content['Picture']['description']) ? $content['Picture']['description'] : ''),
+						array('class' => 'content_text')
+					);
+				}
 		?>
 	</div>
 	<div class="post_comment" value="toto">
