@@ -7,5 +7,14 @@ class Post extends AppModel {
 			'condition' => 'contentType_id = 1'
 			)
 		);
+
+	public $validate = array(
+    	'content' => array(
+        	'rule'    => array('minLength', 1),
+        	'required'   => true,
+        	'allowEmpty' => false,
+        	'on'         => 'create',
+        	'message'    => 'Votre post est vide...'
+    	));
 }
 ?>
