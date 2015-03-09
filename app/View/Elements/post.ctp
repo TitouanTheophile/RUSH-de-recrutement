@@ -57,6 +57,7 @@
 							);
 						}
 				}
+			echo $this->element('points', array('id' => $content['Content']['id']));
 		?>
 	</div>
 	<div class="post_comment" value="toto">
