@@ -36,9 +36,8 @@ div.content_wall div.post_content span
 {
 	display: block;
 	font-size: 17px;
-	margin-top: 25px;
-	margin-left: 25px;
-	margin-bottom: 10px;
+	margin: 25px;
+	padding-bottom: 35px;
 }
 
 div.content_wall div.post_content img
@@ -117,4 +116,17 @@ div.content_wall div.post_content img
 	background: rgba(210,216,255,1.0);
 	height: auto;
 	padding: 10px;
+}
+
+div.post_content {
+	position: relative;
+}
+
+div.post_content div.points {
+	transform: scale(0.7);
+}
+
+div.post_content iframe {
+	margin: auto;
+	display: block;
 }

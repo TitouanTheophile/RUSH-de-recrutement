@@ -1,7 +1,9 @@
 div.points {
+	position: absolute;
 	background-color: rgba(0,0,0,0.5);
 	height: 30px;
-	float: right;
+	right: 0px;
+	bottom: 0px;
 	padding: 5px;
 	border-radius: 5px;
 }
@@ -21,6 +23,7 @@ div.points div.like_div a.like_logo {
 }
 
 div.points div.like_div p.likeP {
+	padding: 0px;
 	position: relative;
 	top: 3px;
 	color: white;
@@ -45,6 +48,7 @@ div.points div.connard_div a.connard_logo {
 }
 
 div.points div.connard_div p.connardP {
+	padding: 0px;
 	position: relative;
 	top: 3px;
 	color: white;
