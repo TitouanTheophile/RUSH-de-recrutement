@@ -116,7 +116,7 @@
  */
 $config['map'] = array(
 	'User' => 'User/email',
-	'Role' => 'User/role',
+	'Role' => 'User/group',
 );
 
 /**
@@ -124,14 +124,15 @@ $config['map'] = array(
  * the roles defined in your role configuration.
  */
 $config['alias'] = array(
-	// 'Role/4' => 'Role/editor',
+	'Role/0' => 'Role/admin',
+	'Role/1' => 'Role/user'
 );
 
 /**
  * role configuration
  */
 $config['roles'] = array(
-	'Role/admin' => null,
+	'Role/admin' => 'Role/user',
 	'Role/user' => null
 );
 
@@ -140,9 +141,31 @@ $config['roles'] = array(
  */
 $config['rules'] = array(
 	'allow' => array(
-		'*' => 'Role/admin',
-		// 'users/index/' => 'Role/user'
-	),
+		'controllers/users/getUser' => 'Role/user',
+		'controllers/users/getUsers' => 'Role/user',
+		'controllers/users/view' => 'Role/user',
+		'controllers/users/news' => 'Role/user',
+		'controllers/users/signup' => 'Role/user',
+		'controllers/users/login' => 'Role/user',
+		'controllers/users/logout' => 'Role/user',
+		'controllers/users/editInfo' => 'Role/user',
+		'controllers/users/editPhoto' => 'Role/user',
+		'controllers/users/sendPost' => 'Role/user',
+		'controllers/users/deletePost' => 'Role/user',
+		'controllers/users/delete' => 'Role/user',
+		'controllers/users/score' => 'Role/user',
+		'controllers/pictures/view' =>'Role/user',
+		'controllers/pictures/next' =>'Role/user',
+		'controllers/pictures/previous' =>'Role/user',
+		'controllers/pictures/add' =>'Role/user',
+		'controllers/pictures/edit' =>'Role/user',
+		'controllers/pictures/delete' =>'Role/user',
+		'controllers/notifications/getNotifications' =>'Role/user',
+		'controllers/notifications/getNotificationsCount' =>'Role/user',
+		'controllers/users/index' => 'Role/admin',
+		'*' => 'Role/admin'
+		),
 	'deny' => array(
-		'*' => 'Role/user')
+		// 'controllers/users/index' => 'Role/user'
+		)
 );

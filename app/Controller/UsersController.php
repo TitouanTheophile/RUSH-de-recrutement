@@ -10,7 +10,7 @@ class UsersController extends AppController {
     public function beforeFilter()
     {
     	parent::beforeFilter();
-    	$this->Auth->allow('signup', 'login');
+    	$this->Auth->allow('signup', 'login', 'logout');
     }
 
     /* Index Admin Section
@@ -30,7 +30,7 @@ class UsersController extends AppController {
     	return $this->User->findById($id);
     }
 
-    public function get_users()
+    public function getUsers()
     {
 		$users = $this->User->find('all', array( //Get the list of Users that match with the search
 			'conditions' => array(
