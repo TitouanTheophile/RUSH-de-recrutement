@@ -19,7 +19,7 @@ class Content extends AppModel {
 			),
 		'Picture' => array(
 			'foreignKey' => 'content_id'
-			),
+			)
 		);
 
 	public $hasMany = array(

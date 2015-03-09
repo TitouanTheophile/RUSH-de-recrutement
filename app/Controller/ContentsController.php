@@ -22,7 +22,7 @@ class ContentsController extends AppController
 			$array_id[] = $group['id'];
 		$contents = $this->Content->find('all', array(
 			'fields' => array(
-				'id', 'created', 'contentType_id'
+				'id', 'created', 'contentType_id',
 				),
 			'contain' => array(
 				'User_from' => array(
@@ -33,6 +33,11 @@ class ContentsController extends AppController
 				'User_target' => array(
 					'fields' => array(
 						'firstname', 'lastname'
+						)
+					),
+				'Group' => array(
+					'fields' => array(
+						'name'
 						)
 					),
 				'Post' => array(
