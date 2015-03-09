@@ -29,8 +29,11 @@ class MessagesController extends AppController {
 		$this->set('messages', $messages);
 	}
 
-	public function send($id)
+	public function send($id = NULL)
 	{
+		if (!($this->Message->To->findById($id)))
+	        throw new NotFoundException(__('Le profil spécifié est invalide'));
+
 		$this->loadModel('Notification');
 		
 		if ($this->request->is('post'))
@@ -102,8 +105,10 @@ class MessagesController extends AppController {
 		$this->set('users', $users);
 	}
 
-	public function getMessages($id)
+	public function getMessages($id = NULL)
 	{
+		if (!($this->Message->To->findById($id)) || !($this->Message->From->findById($id)))
+	        throw new NotFoundException(__('Le profil spécifié est invalide'));
 		$this->loadModel('Notification');
 
 		$this->Notification->updateAll(

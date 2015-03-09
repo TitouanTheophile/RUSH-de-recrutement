@@ -48,11 +48,14 @@
 			else
 				{
 					echo $this->Html->image($content['Picture']['id'], array('alt' => 'posted_picture','class' => 'posted_picture'));
-					echo $this->Html->tag(
-						'span',
-						(!empty($content['Picture']['description']) ? $content['Picture']['description'] : ''),
-						array('class' => 'content_text')
-					);
+					if (!empty($content['Picture']['description']))
+						{
+							echo $this->Html->tag(
+								'span',
+								$content['Picture']['description'],
+								array('class' => 'content_text')
+							);
+						}
 				}
 		?>
 	</div>

@@ -90,8 +90,11 @@ class GroupsController extends AppController {
 		$this->render('/Elements/get_groups');
 	}
 
-	public function view($id)
+	public function view($id = NULL)
 	{
+		if (!($this->Group->findById($id)))
+	        throw new NotFoundException(__('Le groupe spécifié est invalide'));
+
 		$this->loadModel('Content');
 		$this->loadModel('Post');
 		$this->loadModel('Picture');
@@ -171,13 +174,14 @@ class GroupsController extends AppController {
 
     }
 
-    public function sendPost($id) {
+    public function sendPost($id)
+    {
+    	if (!($this->Group->findById($id)))
+	        throw new NotFoundException(__('Le groupe spécifié est invalide'));
+
     	$this->loadModel('Post');
     	$this->loadModel('Content');
-		if (!$id || !($group = $this->Group->findById($id)))
-	        throw new NotFoundException(__('Le groupe spécifié est invalide'));
 	    
-	    $this->set('group', $group);
 
         if ($this->request->is('post')) {
             $this->Post->create();
