@@ -12,7 +12,7 @@ class Content extends AppModel {
 			'foreignKey' => 'target_id'
 			),
 		'Group' => array(
-			'foreignKey' => 'id'
+			'foreignKey' => 'target_id'
 			),
 		'Post' => array(
 			'foreignKey' => 'content_id'
