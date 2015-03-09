@@ -16,16 +16,23 @@ class GroupsController extends AppController {
 	}
 
 	public function edit ($id) {
-		$group = $this->Group->findById($id);
+		$group = $this->Group->find('first', array(
+			'conditions' =>	array(
+				'Group.id' => $id,
+				),
+			'fields' => array(
+				'Group.name',
+				'Group.description'
+				)
+			)
+		);
 		if ($this->request->is('post')) {
-			if($this->request->data['Info']['text'] != NULL || $this->request->data['Info']['text-area'] != NULL) {
-				debug($this->request->data['Info']);
-				$name = (strlen($this->request->data['Info']['text']) > 0 ? $this->request->data['Info']['text'] : $group['Group']['name']);
-				$desc = (strlen($this->request->data['Info']['text-area']) > 0 ? $this->request->data['Info']['text-area'] : $group['Group']['description']);
-				//die;
+			if($this->request->data['Info']['name'] != NULL || $this->request->data['Info']['description'] != NULL) {
+				$name = (strlen($this->request->data['Info']['name']) > 0 ? $this->request->data['Info']['name'] : $group['Group']['name']);
+				$desc = (strlen($this->request->data['Info']['description']) > 0 ? $this->request->data['Info']['description'] : $group['Group']['description']);
 				$this->Group->updateAll(
-					array('name' => "'$name'", 'description' => "'$desc'"),
-					array('id' => $id)
+					array('Group.name' => "'$name'", 'Group.description' => "'$desc'"),
+					array('Group.id' => $id)
 					);
 				$this->Session->setFlash(__("Vous avez edité le groupe"));
 				$this->redirect(array('controller' => 'groups', 'action' => 'view', $id));
@@ -131,7 +138,7 @@ class GroupsController extends AppController {
 				),
 			'conditions' => array(
 				'Content.targetType_id' => 2,
-				'Content.target_id' => 2
+				'Content.target_id' => $id
 				),
 			'fields' => array(
 				'Content.id',

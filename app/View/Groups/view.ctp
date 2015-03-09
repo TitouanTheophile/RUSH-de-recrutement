@@ -69,7 +69,7 @@ foreach ($members as $member) {
 	<div class="container_padding">
 	<?php
 		if (!$ismember)
-			echo "Vous devez être dans le groupe <strong>" . $group['Group']['name'] . "</strong> pour suivre son activite ou publier sur son mur.";
+			echo "Vous devez être dans le groupe <strong>" . $Group['name'] . "</strong> pour suivre son activité ou publier sur son mur.";
 		else
 			{
 				echo $this->Html->link(

@@ -13,10 +13,20 @@
 			);
 			if (isset($content['User_target']) && $content['User_from']['id'] != $content['User_target']['id'])
 				{
-					echo ' → ' . $this->Html->link(
-						$content['User_target']['firstname'] . ' ' . $content['User_target']['lastname'],
-						array('controller' => 'users', 'action' => 'view', $content['User_target']['id'])
-					);
+					if (empty($content['User_target']['firstname']))
+						{
+							echo ' → ' . $this->Html->link(
+								$content['Group']['name'],
+								array('controller' => 'users', 'action' => 'view', $content['User_target']['id'])
+							);
+						}
+					else
+						{
+							echo ' → ' . $this->Html->link(
+								$content['User_target']['firstname'] . ' ' . $content['User_target']['lastname'],
+								array('controller' => 'users', 'action' => 'view', $content['User_target']['id'])
+							);
+						}
 				}
 			echo $this->Html->tag(
 				'span',
