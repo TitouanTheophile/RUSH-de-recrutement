@@ -5,7 +5,7 @@
 											 'class' => '')); ?>
 	</div>
 	<div class="user_element_name">
-		<?= $this->Html->link($this->Text->truncate($user['firstname']." ".$user['lastname'], 25),
+		<?= $this->Html->link($this->Text->truncate($user['firstname'], 25)." ".$this->Text->truncate($user['lastname'], 25),
 							  array('controller' => 'users', 'action' => 'view', $user['id']),
 							  array('title' => $user['firstname']." ".$user['lastname'])); ?>
 	</div>

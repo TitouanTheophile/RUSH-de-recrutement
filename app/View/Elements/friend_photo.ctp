@@ -12,7 +12,8 @@
 		</div>
 		<div class="friend_element_name">
 				<?php
-					echo $this->Html->link($this->Text->truncate($friend_data['User']['firstname']." ".$friend_data['User']['lastname'], 25),
+					echo $this->Html->link($this->Text->truncate($friend_data['User']['firstname'], 25)." ".
+										   $this->Text->truncate($friend_data['User']['lastname'], 25),
 		           						   array('controller' => 'users', 'action' => 'view', $friend_data['User']['id']),
 		           						   array('title' => $friend_data['User']['firstname']." ".$friend_data['User']['lastname']));
 					if (isset($my_friend['Friend']['pending'])) {

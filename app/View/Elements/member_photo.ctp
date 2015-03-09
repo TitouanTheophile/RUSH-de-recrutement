@@ -11,7 +11,7 @@
 			?>
 	</div>
 	<div class="friend_element_name">
-		<?= $this->Html->link($this->Text->truncate($member['User']['firstname']." ".$member['User']['lastname'], 25),
+		<?= $this->Html->link($this->Text->truncate($member['User']['firstname'], 25)." ".$this->Text->truncate($member['User']['lastname'], 25),
 		           			  array('controller' => 'users', 'action' => 'view', $member['User']['id']),
 		           			  array('title' => $member['User']['firstname']." ".$member['User']['lastname'])); ?>
 	</div>

@@ -7,9 +7,9 @@ else
 foreach ($users as $user) {
 	$picture = $this->Html->image((!file_exists(IMAGES . 'avatars/' . $user['User']['id'] . '.jpg') ? 'inconnu.jpg' : 'avatars/' . $user['User']['id'] . '.jpg'),
 								  array('alt' => 'Photo de profil', 'class' => 'search'));
-	$name = $this->Html->tag('span', $user['User']['firstname'] . ' ' . $user['User']['lastname']);
+	$name = $this->Html->tag('span', $this->Text->truncate($user['User']['firstname'] . ' ' . $user['User']['lastname'], 25));
 	echo $this->Html->link($picture . $name,
 						   array('controller' => 'users', 'action' => 'view', $user['User']['id']),
-						   array('escape' => false, 'class' => 'result'));
+						   array('escape' => false, 'class' => 'result', 'title' => $user['User']['firstname'] . ' ' . $user['User']['lastname']));
 }
 ?>
