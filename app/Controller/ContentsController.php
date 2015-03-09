@@ -86,7 +86,11 @@ class ContentsController extends AppController
 				'id' => $id
 				),
 			'contain' => array(
-				'Points',
+				'Points' => array(
+					'conditions' => array(
+						'user_id' => $this->Session->read('Auth.User.id')
+						)
+					),
 				'LikeP',
 				'ConnardP'
 				)

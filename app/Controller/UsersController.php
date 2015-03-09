@@ -360,6 +360,7 @@ class UsersController extends AppController {
 				$users[$user_id][($pointType == 1 ? 'likes' : 'connards')] += 1;
 
 			}
+		uasort($users, function($a, $b) {return ($a['total'] < $b['total']);});
 		$this->set('users', $users);
 	}
 
