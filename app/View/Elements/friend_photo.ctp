@@ -12,8 +12,9 @@
 		</div>
 		<div class="friend_element_name">
 				<?php
-					echo $this->Html->link($friend_data['User']['firstname']." ".$friend_data['User']['lastname'],
-		           						   array('controller' => 'users', 'action' => 'view', $friend_data['User']['id']));
+					echo $this->Html->link($this->Text->truncate($friend_data['User']['firstname']." ".$friend_data['User']['lastname'], 25),
+		           						   array('controller' => 'users', 'action' => 'view', $friend_data['User']['id']),
+		           						   array('title' => $friend_data['User']['firstname']." ".$friend_data['User']['lastname']));
 					if (isset($my_friend['Friend']['pending'])) {
 						echo "(en attente)";
 						if ($my_friend['Friend']['pending'] == $requester_id) {
