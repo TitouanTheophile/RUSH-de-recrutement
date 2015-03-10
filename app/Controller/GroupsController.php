@@ -227,6 +227,19 @@ class GroupsController extends AppController {
 					}
 				return $this->redirect(array('action' => 'view', $id));
 			}
+		$group = $this->Group->find('first', array(
+			'conditions' => array(
+				'Group.id' => $id
+				),
+			'fields' => array(
+				'Group.id',
+				'Group.name',
+				'Group.description',
+				'Group.created'
+				)
+			)
+		);
+		$this->set($group);
     }
 }
 ?>
