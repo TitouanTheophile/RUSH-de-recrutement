@@ -12,12 +12,10 @@ TO-DO :
 	- Notifications
 BUGS :
 	-Delete picture
-	-Deleting picture when deleting post
+	-Avoid deleting picture when deleting post
 	-Delete post when picture/album is delete
 	-Apparence of like/asshole on group view
 	-Publication on group
-	-Comment display on each post when it's send
-
 ######### COMMENT CREER UNE BRANCHE ######### 
 
 - Crée une branche local dev sur laquelle travailler :
