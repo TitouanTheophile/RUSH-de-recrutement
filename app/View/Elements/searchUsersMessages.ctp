@@ -10,7 +10,7 @@ foreach ($users as $user)
 	);
 	$name = $this->Html->tag(
 		'span',
-		$user['User']['firstname'] . ' ' . $user['User']['lastname']
+		$this->Text->truncate($user['User']['firstname'], 25) . ' ' . $this->Text->truncate($user['User']['lastname'], 25)
 	);
 	echo $this->Html->link(
 		$picture . $name,

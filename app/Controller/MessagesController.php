@@ -85,8 +85,6 @@ class MessagesController extends AppController {
 	public function searchUsersMessages()
 	{
 		$this->loadModel('User');
-		$this->layout = 'ajax';
-		$this->render('/Elements/searchUsersMessages');
 
 		$users = $this->User->find('all', array(
 			'conditions' => array(
@@ -103,6 +101,9 @@ class MessagesController extends AppController {
 			)
 		);
 		$this->set('users', $users);
+		
+		$this->layout = 'ajax';
+		$this->render('/Elements/searchUsersMessages');
 	}
 
 	public function getMessages($id = NULL)

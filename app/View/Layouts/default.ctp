@@ -3,9 +3,9 @@
 	if (!empty($user)) {
 		$options = $this->element('options');
 		$menu = $this->element('menu');
-		echo $this->Html->script('dynamic_search', array('inline' => false));
-		echo $this->Html->script('dynamic_refresh_notifications', array('inline' => false));
-		echo $this->Html->script('notifications_display', array('inline' => false));
+		echo $this->Html->script('search', array('inline' => false));
+		echo $this->Html->script('refreshNotifications', array('inline' => false));
+		echo $this->Html->script('notificationsDisplay', array('inline' => false));
 	}
 ?>
 <!DOCTYPE html>
@@ -49,10 +49,10 @@
 				<?= $this->element('sql_dump'); ?>
 			</div>
 		</div>
-		<input type="hidden" name="get_notifications" value=<?= '"' . $this->HTML->url(array('controller' => 'notifications', 'action' => 'get_notifications')) . '"';?> >
-		<input type="hidden" name="get_notifications_count" value=<?= '"' . $this->HTML->url(array('controller' => 'notifications', 'action' => 'get_notifications_count')) . '"';?> >
-		<input type="hidden" name="get_users" value=<?= '"' . $this->HTML->url(array('controller' => 'users', 'action' => 'get_users')) . '"';?> >
-		<input type="hidden" name="get_groups" value=<?= '"' . $this->HTML->url(array('controller' => 'groups', 'action' => 'get_groups')) . '"';?> >
+		<input type="hidden" name="getNotifications" value=<?= '"' . $this->HTML->url(array('controller' => 'notifications', 'action' => 'getNotifications')) . '"';?> >
+		<input type="hidden" name="getNotificationsCount" value=<?= '"' . $this->HTML->url(array('controller' => 'notifications', 'action' => 'getNotificationsCount')) . '"';?> >
+		<input type="hidden" name="getUsers" value=<?= '"' . $this->HTML->url(array('controller' => 'users', 'action' => 'getUsers')) . '"';?> >
+		<input type="hidden" name="getGroups" value=<?= '"' . $this->HTML->url(array('controller' => 'groups', 'action' => 'getGroups')) . '"';?> >
 		<input type="hidden" name="home" value=<?= '"' . Router::url('/', true) . '"';?> >
 	</body>
 
