@@ -11,7 +11,7 @@ div#results_search_messages {
 	overflow-x: hidden;
 	border: 0px;
 	z-index: 42;
-	width: 97%;
+	width: 96.4%;
 }
 
 div#results_search_messages::-webkit-scrollbar {

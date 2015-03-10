@@ -1,6 +1,6 @@
 <?=$this->Html->css('buttons', array('inline' => false));?>
 <div>
-<h1 align="center">Creer un nouveau groupe</h1>
+<h1 align="center">Editer les informations</h1>
 <?= $this->Form->create('Info', array('novalidate')); ?>
 <?= $this->Form->input('name', array(
 									'label' => "Nom du groupe :<font color=\"red\">*</font>", 
@@ -19,6 +19,6 @@
 		array('controller' => 'groups','action' => 'view/' . $id)
 	)
 )); ?>
-<?= $this->Form->button("Créer", array('class' => 'submit create_button')); ?>
+<?= $this->Form->button("Editer", array('class' => 'submit create_button')); ?>
 
 </div>

@@ -141,7 +141,7 @@ $config['roles'] = array(
  */
 $config['rules'] = array(
 	'allow' => array(
-		'controllers/users/(view|getUser|getUsers|news|login|logout|editInfo|editPhoto|sendPost|deletePost|delete|score)' => 'Role/user',
+		'controllers/users/(view|getUser|friends|getUsers|news|login|logout|editInfo|editPhoto|sendPost|deletePost|delete|score)' => 'Role/user',
 		'controllers/pictures/(view|next|previous|add|edit|delete)' =>'Role/user',
 		'controllers/notifications/(getNotifications|getNotificationsCount)' =>'Role/user',
 		'controllers/messages/(index|send|searchUsersMessages|getMessages)' =>'Role/user',

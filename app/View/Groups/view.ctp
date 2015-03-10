@@ -17,7 +17,7 @@ foreach ($members as $member) {
 				array('controller' => 'groups', 'action' => 'view', $Group['id'])
 			); ?>
 		</div>
-		<div class="user_element_description">
+		<div id="user_element_description">
 			<?= htmlentities($Group['description']); ?>
 		</div>
 	</div>
