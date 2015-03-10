@@ -141,78 +141,16 @@ $config['roles'] = array(
  */
 $config['rules'] = array(
 	'allow' => array(
-		 // 'controllers/users/(getUser|getUsers|news|login|logout|editInfo|editPhoto|sendPost|deletePost|delete|score)' => 'Role/user',
-		// 'controllers/users/getUser/*' => 'Role/user',
-		// 'controllers/users/getUsers/*' => 'Role/user',
-		// 'controllers/users/view/*' => 'Role/user',
-		// 'controllers/users/news/*' => 'Role/user',
-		// 'controllers/users/signup/*' => 'Role/user',
-		// 'controllers/users/login/*' => 'Role/user',
-		// 'controllers/users/logout/*' => 'Role/user',
-		// 'controllers/users/editInfo/*' => 'Role/user',
-		// 'controllers/users/editPhoto/*' => 'Role/user',
-		// 'controllers/users/sendPost/*' => 'Role/user',
-		// 'controllers/users/deletePost/*' => 'Role/user',
-		// 'controllers/users/delete/*' => 'Role/user',
-		// 'controllers/users/score/*' => 'Role/user',
-
-		//  // 'controllers/pictures/(view|next|previous|add|edit|delete)' =>'Role/user',
-		// 'controllers/pictures/view/*' =>'Role/user',
-		// 'controllers/pictures/next/*' =>'Role/user',
-		// 'controllers/pictures/previous/*' =>'Role/user',
-		// 'controllers/pictures/add/*' =>'Role/user',
-		// 'controllers/pictures/edit/*' =>'Role/user',
-		// 'controllers/pictures/delete/*' =>'Role/user',
-
-		// // 'controllers/notifications/(getNotifications|getNotificationsCount)' =>'Role/user',
-		// 'controllers/notifications/getNotifications/*' =>'Role/user',
-		// 'controllers/notifications/getNotificationsCount/*' =>'Role/user',
-
-		//  // 'controllers/messages/(index|send|searchUsersMessages|getMessages)' =>'Role/user',
-		// 'controllers/messages/index/*' =>'Role/user',
-		// 'controllers/messages/send/*' =>'Role/user',
-		// 'controllers/messages/searchUsersMessages/*' =>'Role/user',
-		// 'controllers/messages/getMessages/*' =>'Role/user',
-
-		//  // 'controllers/groups/(createGroup|edit|leave|join|getGroup|getGroups|view|members|sendPost)' =>'Role/user',
-		// 'controllers/groups/createGroup/*' =>'Role/user',
-		// 'controllers/groups/edit/*' =>'Role/user',
-		// 'controllers/groups/leave/*' =>'Role/user',
-		// 'controllers/groups/join/*' =>'Role/user',
-		// 'controllers/groups/getGroup/*' =>'Role/user',
-		// 'controllers/groups/getGroups/*' =>'Role/user',
-		// 'controllers/groups/view/*' =>'Role/user',
-		// 'controllers/groups/members/*' =>'Role/user',
-		// 'controllers/groups/sendPost/*' =>'Role/user',
-
-		 'controllers/friends/(index|getFriendInfo|isFriend|addFriend|acceptFriend|deleteFriend)' =>'Role/user',
-		// 'controllers/friends/index' =>'Role/user',
-		// 'controllers/friends/getFriendInfo' =>'Role/user',
-		// 'controllers/friends/isFriend' =>'Role/user',
-		// 'controllers/friends/addFriend' =>'Role/user',
-		// 'controllers/friends/acceptFriend' =>'Role/user',
-		// 'controllers/friends/deleteFriend' =>'Role/user',
-
-		 'controllers/contents/(getContents|addPoint|removePoint)' =>'Role/user',
-		// 'controllers/contents/getContents' =>'Role/user',
-		// 'controllers/contents/addPoint' =>'Role/user',
-		// 'controllers/contents/removePoint' =>'Role/user',
-
-		 'controllers/comments/(getComment|postComment)' =>'Role/user',
-		// 'controllers/contents/getComment' =>'Role/user',
-		// 'controllers/contents/postComment' =>'Role/user',
-
-		 'controllers/albums/(index|newAlbum|editAlbum|delAlbum|album)' =>'Role/user',
-		// 'controllers/albums/index' =>'Role/user',
-		// 'controllers/albums/newAlbum' =>'Role/user',
-		// 'controllers/albums/editAlbum' =>'Role/user',
-		// 'controllers/albums/delAlbum' =>'Role/user',
-		// 'controllers/albums/album' =>'Role/user',
-
-		 '*' => 'Role/user',
-		'controllers/users/index' => 'Role/user'
+		'controllers/users/(view|getUser|getUsers|news|login|logout|editInfo|editPhoto|sendPost|deletePost|delete|score)' => 'Role/user',
+		'controllers/pictures/(view|next|previous|add|edit|delete)' =>'Role/user',
+		'controllers/notifications/(getNotifications|getNotificationsCount)' =>'Role/user',
+		'controllers/messages/(index|send|searchUsersMessages|getMessages)' =>'Role/user',
+		'controllers/groups/(createGroup|edit|leave|join|getGroup|getGroups|view|members|sendPost)' =>'Role/user',
+		'controllers/friends/(index|getFriendInfo|isFriend|addFriend|acceptFriend|deleteFriend)' =>'Role/user',
+		'controllers/contents/(getContents|getPoints|addPoint|removePoint)' =>'Role/user',
+		'controllers/comments/(getComment|postComment)' =>'Role/user',
+		'controllers/albums/(index|newAlbum|editAlbum|delAlbum|album)' =>'Role/user',
+		'controllers/users/index' => 'Role/admin',
 		),
-	'deny' => array(
-		// 'controllers/users/index' => 'Role/user'
-		)
+	'deny' => array()
 );

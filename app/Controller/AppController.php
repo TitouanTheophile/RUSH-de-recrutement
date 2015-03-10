@@ -46,7 +46,7 @@ class AppController extends Controller {
     );
 
 	public function beforeFilter() {
-		$this->Auth->unauthorizedRedirect = array('controller' => 'users', 'action' => 'view', $this->Session->read('Auth.User.id'));
+		$this->Auth->unauthorizedRedirect = false;
 		$this->Auth->loginAction = array('controller' => 'users', 'action' => 'login');
 	    $this->Auth->loginRedirect = array('controller' => 'users', 'action' => 'view', $this->Session->read('Auth.User.id'));
         $this->Auth->logoutRedirect = array('controller' => 'users', 'action' => 'login');
