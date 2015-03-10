@@ -253,6 +253,8 @@ class UsersController extends AppController {
     public function deletePost($id)
     {
 	    $content = $this->Content->findById($id);
+	    $this->Content->Points->deleteAll(array(
+	    	'Points.content_id' => $id));
 	    $this->Comment->deleteAll(array(
 	    	'content_id' => $id));
 	    if ($this->Content->delete($id, true))

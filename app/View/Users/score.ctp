@@ -35,7 +35,7 @@
 				<td><?= ++$i ?></td>
 				<td><span class='score'><?= $user['total'] ?></span></td>
 				<td><span class='score_likes'><?= (isset($user['likes']) ? $user['likes'] : 0) ?></span></td>
-				<td><span class='score_connards'><?= (isset($user['connards']) ? : 0) ?></span></td>
+				<td><span class='score_connards'><?= (isset($user['connards']) ? $user['connards'] : 0) ?></span></td>
 				<td><div class="score_user"><?= $this->element('user_photo', array('user' => $user));?></div></td>
 			</tr>
 		<?php endforeach ?>
