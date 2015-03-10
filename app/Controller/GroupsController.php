@@ -160,7 +160,8 @@ class GroupsController extends AppController {
 				'User_from.lastname',
 				'User_from.firstname',
 				'Post.content'
-				)
+				),
+			'order' => 'Content.created DESC'
 			)
 		);
 		$this->set('contents', $contents);
