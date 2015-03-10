@@ -4,6 +4,7 @@ class ContentsController extends AppController
 {
 	public $uses = array('User', 'Content');
 
+
 	function getWallContents($id, $reload = "null")
 	{
 		$user = $this->User->find('first', array(
@@ -22,7 +23,7 @@ class ContentsController extends AppController
 			$array_id[] = $group['id'];
 		$contents = $this->Content->find('all', array(
 			'fields' => array(
-				'id', 'created', 'contentType_id'
+				'id', 'created', 'contentType_id',
 				),
 			'contain' => array(
 				'User_from' => array(
@@ -33,6 +34,11 @@ class ContentsController extends AppController
 				'User_target' => array(
 					'fields' => array(
 						'firstname', 'lastname'
+						)
+					),
+				'Group' => array(
+					'fields' => array(
+						'name'
 						)
 					),
 				'Post' => array(
@@ -57,20 +63,20 @@ class ContentsController extends AppController
        		)
 		);
 		foreach ($contents as $key => $value)
-		{
-			if ($value['Post']['content'] == null)
 			{
-				$value['Post']['content'] =  $value['Picture']['description'];
-				unset($value['Picture']['description']);
-				$contents[$key] = $value;
+				if ($value['Post']['content'] == null)
+					{
+						$value['Post']['content'] =  $value['Picture']['description'];
+						unset($value['Picture']['description']);
+						$contents[$key] = $value;
+					}
 			}
-		}
 		if ($reload == "true")
-	  	{
-			$this->set('contents', $contents);
-			$this->layout = false;
-			return $this->render('/Elements/posts');
-		}
+	  		{
+				$this->set('contents', $contents);
+				$this->layout = false;
+				return $this->render('/Elements/posts');
+			}
 		return $contents;
 	}
 
@@ -162,14 +168,18 @@ class ContentsController extends AppController
 		return $contents;
 	}
 
-	function getPoints($id)
+	public function getPoints($id)
 	{
 		$content = $this->Content->find('first', array(
 			'conditions' => array(
 				'id' => $id
 				),
 			'contain' => array(
-				'Points',
+				'Points' => array(
+					'conditions' => array(
+						'user_id' => $this->Session->read('Auth.User.id')
+						)
+					),
 				'LikeP',
 				'ConnardP'
 				)
@@ -231,10 +241,11 @@ class ContentsController extends AppController
 		$content_id = $content['Content']['id'];
 		if (!empty($content['Points']))
 			$point = $content['Points'][0]['pointType'];
-		if ($point && $point == $pointType) {
-			$this->Content->Points->delete($content['Points'][0]['id']);
-			$this->redirect($this->referer());
-		}
+		if ($point && $point == $pointType)
+			{
+				$this->Content->Points->delete($content['Points'][0]['id']);
+				$this->redirect($this->referer());
+			}
 		else
 			$this->redirect($this->referer());
 	}

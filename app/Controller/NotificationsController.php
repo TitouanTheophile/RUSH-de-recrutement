@@ -2,7 +2,8 @@
 
 class NotificationsController extends AppController {
 
-	public function get_notifications() {
+	public function getNotifications()
+	{
 		$notifications = $this->Notification->find('all', array(
 			'conditions' => array(
 				'target_id' => $this->Auth->user('id'),
@@ -25,7 +26,8 @@ class NotificationsController extends AppController {
 		$this->render('/Elements/notifications');
 	}
 
-	public function get_notifications_count() {
+	public function getNotificationsCount()
+	{
 		$notifications_count = $this->Notification->find('count', array(
 			'conditions' => array(
 					'target_id' => $this->Auth->user('id'),

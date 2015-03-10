@@ -1,6 +1,7 @@
 <?= $this->Html->css('users', array('inline' => false)); ?>
 <?= $this->Html->css('content', array('inline' => false)); ?>
 <?= $this->Html->css('comment', array('inline' => false)); ?>
+<?= $this->Html->css('points', array('inline' => false)); ?>
 <div id="news_profil">
 	<div id="user_header">
 	<?php

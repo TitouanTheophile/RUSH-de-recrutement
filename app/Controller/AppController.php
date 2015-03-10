@@ -32,6 +32,7 @@ App::uses('Controller', 'Controller');
  */
 class AppController extends Controller {
 	public $components = array(
+	    'Acl',
 		'DebugKit.Toolbar',
 		'Session',
 		'Auth' => array(
@@ -39,17 +40,16 @@ class AppController extends Controller {
 	            'Form' => array(
 	                'fields' => array('username' => 'email')
 	            )
-	        )
-	    ),
-	    'Acl'
+	        ),
+	        'authorize' => array('Actions' => array('actionPath' => 'controllers/'))
+	    )
     );
 
 	public function beforeFilter() {
-		parent::beforeFilter();
-		$this->Auth->allow('display');
+		$this->Auth->unauthorizedRedirect = false;
 		$this->Auth->loginAction = array('controller' => 'users', 'action' => 'login');
-	    $this->Auth->loginRedirect = array('controller' => 'pages', 'action' => 'home');
-        $this->Auth->logoutRedirect = array('controller' => 'pages', 'action' => 'home');
+	    $this->Auth->loginRedirect = array('controller' => 'users', 'action' => 'view', $this->Session->read('Auth.User.id'));
+        $this->Auth->logoutRedirect = array('controller' => 'users', 'action' => 'login');
 	}
 
 	public function try_arg($assert, $message, $url) {

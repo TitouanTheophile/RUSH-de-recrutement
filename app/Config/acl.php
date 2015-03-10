@@ -116,23 +116,24 @@
  */
 $config['map'] = array(
 	'User' => 'User/email',
-	'Role' => 'User/role',
+	'Role' => 'User/group',
 );
 
 /**
  * define aliases to map your model information to
  * the roles defined in your role configuration.
  */
-$config['alias'] = array(
-	// 'Role/4' => 'Role/editor',
-);
+// $config['alias'] = array(
+// 	'Role/0' => 'Role/admin',
+// 	'Role/1' => 'Role/user'
+// );
 
 /**
  * role configuration
  */
 $config['roles'] = array(
-	'Role/admin' => null,
-	'Role/user' => null
+	'Role/user' => null,
+	'Role/admin' => 'Role/user'
 );
 
 /**
@@ -140,9 +141,16 @@ $config['roles'] = array(
  */
 $config['rules'] = array(
 	'allow' => array(
-		'*' => 'Role/admin',
-		// 'users/index/' => 'Role/user'
-	),
-	'deny' => array(
-		'*' => 'Role/user')
+		'controllers/users/(view|getUser|friends|getUsers|news|login|logout|editInfo|editPhoto|sendPost|deletePost|delete|score)' => 'Role/user',
+		'controllers/pictures/(view|next|previous|add|edit|delete)' =>'Role/user',
+		'controllers/notifications/(getNotifications|getNotificationsCount)' =>'Role/user',
+		'controllers/messages/(index|send|searchUsersMessages|getMessages)' =>'Role/user',
+		'controllers/groups/(createGroup|edit|leave|join|getGroup|getGroups|view|members|sendPost)' =>'Role/user',
+		'controllers/friends/(index|getFriendInfo|isFriend|addFriend|acceptFriend|deleteFriend)' =>'Role/user',
+		'controllers/contents/(getNewsContents|getWallContents|getPoints|addPoint|removePoint)' =>'Role/user',
+		'controllers/comments/(getComment|postComment)' =>'Role/user',
+		'controllers/albums/(index|newAlbum|editAlbum|delAlbum|album)' =>'Role/user',
+		'controllers/users/index' => 'Role/admin',
+		),
+	'deny' => array()
 );

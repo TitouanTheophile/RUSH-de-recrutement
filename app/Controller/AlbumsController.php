@@ -1,7 +1,8 @@
 <?php 
 class AlbumsController extends AppController {
 
-	public function index($id) {
+	public function index($id)
+	{
 		$this->try_arg((!isset($id) || $id <= 0), 'Albums introuvables',
 					   array('controller' => 'users', 'action' => 'view', $this->Session->read('Auth.User.id')));
 		$this->allowFriend($id, 'Vous n\'êtes pas autorisé à voir ces albums.');
@@ -22,8 +23,10 @@ class AlbumsController extends AppController {
 		$this->set('user', $this->Album->User->findById($id));
 	}
 
-	public function newAlbum() {
-		if ($this->request->is('post') && !empty($this->request->data)) {
+	public function newAlbum()
+	{
+		if ($this->request->is('post') && !empty($this->request->data))
+		{
 			$this->Album->create(array(
 				'user_id' => $this->Session->read('Auth.User.id'),
 				'title' => $this->request->data['Album']['title'],
@@ -36,7 +39,8 @@ class AlbumsController extends AppController {
 		}
 	}
 
-	public function editAlbum($id) {
+	public function editAlbum($id)
+	{
 		$this->try_arg((!isset($id) || $id <= 0), 'Album introuvable',
 					   array('controller' => 'users', 'action' => 'view', $this->Session->read('Auth.User.id')));
 		$album = $this->Album->findById($id);
@@ -44,7 +48,8 @@ class AlbumsController extends AppController {
 					   array('controller' => 'users', 'action' => 'view', $this->Session->read('Auth.User.id')));
 		$owner = $this->Album->User->findById($album['Album']['user_id']);
 		$this->allowFriend($owner['User']['id'], 'Vous n\'êtes pas autorisé à modifier cet album.');
-		if ($this->request->is('put') && !empty($this->request->data)) {
+		if ($this->request->is('put') && !empty($this->request->data))
+		{
 			$this->Album->create(array(
 			'id' => $id,
 			'title' => $this->request->data['Album']['title'],
@@ -59,7 +64,8 @@ class AlbumsController extends AppController {
 			$this->request->data = $album;
 	}
 
-	public function delAlbum($id) {
+	public function delAlbum($id)
+	{
 		$this->try_arg((!isset($id) || $id <= 0), 'Album introuvable',
 					   array('controller' => 'users', 'action' => 'view', $this->Session->read('Auth.User.id')));
 		$album = $this->Album->findById($id);
@@ -73,7 +79,8 @@ class AlbumsController extends AppController {
         $this->redirect(array('action' => 'index'));
 	}
 
-	public function album($album_id) {
+	public function album($album_id)
+	{
 		$this->try_arg((!isset($album_id) || $album_id <= 0), 'Album introuvable',
 					  array('controller' => 'users', 'action' => 'view', $this->Session->read('Auth.User.id')));
 		$album = $this->Album->findById($album_id);

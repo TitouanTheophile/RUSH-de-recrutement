@@ -10,7 +10,7 @@ class UsersController extends AppController {
     public function beforeFilter()
     {
     	parent::beforeFilter();
-    	$this->Auth->allow('signup', 'login');
+    	$this->Auth->allow('signup', 'login', 'logout');
     }
 
     /* Index Admin Section
@@ -30,7 +30,7 @@ class UsersController extends AppController {
     	return $this->User->findById($id);
     }
 
-    public function get_users()
+    public function getUsers()
     {
 		$users = $this->User->find('all', array( //Get the list of Users that match with the search
 			'conditions' => array(
@@ -253,6 +253,8 @@ class UsersController extends AppController {
     public function deletePost($id)
     {
 	    $content = $this->Content->findById($id);
+	    $this->Content->Points->deleteAll(array(
+	    	'Points.content_id' => $id));
 	    $this->Comment->deleteAll(array(
 	    	'content_id' => $id));
 	    if ($this->Content->delete($id, true))
@@ -360,6 +362,7 @@ class UsersController extends AppController {
 				$users[$user_id][($pointType == 1 ? 'likes' : 'connards')] += 1;
 
 			}
+		uasort($users, function($a, $b) {return ($a['total'] < $b['total']);});
 		$this->set('users', $users);
 	}
 

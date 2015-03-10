@@ -274,8 +274,8 @@ input#ProfileId {
 div#results_search {
 	position: absolute;
 	background: linear-gradient(rgba(142,142,245,0.9),rgba(100,100,186,0.9));
-	width: 330px;
-	max-height: 200px;
+	width: 334px;
+	max-height: 203px;
 	overflow-y: auto;
 	overflow-x: hidden;
 	border: 0px;
@@ -322,7 +322,7 @@ div#results_search a span {
 	vertical-align: top;
 	margin-top: 15px;
 	padding-left: 20px;
-	font-size: 1.2em;
+	font-size: 1em;
 }
 
 div#notifs {

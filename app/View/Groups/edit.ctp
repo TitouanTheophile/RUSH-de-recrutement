@@ -2,13 +2,13 @@
 <div>
 <h1 align="center">Creer un nouveau groupe</h1>
 <?= $this->Form->create('Info', array('novalidate')); ?>
-<?= $this->Form->input('text', array(
+<?= $this->Form->input('name', array(
 									'label' => "Nom du groupe :<font color=\"red\">*</font>", 
 									"placeholder" => $group['Group']['name'])
 						);
  ?>
 
- <?= $this->Form->input('text-area', array(
+ <?= $this->Form->input('description', array(
 									'label' => "Description du groupe :",
 									"placeholder" => $group['Group']['description'])
 						);
