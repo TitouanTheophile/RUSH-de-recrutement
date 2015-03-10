@@ -56,7 +56,7 @@ class ContentsController extends AppController
 				'OR' => array(
         			array('from_id' => $id, 'targetType_id' => 1),
         			array('target_id' => $id, 'targetType_id' => 1),
-        			array('from_id' => $id, 'target_id' => $array_id, 'targetType_id' => 2)
+        			array('target_id' => $array_id, 'targetType_id' => 2)
         			)
         		),
        		'order' => array('Content.created' => 'DESC')
@@ -139,12 +139,17 @@ class ContentsController extends AppController
 						'id', 'description'
 						)
 					),
+				'Group' => array(
+					'fields' => array(
+						'name'
+						)
+					)
 				),
 			'conditions' => array(
 				'OR' => array(
         			array('from_id' => $users2, 'targetType_id' => 1),
         			array('target_id' => $users2, 'targetType_id' => 1),
-        			array('from_id' => $id, 'target_id' => $array_id, 'targetType_id' => 2)
+        			array('target_id' => $array_id, 'targetType_id' => 2)
         			)
         		),
        		'order' => array('Content.created' => 'DESC')
