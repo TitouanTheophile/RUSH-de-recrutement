@@ -1,11 +1,11 @@
 $(document).ready( function() {
-  get_notifications_count();
-  setInterval(get_notifications_count, 3000);
-  get_notifications();
-  setInterval(get_notifications, 3000);
+  // get_notifications_count();
+  // setInterval(get_notifications_count, 3000);
+  // get_notifications();
+  // setInterval(get_notifications, 3000);
 
   function get_notifications() {
-    var url = $('input[name="get_notifications"]').val();
+    var url = $('input[name="getNotifications"]').val();
     $.ajax( {
       url : url,
       success : function(data) {
@@ -18,7 +18,7 @@ $(document).ready( function() {
   }
 
   function get_notifications_count() {
-    var url = $('input[name="get_notifications_count"]').val();
+    var url = $('input[name="getNotificationsCount"]').val();
     $.ajax( {
       url : url,
       success : function(data) {

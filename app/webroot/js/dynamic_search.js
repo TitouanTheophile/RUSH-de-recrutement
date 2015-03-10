@@ -2,8 +2,8 @@ $(document).ready(function() {
   
   $('#ProfileId').keyup( function() {
     if ($(this).val().length > 1) {
-    var url1 = $('input[name="get_users"]').val() + '?q=';
-    var url2 = $('input[name="get_groups"]').val() + '?q=';
+    var url1 = $('input[name="getUsers"]').val() + '?q=';
+    var url2 = $('input[name="getGroups"]').val() + '?q=';
       $.when(getResults(url1, $(this).val()),
              getResults(url2, $(this).val())
             ).done(function(users, groups) {

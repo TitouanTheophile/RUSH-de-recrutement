@@ -4,7 +4,7 @@ class ContentsController extends AppController
 {
 	public $uses = array('User', 'Content');
 
-	function getContents($id, $reload = "null")
+	public function getContents($id, $reload = "null")
 	{
 		$user = $this->User->find('first', array(
 			'conditions' => array(
@@ -62,24 +62,24 @@ class ContentsController extends AppController
        		)
 		);
 		foreach ($contents as $key => $value)
-		{
-			if ($value['Post']['content'] == null)
 			{
-				$value['Post']['content'] =  $value['Picture']['description'];
-				unset($value['Picture']['description']);
-				$contents[$key] = $value;
+				if ($value['Post']['content'] == null)
+					{
+						$value['Post']['content'] =  $value['Picture']['description'];
+						unset($value['Picture']['description']);
+						$contents[$key] = $value;
+					}
 			}
-		}
 		if ($reload == "true")
-	  	{
-			$this->set('contents', $contents);
-			$this->layout = false;
-			return $this->render('/Elements/posts');
-		}
+	  		{
+				$this->set('contents', $contents);
+				$this->layout = false;
+				return $this->render('/Elements/posts');
+			}
 		return $contents;
 	}
 
-	function getPoints($id)
+	public function getPoints($id)
 	{
 		$content = $this->Content->find('first', array(
 			'conditions' => array(
@@ -152,10 +152,11 @@ class ContentsController extends AppController
 		$content_id = $content['Content']['id'];
 		if (!empty($content['Points']))
 			$point = $content['Points'][0]['pointType'];
-		if ($point && $point == $pointType) {
-			$this->Content->Points->delete($content['Points'][0]['id']);
-			$this->redirect($this->referer());
-		}
+		if ($point && $point == $pointType)
+			{
+				$this->Content->Points->delete($content['Points'][0]['id']);
+				$this->redirect($this->referer());
+			}
 		else
 			$this->redirect($this->referer());
 	}

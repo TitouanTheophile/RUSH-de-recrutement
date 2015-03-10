@@ -10,7 +10,7 @@ class UsersController extends AppController {
     public function beforeFilter()
     {
     	parent::beforeFilter();
-    	$this->Auth->allow('signup', 'login', 'logout');
+    	$this->Auth->allow('signup', 'login', 'logout', 'view');
     }
 
     /* Index Admin Section
