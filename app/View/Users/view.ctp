@@ -96,7 +96,7 @@
 			<?php if ($user['User']['id'] == $this->Session->read('Auth.User.id') || $friends_verification == 1): ?>
 				<?= $this->Html->link('Publier un post', array ('action' => 'sendPost', $user['User']['id'])); ?>
 		    <?php 
-		    	$contents = $this->requestAction('contents/getContents/'.$user['User']['id']);
+		    	$contents = $this->requestAction('contents/getWallContents/'.$user['User']['id']);
 		    	foreach ($contents as $content) {
 		    		echo $this->element('post', array('content' => $content));
 		    	} 

@@ -13,6 +13,11 @@ class User extends AppModel {
             'foreignKey' => 'target_id',
             'dependent'=> true
         ),
+        'Content_target' => array(
+            'className' => 'Content',
+            'foreignKey' => 'target_id',
+            'dependent'=> true
+        ),
         'ContentP' => array(
             'foreignKey' => 'user_id',
             'dependent' => true)
@@ -25,7 +30,7 @@ class User extends AppModel {
                 'joinTable' => 'groups_users',
                 'foreignKey' => 'user_id',
                 'associationForeignKey' => 'group_id',
-            )
+            )        
     );
 
 	public $validate = array(
