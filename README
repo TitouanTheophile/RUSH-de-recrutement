@@ -6,6 +6,11 @@
  
 RUSH de Recrutement KOD 2014
 
+TO-DO : 
+	- ACL : Done
+	- Secure file upload
+	- Notifications
+
 ######### COMMENT CREER UNE BRANCHE ######### 
 
 - Crée une branche local dev sur laquelle travailler :
