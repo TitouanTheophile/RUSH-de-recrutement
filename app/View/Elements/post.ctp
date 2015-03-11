@@ -57,7 +57,12 @@
 				}
 			else
 				{
-					echo $this->Html->image($content['Picture']['id'], array('alt' => 'posted_picture','class' => 'posted_picture'));
+					echo $this->Html->link(
+						$this->Html->image($content['Picture']['id'], array('alt' => 'posted_picture','class' => 'posted_picture')),
+						array('controller' => 'pictures', 'action' => 'view', $content['Picture']['id']),
+						array('escape' => false)
+					);
+
 					if (!empty($content['Picture']['description']))
 						{
 							echo $this->Html->tag(
